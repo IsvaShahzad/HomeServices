@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "32857876943",
+    "project_id": "home-services-ead5e",
+    "storage_bucket": "home-services-ead5e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:32857876943:android:e6fdb56922466b08118aba",
+        "android_client_info": {
+          "package_name": "com.example.home_services_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "32857876943-epim4lh65vf0b2v03ci2ofbfhlb78qcr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEtwD1tWCwi11dIPD3AH7MOoVlnLMkPEw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "32857876943-epim4lh65vf0b2v03ci2ofbfhlb78qcr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
