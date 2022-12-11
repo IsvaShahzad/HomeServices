@@ -3,12 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:home_services_flutter/ForgotPasswordScreen.dart';
 import 'package:home_services_flutter/homeScreen.dart';
+import 'package:home_services_flutter/services_overview_screen.dart';
+
 import 'package:home_services_flutter/splash_screen.dart';
 
 import 'package:flutter/services.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:home_services_flutter/toggleScreen.dart';
+import 'package:home_services_flutter/toggle_bar.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login_screen';
@@ -243,7 +246,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     MaterialPageRoute(
                                                         builder:
                                                             (BuildContext context) =>
-                                                           HomeScreen()));
+                                                           ServicesOverviewScreen()));
                                             },
                                           ),
                                         ),
@@ -302,7 +305,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                       builder:
                                                           (
                                                           BuildContext context) =>
-                                                          SplashScreen()));
+                                                          toggle()));
                                           }),
                                     )
                                     ]
