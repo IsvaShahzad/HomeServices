@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:home_services_flutter/initialScreens/ProfileScreen.dart';
+import 'package:home_services_flutter/seller/SellerProfilePage.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
 import 'package:home_services_flutter/seller/search_screen.dart';
 import 'package:home_services_flutter/seller/seller_portfolio.dart';
@@ -29,7 +29,8 @@ class _SellerHomePageState extends State<SellerHomePage> {
     else if(index== 2){
       Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SellerPortfolio(sellerName: '', sellerLocation: '', portfolioProducts: [],)));
+          MaterialPageRoute(builder: (context) => SellerPortfolio(sellerName: "", sellerDescription: "", products:[] )
+          ));
     }
   }
 

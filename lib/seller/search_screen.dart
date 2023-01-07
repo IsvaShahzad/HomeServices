@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:home_services_flutter/seller/seller_homepage.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -41,6 +42,12 @@ class _SearchScreenState extends State<SearchScreen> {
             onPressed: () {
               _searchController.clear();
               _searchFocus.unfocus();
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          SellerHomePage()));
+
             },
           ),
         ],

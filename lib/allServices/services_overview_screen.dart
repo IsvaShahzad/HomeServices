@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:home_services_flutter/allServices/services_grid.dart';
 import 'package:home_services_flutter/allServices/service_provider_signup.dart';
 import '../initialScreens/loginScreen.dart';
-import '../initialScreens/ProfileScreen.dart';
+import '../seller/SellerProfilePage.dart';
 import '../allServices/services_grid.dart';
 
 class ServicesOverviewScreen extends StatelessWidget {

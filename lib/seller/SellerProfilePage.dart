@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:home_services_flutter/seller/seller_homepage.dart';
 import 'package:image_picker/image_picker.dart';
 
-
 class ProfilePage extends StatefulWidget {
   @override
   MapScreenState createState() => MapScreenState();
@@ -13,40 +12,33 @@ class MapScreenState extends State<ProfilePage>
     with SingleTickerProviderStateMixin {
   bool _status = true;
   final FocusNode myFocusNode = FocusNode();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController mobileController = TextEditingController();
+  final TextEditingController pincodeController = TextEditingController();
+  final TextEditingController stateController = TextEditingController();
 
   late XFile file;
   void _pickImage() async {
-
     final imageSource = await showDialog<ImageSource>(
-
-
-
         context: context,
         builder: (context) => AlertDialog(
-          title: Text("Select the image source"),
-          actions: <Widget>[
-            MaterialButton(
-              child: Text("Camera"),
-              onPressed: () {
-    // _pickImageFromCamera();
-
-    }
-
-            ),
-            MaterialButton(
-              child: Text("Gallery"),
-              onPressed: () {
-
-                // _pickImageFromGallery();
-              },
-            )
-          ],
-        ));
-
-
-
+              title: Text("Select the image source"),
+              actions: <Widget>[
+                MaterialButton(
+                    child: Text("Camera"),
+                    onPressed: () {
+                      // _pickImageFromCamera();
+                    }),
+                MaterialButton(
+                  child: Text("Gallery"),
+                  onPressed: () {
+                    // _pickImageFromGallery();
+                  },
+                )
+              ],
+            ));
   }
-
 
   @override
   void initState() {
@@ -56,12 +48,21 @@ class MapScreenState extends State<ProfilePage>
 
   @override
   Widget build(BuildContext context) {
-
     return new Scaffold(
-
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => SellerHomePage()));
+            },
+          ),
+          title: Text(
+            'Profile Page',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
         body: new Container(
-
-
           color: Colors.white,
           child: new ListView(
             children: <Widget>[
@@ -73,57 +74,25 @@ class MapScreenState extends State<ProfilePage>
                     child: new Column(
                       children: <Widget>[
                         Padding(
-                            padding: EdgeInsets.only(left: 20.0, top: 20.0),
-                            child: new Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                IconButton(
-                                  icon: Icon(Icons.arrow_back),
-                                  onPressed: () {
-
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (BuildContext context) =>
-                                                SellerHomePage()));
-                                  },
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(left: 25.0),
-                                  child: new Text('PROFILE',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20.0,
-                                          fontFamily: 'sans-serif-light',
-                                          color: Colors.orange)),
-                                )
-                              ],
-                            )),
-
-// ...
-
-
-
-        Padding(
                           padding: EdgeInsets.only(top: 20.0),
-                          child: new Stack(fit: StackFit.loose, children: <Widget>[
+                          child:
+                              new Stack(fit: StackFit.loose, children: <Widget>[
                             new Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 new Container(
-                                    width: 140.0,
-                                    height: 140.0,
-                                    decoration: new BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.grey,
-                                      // image: new DecorationImage(
-                                      //   image: new ExactAssetImage(
-                                      //       'assets/images/as.png'),
-                                      //   fit: BoxFit.cover,
-                                      // ),
-
-                                    ),
+                                  width: 140.0,
+                                  height: 140.0,
+                                  decoration: new BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.grey,
+                                    // image: new DecorationImage(
+                                    //   image: new ExactAssetImage(
+                                    //       'assets/images/as.png'),
+                                    //   fit: BoxFit.cover,
+                                    // ),
+                                  ),
                                   child: IconButton(
                                     icon: Icon(Icons.add_a_photo),
                                     onPressed: _pickImage,
@@ -132,7 +101,8 @@ class MapScreenState extends State<ProfilePage>
                               ],
                             ),
                             Padding(
-                                padding: EdgeInsets.only(top: 90.0, right: 100.0),
+                                padding:
+                                    EdgeInsets.only(top: 90.0, right: 100.0),
                                 child: new Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
@@ -161,22 +131,22 @@ class MapScreenState extends State<ProfilePage>
                         children: <Widget>[
                           Padding(
                               padding: EdgeInsets.only(
-                                  left: 25.0, right: 25.0, top: 25.0),
+                                left: 25.0,
+                                right: 25.0,
+                              ),
                               child: new Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   new Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
                                       new Text(
                                         'Personal Information',
                                         style: TextStyle(
-                                            fontSize: 18.0,
-                                            fontWeight: FontWeight.bold,
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.bold,
                                           color: Colors.orange,
-
                                         ),
                                       ),
                                     ],
@@ -185,7 +155,9 @@ class MapScreenState extends State<ProfilePage>
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
-                                      _status ? _getEditIcon() : new Container(),
+                                      _status
+                                          ? _getEditIcon()
+                                          : new Container(),
                                     ],
                                   )
                                 ],
@@ -203,11 +175,10 @@ class MapScreenState extends State<ProfilePage>
                                       new Text(
                                         'Name',
                                         style: TextStyle(
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.bold,
-                                        color: Colors.orange,
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.orange,
                                         ),
-
                                       ),
                                     ],
                                   ),
@@ -221,13 +192,12 @@ class MapScreenState extends State<ProfilePage>
                                 children: <Widget>[
                                   new Flexible(
                                     child: new TextField(
+                                      controller: nameController,
                                       decoration: const InputDecoration(
                                         hintText: "Enter Your Name",
-
                                       ),
                                       enabled: !_status,
                                       autofocus: !_status,
-
                                     ),
                                   ),
                                 ],
@@ -245,11 +215,9 @@ class MapScreenState extends State<ProfilePage>
                                       new Text(
                                         'Email ID',
                                         style: TextStyle(
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.bold,
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
                                           color: Colors.orange,
-
-
                                         ),
                                       ),
                                     ],
@@ -264,6 +232,7 @@ class MapScreenState extends State<ProfilePage>
                                 children: <Widget>[
                                   new Flexible(
                                     child: new TextField(
+                                      controller: emailController,
                                       decoration: const InputDecoration(
                                           hintText: "Enter Email ID"),
                                       enabled: !_status,
@@ -284,8 +253,8 @@ class MapScreenState extends State<ProfilePage>
                                       new Text(
                                         'Mobile',
                                         style: TextStyle(
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.bold,
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
                                           color: Colors.orange,
                                         ),
                                       ),
@@ -301,6 +270,8 @@ class MapScreenState extends State<ProfilePage>
                                 children: <Widget>[
                                   new Flexible(
                                     child: new TextField(
+                                      controller: mobileController,
+                                      keyboardType: TextInputType.number,
                                       decoration: const InputDecoration(
                                           hintText: "Enter Mobile Number"),
                                       enabled: !_status,
@@ -320,8 +291,8 @@ class MapScreenState extends State<ProfilePage>
                                       child: new Text(
                                         'Pin Code',
                                         style: TextStyle(
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.bold,
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
                                           color: Colors.orange,
                                         ),
                                       ),
@@ -333,8 +304,8 @@ class MapScreenState extends State<ProfilePage>
                                       child: new Text(
                                         'State',
                                         style: TextStyle(
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.bold,
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
                                           color: Colors.orange,
                                         ),
                                       ),
@@ -354,6 +325,8 @@ class MapScreenState extends State<ProfilePage>
                                     child: Padding(
                                       padding: EdgeInsets.only(right: 10.0),
                                       child: new TextField(
+                                        controller: pincodeController,
+                                        keyboardType: TextInputType.number,
                                         decoration: const InputDecoration(
                                             hintText: "Enter Pin Code"),
                                         enabled: !_status,
@@ -363,8 +336,10 @@ class MapScreenState extends State<ProfilePage>
                                   ),
                                   Flexible(
                                     child: new TextField(
+                                      controller: stateController,
                                       decoration: const InputDecoration(
-                                          hintText: "Enter State",),
+                                        hintText: "Enter State",
+                                      ),
                                       enabled: !_status,
                                     ),
                                     flex: 2,
@@ -402,18 +377,18 @@ class MapScreenState extends State<ProfilePage>
               padding: EdgeInsets.only(right: 10.0),
               child: Container(
                   child: new ElevatedButton(
-                    child: new Text("Save"),
-                    // textColor: Colors.white,
-                    // color: Colors.green,
-                    onPressed: () {
-                      setState(() {
-                        _status = true;
-                        FocusScope.of(context).requestFocus(new FocusNode());
-                      });
-                    },
-                    // shape: new RoundedRectangleBorder(
-                    //     borderRadius: new BorderRadius.circular(20.0)),
-                  )),
+                child: new Text("Save"),
+                // textColor: Colors.white,
+                // color: Colors.green,
+                onPressed: () {
+                  setState(() {
+                    _status = true;
+                    FocusScope.of(context).requestFocus(new FocusNode());
+                  });
+                },
+                // shape: new RoundedRectangleBorder(
+                //     borderRadius: new BorderRadius.circular(20.0)),
+              )),
             ),
             flex: 2,
           ),
@@ -422,16 +397,16 @@ class MapScreenState extends State<ProfilePage>
               padding: EdgeInsets.only(left: 10.0),
               child: Container(
                   child: new ElevatedButton(
-                    child: new Text("Cancel"),
-                    onPressed: () {
-                      setState(() {
-                        _status = true;
-                        FocusScope.of(context).requestFocus(new FocusNode());
-                      });
-                    },
-                    // shape: new RoundedRectangleBorder(
-                    //     borderRadius: new BorderRadius.circular(20.0)),
-                  )),
+                child: new Text("Cancel"),
+                onPressed: () {
+                  setState(() {
+                    _status = true;
+                    FocusScope.of(context).requestFocus(new FocusNode());
+                  });
+                },
+                // shape: new RoundedRectangleBorder(
+                //     borderRadius: new BorderRadius.circular(20.0)),
+              )),
             ),
             flex: 2,
           ),
