@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:home_services_flutter/seller/seller_homepage.dart';
+import 'package:image_picker/image_picker.dart';
+
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -11,6 +14,40 @@ class MapScreenState extends State<ProfilePage>
   bool _status = true;
   final FocusNode myFocusNode = FocusNode();
 
+  late XFile file;
+  void _pickImage() async {
+
+    final imageSource = await showDialog<ImageSource>(
+
+
+
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Select the image source"),
+          actions: <Widget>[
+            MaterialButton(
+              child: Text("Camera"),
+              onPressed: () {
+    // _pickImageFromCamera();
+
+    }
+
+            ),
+            MaterialButton(
+              child: Text("Gallery"),
+              onPressed: () {
+
+                // _pickImageFromGallery();
+              },
+            )
+          ],
+        ));
+
+
+
+  }
+
+
   @override
   void initState() {
     // TODO: implement initState
@@ -19,8 +56,12 @@ class MapScreenState extends State<ProfilePage>
 
   @override
   Widget build(BuildContext context) {
+
     return new Scaffold(
+
         body: new Container(
+
+
           color: Colors.white,
           child: new ListView(
             children: <Widget>[
@@ -36,11 +77,16 @@ class MapScreenState extends State<ProfilePage>
                             child: new Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                new Icon(
-                                  Icons.arrow_back,
-                                  color: Colors.black,
-                                  size: 22.0,
+                                IconButton(
+                                  icon: Icon(Icons.arrow_back),
+                                  onPressed: () {
 
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (BuildContext context) =>
+                                                SellerHomePage()));
+                                  },
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(left: 25.0),
@@ -53,7 +99,12 @@ class MapScreenState extends State<ProfilePage>
                                 )
                               ],
                             )),
-                        Padding(
+
+// ...
+
+
+
+        Padding(
                           padding: EdgeInsets.only(top: 20.0),
                           child: new Stack(fit: StackFit.loose, children: <Widget>[
                             new Row(
@@ -71,7 +122,13 @@ class MapScreenState extends State<ProfilePage>
                                       //       'assets/images/as.png'),
                                       //   fit: BoxFit.cover,
                                       // ),
-                                    )),
+
+                                    ),
+                                  child: IconButton(
+                                    icon: Icon(Icons.add_a_photo),
+                                    onPressed: _pickImage,
+                                  ),
+                                ),
                               ],
                             ),
                             Padding(

@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
-import 'package:home_services_flutter/ResetScreen.dart';
-import 'package:home_services_flutter/loginScreen.dart';
+import 'package:home_services_flutter/initialScreens/ResetScreen.dart';
+import 'package:home_services_flutter/initialScreens/loginScreen.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   @override

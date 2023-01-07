@@ -4,14 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 
-
-import 'package:flutter_svg/flutter_svg.dart';
-
-import 'dart:io';
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'ProfileScreen.dart';
 import 'loginScreen.dart';
 
@@ -67,8 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _myActivity = '';
     _myActivityResult = '';
     _myList = '';
-    _myFinalList = '';
-  }
+    _myFinalList = '';  }
 
   Future<bool> _onWillPop() async {
     return false;
@@ -188,6 +182,21 @@ class _HomeScreenState extends State<HomeScreen> {
               //       ));
                },
             ),
+
+            ListTile(
+              leading: SizedBox(
+                  height: 25.0,
+                  width: 25.0, // fixed width and height
+                  ),
+              title: const Text('Switch to service provider',
+                  style: TextStyle(fontWeight: FontWeight.bold)),
+              onTap: () {
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (context) => LoginScreen()));
+              },
+            ),
+
+
             ListTile(
               leading: SizedBox(
                   height: 25.0,
@@ -201,12 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     context, MaterialPageRoute(builder: (context) => LoginScreen()));
               },
             ),
-
-
-
-
-
-            // Populate the Drawer in the next step.
+            //
           ]),
         ),
 
