@@ -1,5 +1,16 @@
+import 'dart:convert';
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:path/path.dart' as p;
+
 
 class AddProduct extends StatefulWidget {
   @override
@@ -8,20 +19,40 @@ class AddProduct extends StatefulWidget {
 
 class _AddProductState extends State<AddProduct> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController ProductnameController = TextEditingController();
 
-  final TextEditingController ProductDescriptionController =
-      TextEditingController();
-  final TextEditingController ProductpriceController = TextEditingController();
-  final TextEditingController imageURLController = TextEditingController();
+  final _auth = FirebaseAuth.instance;
+
 
   late String _productName;
   late String _productDescription;
   late double _productPrice;
-  late String _productImage;
+  File? imageFile;
+
+  final TextEditingController ProductnameController = TextEditingController();
+  final TextEditingController ProductDescriptionController =
+      TextEditingController();
+  final TextEditingController ProductpriceController = TextEditingController();
+
+  selectFile() async {
+    XFile? file = await ImagePicker()
+        .pickImage(source: ImageSource.gallery, maxHeight: 100, maxWidth: 180);
+
+    if (file != null) {
+      setState(() {
+        imageFile = File(file.path);
+      });
+    }
+  }
+  FirebaseStorage storage = FirebaseStorage.instance;
+
 
   @override
   Widget build(BuildContext context) {
+
+    String filename = "";
+
+
+
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -50,11 +81,9 @@ class _AddProductState extends State<AddProduct> {
                           child: Container(
                               width: 135,
                               height: 135,
-
                               decoration: BoxDecoration(),
-
-                              child:
-                              Image.asset('assets/images/homeservicespic.PNG')),
+                              child: Image.asset(
+                                  'assets/images/homeservicespic.PNG')),
                         ),
                         Padding(padding: EdgeInsets.only(top: 18)),
                         Text('Product name',
@@ -163,39 +192,45 @@ class _AddProductState extends State<AddProduct> {
                         SizedBox(
                           height: 20.h,
                         ),
-                        Text('Product Image URL',
+
+                        Text('Product Image Sample',
                             style: TextStyle(
                                 fontSize: 15,
                                 color: Color(0xFF000000),
                                 fontWeight: FontWeight.bold)),
                         SizedBox(
-                          height: 5.h,
+                          height: 10.h,
                         ),
-                        TextFormField(
-                          controller: imageURLController,
-                          decoration: InputDecoration(
-                            hintText: 'Please enter image url',
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 15, horizontal: 10.0),
-                            hintStyle:
-                                TextStyle(fontSize: 13, color: Colors.grey),
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(4)),
-                              borderSide:
-                                  BorderSide(width: 1, color: Colors.orange),
-                            ),
+
+                        Container(
+                          height: 200,
+                          width: 200,
+                          child: Column(
+                            children: [
+                              if (imageFile != null)
+                                Container(
+                                  child: Image.file(
+                                    File(imageFile!.path),
+                                  ),
+                                ),
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Color(0xFFFFA500),
+                                      onPrimary: Colors.white,
+                                      shape: new RoundedRectangleBorder(
+                                        borderRadius:
+                                            new BorderRadius.circular(30.0),
+                                      ),
+                                    ),
+                                    onPressed: selectFile,
+                                    child: const Text(
+                                      'Select file',
+                                    )),
+                              )
+                            ],
                           ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter a product image URL';
-                            }
-                            return null;
-                          },
-                          onSaved: (value) => _productImage = value!,
-                        ),
-                        SizedBox(
-                          height: 25.h,
                         ),
                         Align(
                           alignment: Alignment.center,
@@ -215,15 +250,99 @@ class _AddProductState extends State<AddProduct> {
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18,
                                 )),
-                            onPressed: () {
+                            onPressed: () async {
                               if (_formKey.currentState!.validate()) {
                                 _formKey.currentState?.save();
-                                // Add the product to the seller's inventory
+                                //
+                                // final ref = FirebaseStorage.instance
+                                //     .ref()
+                                //     .child('Image URl').child('jpeg');
+                                // //
+                                // await ref.putFile(imageFile!);
+                                // //
+                                // final url = await ref.getDownloadURL();
+                                //
+                                // FirebaseFirestore.instance
+                                //     .collection('addproducts')
+                                //     .doc()
+                                //     .set({
+                                //   'product name': ProductnameController.text,
+                                //   'product description':
+                                //       ProductDescriptionController.text,
+                                //   'product price': ProductpriceController.text,
+                                //   'Image URl': url,
+                                // });
+                                if(imageFile != null){
+                                  try {
+                                    final ref = FirebaseStorage.instance
+                                        .ref()
+                                        .child('images/$filename');
+                                    await ref.putFile(imageFile!);
+                                    final url = await ref.getDownloadURL();
+                                    // final randomId = Random().nextInt(100000).toString();
+                                    FirebaseFirestore.instance
+                                        .collection('addproducts')
+                                        .doc()
+                                        .set({
+                                      'product name': ProductnameController.text,
+                                      'product description': ProductDescriptionController.text,
+                                      'product price': ProductpriceController.text,
+                                      'Image URl': url,
+                                    });
+                                  } catch (e) {
+                                    print(e);
+                                  }
+                                }else{
+                                  print("image not selected");
+                                }
+                                // print(storage);
                               }
+                              //  final seller = (
+                              //
+                              //          _productDescription: ProductDescriptionController.text,
+                              //          password: passwordController.text)
+                              //      ))
+                              //      .user;
+                              //
+                              // await FirebaseFirestore.instance
+                              //      .collection('sellers')
+                              //      .doc(seller?.uid)
+                              //      .set({
+                              //    'Product name': seller?.uid,
+                              //    'Product description': ProductDescriptionController.text,
+                              //    'Product price': ProductpriceController.text,
+                              //    'image URl': imageURLController.text,
+                              //    'isAdmin': false,
+                              //    'isApproved': false,
+                              //  });
                             },
                           ),
                         ),
-            ]),
+
+                        // TextFormField(
+                        //   controller: imageURLController,
+                        //   decoration: InputDecoration(
+                        //     hintText: 'Please enter product sample',
+                        //     contentPadding: const EdgeInsets.symmetric(
+                        //         vertical: 15, horizontal: 10.0),
+                        //     hintStyle:
+                        //         TextStyle(fontSize: 13, color: Colors.grey),
+                        //     border: OutlineInputBorder(
+                        //       borderRadius:
+                        //           BorderRadius.all(Radius.circular(4)),
+                        //       borderSide:
+                        //           BorderSide(width: 1, color: Colors.orange),
+                        //     ),
+                        //   ),
+                        //   validator: (value) {
+                        //     if (value!.isEmpty) {
+                        //       return 'Please enter a product image or sample';
+                        //     }
+                        //     return null;
+                        //   },
+                        //   onSaved: (value) => _productImage = value!,
+                        // ),
+                      ]),
                 ))));
   }
 }

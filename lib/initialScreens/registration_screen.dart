@@ -17,7 +17,6 @@ class _RegistrationState extends State<Registration> {
   final loginFormKey = GlobalKey<FormState>();
 
   final TextEditingController firstNameController = TextEditingController();
-
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -37,7 +36,7 @@ class _RegistrationState extends State<Registration> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 35.h,
+                  height: 22.h,
                 ),
                 Text('Sign up to home services!',
                     style: TextStyle(
