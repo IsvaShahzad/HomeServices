@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:home_services_flutter/seller/seller_homepage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
   MapScreenState createState() => MapScreenState();
 }
+final _formKey = GlobalKey<FormState>();
+
 
 class MapScreenState extends State<ProfilePage>
     with SingleTickerProviderStateMixin {
@@ -19,31 +21,31 @@ class MapScreenState extends State<ProfilePage>
   final TextEditingController stateController = TextEditingController();
 
   late XFile file;
-  void _pickImage() async {
-    final imageSource = await showDialog<ImageSource>(
-        context: context,
-        builder: (context) => AlertDialog(
-              title: Text("Select the image source"),
-              actions: <Widget>[
-                MaterialButton(
-                    child: Text("Camera"),
-                    onPressed: () {
-                      // _pickImageFromCamera();
-                    }),
-                MaterialButton(
-                  child: Text("Gallery"),
-                  onPressed: () {
-                    // _pickImageFromGallery();
-                  },
-                )
-              ],
-            ));
-  }
+  // void _pickImage() async {
+  //   final imageSource = await showDialog<ImageSource>(
+  //       context: context,
+  //       builder: (context) => AlertDialog(
+  //             title: Text("Select the image source"),
+  //             actions: <Widget>[
+  //               MaterialButton(
+  //                   child: Text("Camera"),
+  //                   onPressed: () {
+  //                     // _pickImageFromCamera();
+  //                   }),
+  //               MaterialButton(
+  //                 child: Text("Gallery"),
+  //                 onPressed: () {
+  //                   // _pickImageFromGallery();
+  //                 },
+  //               )
+  //             ],
+  //           ));
+  // }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+
   }
 
   @override
@@ -69,51 +71,51 @@ class MapScreenState extends State<ProfilePage>
               Column(
                 children: <Widget>[
                   new Container(
-                    height: 250.0,
+                    height: 90.0,
                     color: Colors.white,
                     child: new Column(
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.only(top: 20.0),
+                          padding: EdgeInsets.only(top: 0.0),
                           child:
                               new Stack(fit: StackFit.loose, children: <Widget>[
-                            new Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                new Container(
-                                  width: 140.0,
-                                  height: 140.0,
-                                  decoration: new BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.grey,
-                                    // image: new DecorationImage(
-                                    //   image: new ExactAssetImage(
-                                    //       'assets/images/as.png'),
-                                    //   fit: BoxFit.cover,
-                                    // ),
-                                  ),
-                                  child: IconButton(
-                                    icon: Icon(Icons.add_a_photo),
-                                    onPressed: _pickImage,
-                                  ),
-                                ),
-                              ],
-                            ),
+                            // new Row(
+                            //   crossAxisAlignment: CrossAxisAlignment.center,
+                            //   mainAxisAlignment: MainAxisAlignment.center,
+                            //   children: <Widget>[
+                            //     new Container(
+                            //       width: 140.0,
+                            //       height: 140.0,
+                            //       decoration: new BoxDecoration(
+                            //         shape: BoxShape.circle,
+                            //         color: Colors.grey,
+                            //         // image: new DecorationImage(
+                            //         //   image: new ExactAssetImage(
+                            //         //       'assets/images/as.png'),
+                            //         //   fit: BoxFit.cover,
+                            //         // ),
+                            //       ),
+                            //       // child: IconButton(
+                            //       //   icon: Icon(Icons.add_a_photo),
+                            //       //   onPressed: _pickImage,
+                            //       // ),
+                            //     ),
+                            //   ],
+                            // ),
                             Padding(
                                 padding:
                                     EdgeInsets.only(top: 90.0, right: 100.0),
                                 child: new Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    new CircleAvatar(
-                                      backgroundColor: Colors.orange,
-                                      radius: 25.0,
-                                      child: new Icon(
-                                        Icons.camera_alt,
-                                        color: Colors.white,
-                                      ),
-                                    )
+                                    // new CircleAvatar(
+                                    //   backgroundColor: Colors.orange,
+                                    //   radius: 25.0,
+                                      // child: new Icon(
+                                      //   Icons.camera_alt,
+                                      //   color: Colors.white,
+                                      // ),
+                                    //)
                                   ],
                                 )),
                           ]),
@@ -144,7 +146,7 @@ class MapScreenState extends State<ProfilePage>
                                       new Text(
                                         'Personal Information',
                                         style: TextStyle(
-                                          fontSize: 18.0,
+                                          fontSize: 22.0,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.orange,
                                         ),
@@ -164,7 +166,7 @@ class MapScreenState extends State<ProfilePage>
                               )),
                           Padding(
                               padding: EdgeInsets.only(
-                                  left: 25.0, right: 25.0, top: 25.0),
+                                  left: 25.0, right: 25.0, top: 65.0),
                               child: new Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
@@ -337,6 +339,7 @@ class MapScreenState extends State<ProfilePage>
                                   Flexible(
                                     child: new TextField(
                                       controller: stateController,
+
                                       decoration: const InputDecoration(
                                         hintText: "Enter State",
                                       ),
@@ -377,18 +380,49 @@ class MapScreenState extends State<ProfilePage>
               padding: EdgeInsets.only(right: 10.0),
               child: Container(
                   child: new ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Color(0xFFFFA500),
+                        onPrimary: Colors.white,
+                        shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30.0),
+                        ),
+                        elevation: 5,
+                        minimumSize: const Size(130, 50),
+                        maximumSize: const Size(130, 50),
+                      ),
                 child: new Text("Save"),
                 // textColor: Colors.white,
-                // color: Colors.green,
-                onPressed: () {
-                  setState(() {
-                    _status = true;
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                  });
-                },
-                // shape: new RoundedRectangleBorder(
-                //     borderRadius: new BorderRadius.circular(20.0)),
-              )),
+                // color: Colors.green,is
+
+                onPressed: ()
+
+
+                async{
+    // if (_formKey.currentState!.validate()) {
+    // _formKey.currentState?.save();
+
+                  // setState(() {
+                  //   _status = true;
+                  //   FocusScope.of(context).requestFocus(new FocusNode());
+                  // });
+                  try {
+                    FirebaseFirestore.instance
+                        .collection('seller profile')
+                        .doc()
+                        .set({
+                      'sellername': nameController.text,
+                      'emailid': emailController.text,
+                      'mobile': mobileController.text,
+                      'pincode': pincodeController.text,
+                      'state': stateController.text,
+
+                    });
+                    print(nameController.text);
+                  } catch (e) {};
+
+                  // shape: new RoundedRectangleBorder(
+                  //     borderRadius: new BorderRadius.circular(20.0)),
+                })),
             ),
             flex: 2,
           ),
@@ -397,6 +431,16 @@ class MapScreenState extends State<ProfilePage>
               padding: EdgeInsets.only(left: 10.0),
               child: Container(
                   child: new ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFFFFA500),
+                      onPrimary: Colors.white,
+                      shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0),
+                      ),
+                      elevation: 5,
+                      minimumSize: const Size(130, 50),
+                      maximumSize: const Size(130, 50),
+                    ),
                 child: new Text("Cancel"),
                 onPressed: () {
                   setState(() {
@@ -404,8 +448,9 @@ class MapScreenState extends State<ProfilePage>
                     FocusScope.of(context).requestFocus(new FocusNode());
                   });
                 },
-                // shape: new RoundedRectangleBorder(
-                //     borderRadius: new BorderRadius.circular(20.0)),
+                      // shape: new RoundedRectangleBorder(
+                     //
+                    //     borderRadius: new BorderRadius.circular(20.0)),
               )),
             ),
             flex: 2,

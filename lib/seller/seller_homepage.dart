@@ -29,7 +29,7 @@ class _SellerHomePageState extends State<SellerHomePage> {
     else if(index== 2){
       Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SellerPortfolio(sellerName: "", sellerDescription: "", products:[] )
+          MaterialPageRoute(builder: (context) => SellerPortfolio()
           ));
     }
   }

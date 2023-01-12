@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,8 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:path/path.dart' as p;
+
 
 
 class AddProduct extends StatefulWidget {
@@ -20,7 +17,6 @@ class AddProduct extends StatefulWidget {
 class _AddProductState extends State<AddProduct> {
   final _formKey = GlobalKey<FormState>();
 
-  final _auth = FirebaseAuth.instance;
 
 
   late String _productName;
@@ -50,8 +46,6 @@ class _AddProductState extends State<AddProduct> {
   Widget build(BuildContext context) {
 
     String filename = "";
-
-
 
     return Scaffold(
         appBar: AppBar(
