@@ -17,6 +17,7 @@ class AddProduct extends StatefulWidget {
 class _AddProductState extends State<AddProduct> {
   final _formKey = GlobalKey<FormState>();
 
+  // final _auth = FirebaseAuth.instance;
 
 
   late String _productName;
@@ -46,6 +47,8 @@ class _AddProductState extends State<AddProduct> {
   Widget build(BuildContext context) {
 
     String filename = "";
+
+
 
     return Scaffold(
         appBar: AppBar(
@@ -197,7 +200,7 @@ class _AddProductState extends State<AddProduct> {
                         ),
 
                         Container(
-                          height: 200,
+                          height: 160,
                           width: 200,
                           child: Column(
                             children: [

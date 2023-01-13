@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/initialScreens/splash_screen.dart';
-import '../provider/Services.dart';
-import '../allServices/services_detail.dart';
+import 'provider/Services.dart';
+import 'allServices/services_detail.dart';
 import 'package:provider/provider.dart';
-import '../provider/service_providerr.dart';
+import 'provider/service_providerr.dart';
 
 void main()
 async

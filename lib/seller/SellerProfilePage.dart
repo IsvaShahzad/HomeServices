@@ -339,7 +339,6 @@ class MapScreenState extends State<ProfilePage>
                                   Flexible(
                                     child: new TextField(
                                       controller: stateController,
-
                                       decoration: const InputDecoration(
                                         hintText: "Enter State",
                                       ),
