@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:home_services_flutter/seller/seller_homepage.dart';
+import 'package:home_services_flutter/seller/SellerCategories.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
