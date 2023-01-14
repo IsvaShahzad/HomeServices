@@ -9,18 +9,63 @@ class ProfilePage extends StatefulWidget {
 }
 final _formKey = GlobalKey<FormState>();
 
-
+late String _name = "";
+late String _email = "";
+late String _mobile = "";
+late String _pincode = "";
+late String _state = "";
 class MapScreenState extends State<ProfilePage>
     with SingleTickerProviderStateMixin {
   bool _status = true;
-  final FocusNode myFocusNode = FocusNode();
+  String email = "";
+
+  // final FocusNode myFocusNode = FocusNode();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController mobileController = TextEditingController();
   final TextEditingController pincodeController = TextEditingController();
   final TextEditingController stateController = TextEditingController();
 
+
   late XFile file;
+  var _isLoading = false;
+  ShowAlert() {
+    return showDialog(
+      context: context,
+
+      //   return BackdropFilter
+      //(
+      //filter: ImageFilter.blur(sigmaX:6,sigmaY: 6,
+      //) );
+      //}
+      builder: (ctx) => AlertDialog(
+        title: Text("Profile updated! "),
+        actions: <Widget>[
+          Align(
+            alignment: Alignment.center,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xFFFFA500),
+                onPrimary: Colors.white,
+                elevation: 3,
+                minimumSize: const Size(150, 50),
+                maximumSize: const Size(150, 50),
+                shape: StadiumBorder(),
+              ),
+              child: Text('OK',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ProfilePage()));
+              },
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+
   // void _pickImage() async {
   //   final imageSource = await showDialog<ImageSource>(
   //       context: context,
@@ -45,7 +90,6 @@ class MapScreenState extends State<ProfilePage>
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
@@ -53,7 +97,9 @@ class MapScreenState extends State<ProfilePage>
     return new Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: Icon(Icons.arrow_back,
+              color: Colors.white,
+            ),
             onPressed: () {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => SellerHomePage()));
@@ -64,8 +110,11 @@ class MapScreenState extends State<ProfilePage>
             style: TextStyle(color: Colors.white),
           ),
         ),
-        body: new Container(
-          color: Colors.white,
+
+
+        body: Form(
+
+          // color: Colors.white,
           child: new ListView(
             children: <Widget>[
               Column(
@@ -78,7 +127,7 @@ class MapScreenState extends State<ProfilePage>
                         Padding(
                           padding: EdgeInsets.only(top: 0.0),
                           child:
-                              new Stack(fit: StackFit.loose, children: <Widget>[
+                          new Stack(fit: StackFit.loose, children: <Widget>[
                             // new Row(
                             //   crossAxisAlignment: CrossAxisAlignment.center,
                             //   mainAxisAlignment: MainAxisAlignment.center,
@@ -104,17 +153,17 @@ class MapScreenState extends State<ProfilePage>
                             // ),
                             Padding(
                                 padding:
-                                    EdgeInsets.only(top: 90.0, right: 100.0),
+                                EdgeInsets.only(top: 90.0, right: 100.0),
                                 child: new Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     // new CircleAvatar(
                                     //   backgroundColor: Colors.orange,
                                     //   radius: 25.0,
-                                      // child: new Icon(
-                                      //   Icons.camera_alt,
-                                      //   color: Colors.white,
-                                      // ),
+                                    // child: new Icon(
+                                    //   Icons.camera_alt,
+                                    //   color: Colors.white,
+                                    // ),
                                     //)
                                   ],
                                 )),
@@ -138,7 +187,7 @@ class MapScreenState extends State<ProfilePage>
                               ),
                               child: new Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   new Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -164,6 +213,7 @@ class MapScreenState extends State<ProfilePage>
                                   )
                                 ],
                               )),
+
                           Padding(
                               padding: EdgeInsets.only(
                                   left: 25.0, right: 25.0, top: 65.0),
@@ -193,14 +243,27 @@ class MapScreenState extends State<ProfilePage>
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
                                   new Flexible(
-                                    child: new TextField(
+                                    child: new TextFormField(
                                       controller: nameController,
                                       decoration: const InputDecoration(
                                         hintText: "Enter Your Name",
                                       ),
+
+                                      textInputAction: TextInputAction.next,
+
                                       enabled: !_status,
                                       autofocus: !_status,
+
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Please enter your name';
+                                        }
+                                        return null;
+                                      },
+                                      onSaved: (value) => _name = value!,
+
                                     ),
+
                                   ),
                                 ],
                               )),
@@ -233,11 +296,20 @@ class MapScreenState extends State<ProfilePage>
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
                                   new Flexible(
-                                    child: new TextField(
+                                    child: new TextFormField(
                                       controller: emailController,
                                       decoration: const InputDecoration(
                                           hintText: "Enter Email ID"),
+                                      textInputAction: TextInputAction.next,
+
                                       enabled: !_status,
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Please enter your name';
+                                        }
+                                        return null;
+                                      },
+                                      onSaved: (value) => _email = value!,
                                     ),
                                   ),
                                 ],
@@ -271,12 +343,22 @@ class MapScreenState extends State<ProfilePage>
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
                                   new Flexible(
-                                    child: new TextField(
+                                    child: new TextFormField(
                                       controller: mobileController,
                                       keyboardType: TextInputType.number,
                                       decoration: const InputDecoration(
                                           hintText: "Enter Mobile Number"),
+                                      textInputAction: TextInputAction.next,
+
                                       enabled: !_status,
+
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Please enter your name';
+                                        }
+                                        return null;
+                                      },
+                                      onSaved: (value) => _mobile = value!,
                                     ),
                                   ),
                                 ],
@@ -326,23 +408,41 @@ class MapScreenState extends State<ProfilePage>
                                   Flexible(
                                     child: Padding(
                                       padding: EdgeInsets.only(right: 10.0),
-                                      child: new TextField(
+                                      child: new TextFormField(
                                         controller: pincodeController,
                                         keyboardType: TextInputType.number,
                                         decoration: const InputDecoration(
                                             hintText: "Enter Pin Code"),
+                                        textInputAction: TextInputAction.next,
+
                                         enabled: !_status,
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'Please enter your name';
+                                          }
+                                          return null;
+                                        },
+                                        onSaved: (value) => _pincode = value!,
+
                                       ),
                                     ),
                                     flex: 2,
                                   ),
                                   Flexible(
-                                    child: new TextField(
+                                    child: new TextFormField(
                                       controller: stateController,
+
                                       decoration: const InputDecoration(
                                         hintText: "Enter State",
                                       ),
                                       enabled: !_status,
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Please enter your name';
+                                        }
+                                        return null;
+                                      },
+                                      onSaved: (value) => _state = value!,
                                     ),
                                     flex: 2,
                                   ),
@@ -360,12 +460,12 @@ class MapScreenState extends State<ProfilePage>
         ));
   }
 
-  @override
-  void dispose() {
-    // Clean up the controller when the Widget is disposed
-    myFocusNode.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // Clean up the controller when the Widget is disposed
+  //   myFocusNode.dispose();
+  //   super.dispose();
+  // }
 
   Widget _getActionButtons() {
     return Padding(
@@ -379,49 +479,56 @@ class MapScreenState extends State<ProfilePage>
               padding: EdgeInsets.only(right: 10.0),
               child: Container(
                   child: new ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Color(0xFFFFA500),
-                        onPrimary: Colors.white,
-                        shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(30.0),
-                        ),
-                        elevation: 5,
-                        minimumSize: const Size(130, 50),
-                        maximumSize: const Size(130, 50),
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFFFFA500),
+                      onPrimary: Colors.white,
+                      shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0),
                       ),
-                child: new Text("Save"),
-                // textColor: Colors.white,
-                // color: Colors.green,is
+                      elevation: 5,
+                      minimumSize: const Size(130, 50),
+                      maximumSize: const Size(130, 50),
+                    ),
+                    child: new Text("Save"),
+                    // textColor: Colors.white,
+                    // color: Colors.green,is
 
-                onPressed: ()
+                    onPressed: ()  {
+                      // if (_formKey.currentState!.validate()) {
+                      //   _formKey.currentState?.save();
+
+                        // setState(() {
+                        //   _status = true;
+                        //   FocusScope.of(context).requestFocus(new FocusNode());
+                        // });
+                        try {
+                          FirebaseFirestore.instance
+                              .collection('seller profile')
+                              .doc()
+                              .set({
+                            'sellername': nameController.text,
+                            'emailid': emailController.text,
+                            'mobile': mobileController.text,
+                            'pincode': pincodeController.text,
+                            'state': stateController.text,
+
+                          });
+                          print(nameController.text);
+                          print(emailController.text);
+                          print(stateController.text);
+                          print(pincodeController.text);
+                        } catch (e) {};
 
 
-                async{
-    // if (_formKey.currentState!.validate()) {
-    // _formKey.currentState?.save();
+                        setState(() {
+                          _status = true;
 
-                  // setState(() {
-                  //   _status = true;
-                  //   FocusScope.of(context).requestFocus(new FocusNode());
-                  // });
-                  try {
-                    FirebaseFirestore.instance
-                        .collection('seller profile')
-                        .doc()
-                        .set({
-                      'sellername': nameController.text,
-                      'emailid': emailController.text,
-                      'mobile': mobileController.text,
-                      'pincode': pincodeController.text,
-                      'state': stateController.text,
+                          FocusScope.of(context).requestFocus(new FocusNode());
+                          ShowAlert();
 
-                    });
-                    print(nameController.text);
-                  } catch (e) {};
-
-                  // shape: new RoundedRectangleBorder(
-                  //     borderRadius: new BorderRadius.circular(20.0)),
-                })),
+                        });
+    ;
+                    })),
             ),
             flex: 2,
           ),
@@ -440,17 +547,17 @@ class MapScreenState extends State<ProfilePage>
                       minimumSize: const Size(130, 50),
                       maximumSize: const Size(130, 50),
                     ),
-                child: new Text("Cancel"),
-                onPressed: () {
-                  setState(() {
-                    _status = true;
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                  });
-                },
-                      // shape: new RoundedRectangleBorder(
-                     //
+                    child: new Text("Cancel"),
+                    onPressed: () {
+                      setState(() {
+                        _status = true;
+                        FocusScope.of(context).requestFocus(new FocusNode());
+                      });
+                    },
+                    // shape: new RoundedRectangleBorder(
+                    //
                     //     borderRadius: new BorderRadius.circular(20.0)),
-              )),
+                  )),
             ),
             flex: 2,
           ),
@@ -458,6 +565,18 @@ class MapScreenState extends State<ProfilePage>
       ),
     );
   }
+  //
+  // Future<void> _saveForm() async {
+  //   final isValid = _formKey.currentState?.validate();
+  //   if (isValid == null || !isValid) {
+  //     return;
+  //   }
+  //   _formKey.currentState?.save();
+  //   setState(() {
+  //     _isLoading = true;
+  //     Navigator.of(context).pop();
+  //   });
+  // }
 
   Widget _getEditIcon() {
     return new GestureDetector(

@@ -131,6 +131,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                           width: 3, color: Colors.orange),
                                     ),
                                   ),
+                                  textInputAction: TextInputAction.next,
+
                                   validator: (value) {
                                     RegExp regex = RegExp(
                                         r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$');
@@ -186,6 +188,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       },
                                     ),
                                   ),
+                                  textInputAction: TextInputAction.next,
+
                                   style: TextStyle(
                                       fontSize: 13,
                                       color: Color(0xFF000000),

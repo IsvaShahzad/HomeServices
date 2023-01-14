@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:home_services_flutter/seller/seller_homepage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -17,8 +18,41 @@ class AddProduct extends StatefulWidget {
 class _AddProductState extends State<AddProduct> {
   final _formKey = GlobalKey<FormState>();
 
-  // final _auth = FirebaseAuth.instance;
+  ShowAlert() {
+    return showDialog(
+      context: context,
 
+      //   return BackdropFilter
+      //(
+      //filter: ImageFilter.blur(sigmaX:6,sigmaY: 6,
+      //) );
+      //}
+      builder: (ctx) => AlertDialog(
+        title: Text("Product has been added! "),
+        actions: <Widget>[
+          Align(
+            alignment: Alignment.center,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xFFFFA500),
+                onPrimary: Colors.white,
+                elevation: 3,
+                minimumSize: const Size(150, 50),
+                maximumSize: const Size(150, 50),
+                shape: StadiumBorder(),
+              ),
+              child: Text('OK',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => SellerHomePage()));
+              },
+            ),
+          )
+        ],
+      ),
+    );
+  }
 
   late String _productName;
   late String _productDescription;
@@ -49,9 +83,17 @@ class _AddProductState extends State<AddProduct> {
     String filename = "";
 
 
-
     return Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => SellerHomePage()));
+            },
+          ),
           title: Text(
             'Add Product',
             style: TextStyle(color: Colors.white),
@@ -105,7 +147,10 @@ class _AddProductState extends State<AddProduct> {
                               borderSide:
                                   BorderSide(width: 1, color: Colors.orange),
                             ),
+
                           ),
+                          textInputAction: TextInputAction.next,
+
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'Please enter a product name';
@@ -142,6 +187,8 @@ class _AddProductState extends State<AddProduct> {
                                   BorderSide(width: 1, color: Colors.orange),
                             ),
                           ),
+                          textInputAction: TextInputAction.next,
+
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'Please enter a product description';
@@ -177,6 +224,8 @@ class _AddProductState extends State<AddProduct> {
                                   BorderSide(width: 1, color: Colors.orange),
                             ),
                           ),
+                          textInputAction: TextInputAction.next,
+
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'Please enter a product price';
@@ -250,6 +299,7 @@ class _AddProductState extends State<AddProduct> {
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
                                 _formKey.currentState?.save();
+                                ShowAlert();
                                 //
                                 // final ref = FirebaseStorage.instance
                                 //     .ref()

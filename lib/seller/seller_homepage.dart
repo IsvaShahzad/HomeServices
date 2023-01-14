@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/seller/SellerProfilePage.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
-import 'package:home_services_flutter/seller/search_screen.dart';
 import 'package:home_services_flutter/seller/seller_portfolio.dart';
-import 'package:home_services_flutter/seller/seller_products.dart';
-import '../allServices/services_overview_screen.dart';
+import 'consumerSignup.dart';
 import 'addProduct.dart';
 
 class SellerHomePage extends StatefulWidget {
@@ -38,31 +36,25 @@ class _SellerHomePageState extends State<SellerHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Seller Homepage",
-          style: TextStyle(color: Colors.white),
+        title: Align(
+          alignment: Alignment.center,
+          child: Text(
+            "Seller Homepage",
+            style: TextStyle(color: Colors.white),
+          ),
         ),
         actions: <Widget>[
+
           IconButton(
-            icon: Icon(
-              Icons.search,
-              color: Colors.white,
-              size: 22.0,
-            ),
-            onPressed: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => SearchScreen()));
-            },
-          ),
-          // IconButton(
-          //   icon: Icon(Icons.notifications,
-          //     color: Colors.white,
-          //     size: 22.0,
-          //   ),
-          //   onPressed: () {
-          //     // Open notifications screen
-          //   },
-          // ),
+              icon: Icon(
+                Icons.logout,
+                color: Colors.white,
+              ),
+                onPressed: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()));
+                }),
+
         ],
       ),
       body: Center(
@@ -90,6 +82,7 @@ class _SellerHomePageState extends State<SellerHomePage> {
 
 
       drawer: Drawer(
+
         backgroundColor: Colors.white,
         child: ListView(
           children: <Widget>[
@@ -107,6 +100,7 @@ class _SellerHomePageState extends State<SellerHomePage> {
                 child: null,
               ),
             ),
+            Padding(padding: EdgeInsets.only(top: 20)),
             ListTile(
               title: Text("DashBoard"),
               onTap: () {
@@ -121,17 +115,13 @@ class _SellerHomePageState extends State<SellerHomePage> {
                     MaterialPageRoute(builder: (context) => ProfilePage()));
               },
             ),
-            ListTile(
-              title: Text("Orders"),
-              onTap: () {
-                // Open orders screen
-              },
-            ),
+
             ListTile(
               title: Text("Switch to Consumer"),
               onTap: () {
-                // Open settings screen
-              },
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => signupConsumer()));
+                },
             ),
             ListTile(
               title: Text("Logout"),
