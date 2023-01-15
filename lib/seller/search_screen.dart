@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:home_services_flutter/seller/SellerCategories.dart';
+import 'package:home_services_flutter/categories_seller/SellerCategories.dart';
 
 class SearchScreen extends StatefulWidget {
   @override

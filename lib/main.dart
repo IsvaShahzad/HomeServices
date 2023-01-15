@@ -7,6 +7,8 @@ import 'provider/Services.dart';
 import 'allServices/services_detail.dart';
 import 'package:provider/provider.dart';
 import 'provider/service_providerr.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+
 
 void main()
 async
@@ -30,15 +32,15 @@ class MyApp extends StatelessWidget {
 
             theme: ThemeData(
               scaffoldBackgroundColor: const Color(0xFFFFFFFF),
-              primarySwatch: Colors.orange,
+              primarySwatch: Colors.purple,
               accentColor: Colors.pink,
               inputDecorationTheme: const InputDecorationTheme(
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 1, color: Color(0xFFFFA500)),
+                  borderSide: BorderSide(width: 1, color: Color(0xFFAB47BC)),
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 1, color: Color(0xFFFFA500)),
+                  borderSide: BorderSide(width: 1, color: Color(0xFFAB47BC)),
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                 ),
               ),

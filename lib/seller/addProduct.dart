@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:home_services_flutter/seller/SellerCategories.dart';
+import 'package:home_services_flutter/categories_seller/SellerCategories.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -79,256 +79,282 @@ class _AddProductState extends State<AddProduct> {
     String filename = "";
 
 
-    return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back,
-              color: Colors.white,
+    return Container(
+
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(
+                  "assets/images/pastel.png"
+              ),
+              fit: BoxFit.cover
+          )
+      ),
+      child: Scaffold(
+
+        backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            elevation: 13,
+
+            shape: RoundedRectangleBorder(
+
+                borderRadius:  BorderRadius.only(
+
+                    bottomRight: Radius.circular(12),
+
+                    bottomLeft: Radius.circular(12))
+
             ),
-            onPressed: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => SellerHomePage()));
-            },
+
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => SellerHomePage()));
+              },
+            ),
+            title: Text(
+              'Add Product',
+              style: TextStyle(color: Colors.white),
+            ),
           ),
-          title: Text(
-            'Add Product',
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-        body: Form(
-            key: _formKey,
-            child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                child: SingleChildScrollView(
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(
-                          height: 30.h,
-                        ),
-                        Text('Add a new product to your inventory!',
-                            style: TextStyle(
-                                fontSize: 24,
-                                color: Colors.orange,
-                                fontWeight: FontWeight.bold)),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                              width: 135,
-                              height: 135,
-                              decoration: BoxDecoration(),
-                              child: Image.asset(
-                                  'assets/images/homeservicespic.PNG')),
-                        ),
-                        Padding(padding: EdgeInsets.only(top: 18)),
-                        Text('Product name',
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Color(0xFF000000),
-                                fontWeight: FontWeight.bold)),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        TextFormField(
-                          controller: ProductnameController,
-                          decoration: InputDecoration(
-                            hintText: 'Please enter product name',
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 15, horizontal: 10.0),
-                            hintStyle:
-                                TextStyle(fontSize: 13, color: Colors.grey),
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(4)),
-                              borderSide:
-                                  BorderSide(width: 1, color: Colors.orange),
-                            ),
-
+          body: Form(
+              key: _formKey,
+              child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          SizedBox(
+                            height: 45.h,
                           ),
-                          textInputAction: TextInputAction.next,
+                          Text('Add a new product to your inventory!',
+                              style: TextStyle(
+                                  fontSize: 24,
+                                  color: Colors.purple,
+                                  fontWeight: FontWeight.bold)),
 
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter a product name';
-                            }
-                            return null;
-                          },
-                          onSaved: (value) => _productName = value!,
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        Text(
-                          'Product Description',
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Color(0xFF000000),
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        TextFormField(
-                          controller: ProductDescriptionController,
-                          decoration: InputDecoration(
-                            hintText: 'Please enter product decription',
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 15, horizontal: 10.0),
-                            hintStyle:
-                                TextStyle(fontSize: 13, color: Colors.grey),
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(4)),
-                              borderSide:
-                                  BorderSide(width: 1, color: Colors.orange),
-                            ),
+                          Padding(padding: EdgeInsets.only(top: 18)),
+                          Text('Product name',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  color: Color(0xFF000000),
+                                  fontWeight: FontWeight.bold)),
+                          SizedBox(
+                            height: 5.h,
                           ),
-                          textInputAction: TextInputAction.next,
+                          TextFormField(
 
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter a product description';
-                            }
-                            return null;
-                          },
-                          onSaved: (value) => _productDescription = value!,
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        Text('Product Price',
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Color(0xFF000000),
-                                fontWeight: FontWeight.bold)),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        TextFormField(
-                          controller: ProductpriceController,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            hintText: 'Please enter product price',
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 15, horizontal: 10.0),
-                            hintStyle:
-                                TextStyle(fontSize: 13, color: Colors.grey),
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(4)),
-                              borderSide:
-                                  BorderSide(width: 1, color: Colors.orange),
-                            ),
-                          ),
-                          textInputAction: TextInputAction.next,
+                            controller: ProductnameController,
 
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter a product price';
-                            }
-                            return null;
-                          },
-                          onSaved: (value) =>
-                              _productPrice = double.parse(value!),
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
 
-                        Text('Product Image Sample',
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Color(0xFF000000),
-                                fontWeight: FontWeight.bold)),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-
-                        Container(
-                          height: 160,
-                          width: 200,
-                          child: Column(
-                            children: [
-                              if (imageFile != null)
-                                Container(
-                                  child: Image.file(
-                                    File(imageFile!.path),
-                                  ),
-                                ),
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      primary: Color(0xFFFFA500),
-                                      onPrimary: Colors.white,
-                                      shape: new RoundedRectangleBorder(
-                                        borderRadius:
-                                            new BorderRadius.circular(30.0),
-                                      ),
-                                    ),
-                                    onPressed: selectFile,
-                                    child: const Text(
-                                      'Select file',
-                                    )),
-                              )
-                            ],
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.center,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: Color(0xFFFFA500),
-                              onPrimary: Colors.white,
-                              shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(30.0),
+                            decoration: InputDecoration(
+                              hintText: 'Please enter product name',
+                              filled: true,
+                              fillColor: Colors.white.withOpacity(0.1),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 15, horizontal: 10.0),
+                              hintStyle:
+                                  TextStyle(fontSize: 13, color: Colors.grey),
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(4)),
+                                borderSide:
+                                    BorderSide(width: 1, color: Colors.orange),
                               ),
-                              elevation: 3,
-                              minimumSize: const Size(180, 50),
-                              maximumSize: const Size(180, 50),
+
                             ),
-                            child: Text('Add Product',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                )),
-                            onPressed: () async {
-                              if (_formKey.currentState!.validate()) {
-                                _formKey.currentState?.save();
-                                ShowAlert();
+                            textInputAction: TextInputAction.next,
 
-                                if(imageFile != null){
-                                  try {
-                                    final ref = FirebaseStorage.instance
-                                        .ref()
-                                        .child('images/$filename');
-                                    await ref.putFile(imageFile!);
-                                    final url = await ref.getDownloadURL();
-                                    // final randomId = Random().nextInt(100000).toString();
-                                    FirebaseFirestore.instance
-                                        .collection('addproducts')
-                                        .doc()
-                                        .set({
-                                      'product name': ProductnameController.text,
-                                      'product description': ProductDescriptionController.text,
-                                      'product price': ProductpriceController.text,
-                                      'Image URl': url,
-                                    });
-                                  } catch (e) {
-                                    print(e);
-                                  }
-                                }else{
-                                  print("image not selected");
-                                }
-                                // print(storage);
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter a product name';
                               }
-
+                              return null;
                             },
+                            onSaved: (value) => _productName = value!,
                           ),
-                        ),
+                          SizedBox(
+                            height: 20.h,
+                          ),
+                          Text(
+                            'Product Description',
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: Color(0xFF000000),
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 5.h,
+                          ),
+                          TextFormField(
+                            controller: ProductDescriptionController,
+                            decoration: InputDecoration(
+                              hintText: 'Please enter product decription',
+                              filled: true,
+                              fillColor: Colors.white.withOpacity(0.1),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 15, horizontal: 10.0),
+                              hintStyle:
+                                  TextStyle(fontSize: 13, color: Colors.grey),
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(4)),
+                                borderSide:
+                                    BorderSide(width: 1, color: Colors.orange),
+                              ),
+                            ),
+                            textInputAction: TextInputAction.next,
+
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter a product description';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) => _productDescription = value!,
+                          ),
+                          SizedBox(
+                            height: 20.h,
+                          ),
+                          Text('Product Price',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  color: Color(0xFF000000),
+                                  fontWeight: FontWeight.bold)),
+                          SizedBox(
+                            height: 5.h,
+                          ),
+                          TextFormField(
+                            controller: ProductpriceController,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              hintText: 'Please enter product price',
+                              filled: true,
+                              fillColor: Colors.white.withOpacity(0.1),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 15, horizontal: 10.0),
+                              hintStyle:
+                                  TextStyle(fontSize: 13, color: Colors.grey),
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(4)),
+                                borderSide:
+                                    BorderSide(width: 1, color: Colors.orange),
+                              ),
+                            ),
+                            textInputAction: TextInputAction.next,
+
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter a product price';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) =>
+                                _productPrice = double.parse(value!),
+                          ),
+                          SizedBox(
+                            height: 20.h,
+                          ),
+
+                          Text('Product Image Sample',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  color: Color(0xFF000000),
+                                  fontWeight: FontWeight.bold)),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+
+                          Container(
+                            height: 160,
+                            width: 200,
+                            child: Column(
+                              children: [
+                                if (imageFile != null)
+                                  Container(
+                                    child: Image.file(
+                                      File(imageFile!.path),
+                                    ),
+                                  ),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Color(0xFFAB47BC),
+                                        onPrimary: Colors.white,
+                                        shape: new RoundedRectangleBorder(
+                                          borderRadius:
+                                              new BorderRadius.circular(30.0),
+                                        ),
+                                      ),
+                                      onPressed: selectFile,
+                                      child: const Text(
+                                        'Select file',
+                                      )),
+                                )
+                              ],
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Color(0xFFAB47BC),
+                                onPrimary: Colors.white,
+                                shape: new RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(30.0),
+                                ),
+                                elevation: 3,
+                                minimumSize: const Size(180, 50),
+                                maximumSize: const Size(180, 50),
+                              ),
+                              child: Text('Add Product',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  )),
+                              onPressed: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  _formKey.currentState?.save();
+                                  ShowAlert();
+
+                                  if(imageFile != null){
+                                    try {
+                                      final ref = FirebaseStorage.instance
+                                          .ref()
+                                          .child('images/$filename');
+                                      await ref.putFile(imageFile!);
+                                      final url = await ref.getDownloadURL();
+                                      // final randomId = Random().nextInt(100000).toString();
+                                      FirebaseFirestore.instance
+                                          .collection('addproducts')
+                                          .doc()
+                                          .set({
+                                        'product name': ProductnameController.text,
+                                        'product description': ProductDescriptionController.text,
+                                        'product price': ProductpriceController.text,
+                                        'Image URl': url,
+                                      });
+                                    } catch (e) {
+                                      print(e);
+                                    }
+                                  }else{
+                                    print("image not selected");
+                                  }
+                                  // print(storage);
+                                }
+
+                              },
+                            ),
+                          ),
 
 
-                      ]),
-                ))));
+                        ]),
+                  )))),
+    );
   }
 }

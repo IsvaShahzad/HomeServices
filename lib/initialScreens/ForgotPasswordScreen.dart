@@ -39,7 +39,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             alignment: Alignment.center,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFFA500),
+                primary: Color(0xFFAB47BC),
                 onPrimary: Colors.white,
                 elevation: 3,
                 minimumSize: const Size(150, 50),
@@ -62,6 +62,39 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 13,
+
+
+        shape: RoundedRectangleBorder(
+
+            borderRadius:  BorderRadius.only(
+
+                bottomRight: Radius.circular(12),
+
+                bottomLeft: Radius.circular(12))
+
+        ),
+        title: Align(
+          alignment: Alignment.center,
+          child: Text(
+            "Forgot password",
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(
+                Icons.logout,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()));
+              }),
+        ],
+      ),
+
       body: Form(
           key: loginFormKey,
           child: Padding(
@@ -72,11 +105,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 60.0),
-                      child: (Container(
-                          width: 200,
-                          height: 150,
-                          child: Image.asset(
-                              'assets/images/homeservicespic.PNG'))),
+
                     ),
                     SizedBox(
                       height: 35.h,
@@ -87,7 +116,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           'Home Services Forgot Password',
                           style: TextStyle(
                             fontSize: 33,
-                            color: Color(0xFFFFA500),
+                            color: Color(0xFFAB47BC),
                             fontWeight: FontWeight.bold,
                           ),
                         )),
@@ -98,7 +127,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         height: 200,
                         decoration: BoxDecoration(
                             border: Border.all(
-                              color: Color(0xFFFF8c00),
+                              color: Color(0xFFAB47BC),
                               width: 1.5,
                             ),
                             borderRadius:
@@ -168,7 +197,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                       padding: const EdgeInsets.only(top: 5),
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                          primary: Color(0xFFFFA500),
+                                          primary: Color(0xFFAB47BC),
                                           onPrimary: Colors.white,
                                           elevation: 3,
                                           minimumSize: const Size(200, 50),

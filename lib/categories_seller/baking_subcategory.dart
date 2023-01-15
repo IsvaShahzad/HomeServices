@@ -5,19 +5,19 @@ import 'package:home_services_flutter/seller/SellerProfilePage.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
 import 'package:home_services_flutter/seller/addProduct.dart';
 import 'package:home_services_flutter/seller/consumerSignup.dart';
-import 'package:home_services_flutter/seller/SellerCategories.dart';
+import 'package:home_services_flutter/categories_seller/SellerCategories.dart';
 import 'package:home_services_flutter/seller/seller_portfolio.dart';
 
-class subcategoryScreen extends StatefulWidget {
+class seller_baking_screen extends StatefulWidget {
   @override
-  _subcategoryScreenState createState() => _subcategoryScreenState();
+  _seller_baking_screenState createState() => _seller_baking_screenState();
 }
 
-class _subcategoryScreenState extends State<subcategoryScreen> {
+class _seller_baking_screenState extends State<seller_baking_screen> {
   int _selectedIndex = 0;
 
   CollectionReference _collectionRef =
-      FirebaseFirestore.instance.collection('Category');
+  FirebaseFirestore.instance.collection('Category');
 
   late Stream<QuerySnapshot> _streamCategory = _collectionRef.snapshots();
 
@@ -25,15 +25,7 @@ class _subcategoryScreenState extends State<subcategoryScreen> {
     setState(() {
       _selectedIndex = index;
     });
-    if (index == 1) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => AddProduct()),
-      );
-    } else if (index == 2) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => SellerPortfolio()));
-    }
+
   }
 
   @override
@@ -49,10 +41,22 @@ class _subcategoryScreenState extends State<subcategoryScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        elevation: 7,
+
+
+        shape: RoundedRectangleBorder(
+
+            borderRadius:  BorderRadius.only(
+
+                bottomRight: Radius.circular(12),
+
+                bottomLeft: Radius.circular(12))
+
+        ),
         title: Align(
           alignment: Alignment.center,
           child: Text(
-            "sub Categories",
+            "sub categories baking",
             style: TextStyle(color: Colors.white),
           ),
         ),
@@ -66,15 +70,7 @@ class _subcategoryScreenState extends State<subcategoryScreen> {
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => LoginScreen()));
               }),
-          IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => SellerHomePage()));
-              }),
+
         ],
       ),
 
@@ -95,26 +91,25 @@ class _subcategoryScreenState extends State<subcategoryScreen> {
                   final data = docs[i].data();
                   return Column(
                     children: [
+
                       ListTile(
+
                           title: Text(
-                            data['subcategories'].toString(),
-                            // // Text(data['subcategories'].toString());
+
+                            data['name'] == "Baking" ? data['subcategories'].toString() : "",
+
+                            // data['subcategories'].toString(),   //CHANGE WILL OCCUR HERE
 
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
-                  ),
+                          ),
 
                           // subtitle: Text(data['subcategories'].toString()),
                           onTap: () {
-                            // // Text(data['subcategories'].toString());
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //       builder: (context) => SellerPortfolio(),
-                            //     ));
+
                             if (i == 0) {
-                              if (data['name'] == "music") {
+                              if (data['name'] == "Baking") {
                                 Text(data['subcategories'].toString());
                                 Navigator.push(
                                     context,
@@ -122,13 +117,13 @@ class _subcategoryScreenState extends State<subcategoryScreen> {
                                         builder: (context) =>
                                             SellerPortfolio()));
                               }} else if (i == 1) {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => AddProduct()));
-                              }
-                            }),
-                      Divider(),
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AddProduct()));
+                            }
+                          }),
+                      // Divider(),
                     ],
                   );
                 },

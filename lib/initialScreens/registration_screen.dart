@@ -28,6 +28,39 @@ class _RegistrationState extends State<Registration> {
   Widget build(BuildContext context) {
     return Scaffold(
 
+      appBar: AppBar(
+        elevation: 13,
+
+
+        shape: RoundedRectangleBorder(
+
+            borderRadius:  BorderRadius.only(
+
+                bottomRight: Radius.circular(12),
+
+                bottomLeft: Radius.circular(12))
+
+        ),
+        title: Align(
+          alignment: Alignment.center,
+          child: Text(
+            "Sign up account",
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(
+                Icons.logout,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()));
+              }),
+        ],
+      ),
+
       body: Container(
         child: SingleChildScrollView(
           child: Padding(
@@ -35,14 +68,7 @@ class _RegistrationState extends State<Registration> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: 22.h,
-                ),
-                Text('Sign up to home services!',
-                    style: TextStyle(
-                        fontSize: 26,
-                        color: Colors.orange,
-                        fontWeight: FontWeight.bold)),
+
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Container(
@@ -79,7 +105,7 @@ class _RegistrationState extends State<Registration> {
                       hintStyle: TextStyle(fontSize: 13, color: Colors.grey),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
-                        borderSide: BorderSide(width: 3, color: Colors.orange),
+                        borderSide: BorderSide(width: 3, color: Colors.purple),
                       ),
                     ),
                     validator: (value) {
@@ -123,7 +149,7 @@ class _RegistrationState extends State<Registration> {
                       hintStyle: TextStyle(fontSize: 13, color: Colors.grey),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
-                        borderSide: BorderSide(width: 3, color: Colors.orange),
+                        borderSide: BorderSide(width: 3, color: Colors.purple),
                       ),
                     ),
                     validator: (value) {
@@ -167,7 +193,7 @@ class _RegistrationState extends State<Registration> {
                       hintStyle: TextStyle(fontSize: 13, color: Colors.grey),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
-                        borderSide: BorderSide(width: 3, color: Colors.orange),
+                        borderSide: BorderSide(width: 3, color: Colors.purple),
                       ),
                     ),
                     validator: (value) {
@@ -261,7 +287,7 @@ class _RegistrationState extends State<Registration> {
                       hintStyle: TextStyle(fontSize: 13, color: Colors.grey),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
-                        borderSide: BorderSide(width: 3, color: Colors.orange),
+                        borderSide: BorderSide(width: 3, color: Colors.purple),
                       ),
                     ),
                     validator: (value) {
@@ -285,7 +311,7 @@ class _RegistrationState extends State<Registration> {
                   alignment: Alignment.center,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Color(0xFFFFA500),
+                        primary: Color(0xFFAB47BC),
                         onPrimary: Colors.white,
                         elevation: 3,
                         minimumSize: const Size(200, 50),
