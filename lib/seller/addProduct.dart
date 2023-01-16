@@ -30,7 +30,7 @@ class _AddProductState extends State<AddProduct> {
             alignment: Alignment.center,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFFA500),
+                primary: Color(0xFFAB47BC),
                 onPrimary: Colors.white,
                 elevation: 3,
                 minimumSize: const Size(150, 50),
@@ -162,7 +162,7 @@ class _AddProductState extends State<AddProduct> {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(4)),
                                 borderSide:
-                                    BorderSide(width: 1, color: Colors.orange),
+                                    BorderSide(width: 1, color: Colors.purple),
                               ),
 
                             ),
@@ -203,7 +203,7 @@ class _AddProductState extends State<AddProduct> {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(4)),
                                 borderSide:
-                                    BorderSide(width: 1, color: Colors.orange),
+                                    BorderSide(width: 1, color: Colors.purple),
                               ),
                             ),
                             textInputAction: TextInputAction.next,

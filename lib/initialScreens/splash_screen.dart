@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Container(
         color: Colors.white,
-        child: Image.asset('assets/images/homeservicespic.PNG')
+        child: Image.asset('assets/images/fyphomeservicesicon.png')
         );
 
   }

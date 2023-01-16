@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
-import 'package:home_services_flutter/seller/addProduct.dart';
-import 'package:home_services_flutter/categories_seller/SellerCategories.dart';
+
 import 'package:home_services_flutter/seller/seller_portfolio.dart';
 
 class seller_knitting_screen extends StatefulWidget {
@@ -14,7 +14,7 @@ class _seller_knitting_screenState extends State<seller_knitting_screen> {
   int _selectedIndex = 0;
 
   CollectionReference _collectionRef =
-  FirebaseFirestore.instance.collection('Category');
+      FirebaseFirestore.instance.collection('Category');
 
   late Stream<QuerySnapshot> _streamCategory = _collectionRef.snapshots();
 
@@ -22,7 +22,6 @@ class _seller_knitting_screenState extends State<seller_knitting_screen> {
     setState(() {
       _selectedIndex = index;
     });
-
   }
 
   @override
@@ -34,107 +33,103 @@ class _seller_knitting_screenState extends State<seller_knitting_screen> {
 
   @override
   Widget build(BuildContext context) {
-
-
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 7,
-
-
-        shape: RoundedRectangleBorder(
-
-            borderRadius:  BorderRadius.only(
-
-                bottomRight: Radius.circular(12),
-
-                bottomLeft: Radius.circular(12))
-
-        ),
-        title: Align(
-          alignment: Alignment.center,
-          child: Text(
-            "sub categories knitting",
-            style: TextStyle(color: Colors.white),
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("assets/images/pastel.png"),
+              fit: BoxFit.cover)),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          elevation: 7,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(12),
+                  bottomLeft: Radius.circular(12))),
+          title: Align(
+            alignment: Alignment.center,
+            child: Text(
+              "sub categories knitting",
+              style: TextStyle(color: Colors.white),
+            ),
           ),
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(
+                  Icons.logout,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()));
+                }),
+          ],
         ),
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(
-                Icons.logout,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()));
-              }),
+        body: Padding(
+          padding: EdgeInsets.only(top: 30),
+          child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+            stream:
+                FirebaseFirestore.instance.collection('Category').snapshots(),
+            builder: (_, snapshot) {
+              if (snapshot.hasError) return Text('Error = ${snapshot.error}');
 
-        ],
-      ),
+              if (snapshot.hasData) {
+                final docs = snapshot.data?.docs;
 
-
-
-      body: Padding(
-        padding: EdgeInsets.only(top: 30),
-        child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-          stream: FirebaseFirestore.instance.collection('Category').snapshots(),
-          builder: (_, snapshot) {
-            if (snapshot.hasError) return Text('Error = ${snapshot.error}');
-
-            if (snapshot.hasData) {
-              final docs = snapshot.data!.docs;
-              return ListView.builder(
-                itemCount: docs.length,
-                itemBuilder: (_, i) {
-                  final data = docs[i].data();
-                  return Column(
-                    children: [
-
-                      ListTile(
-
-                          title: Text(
-
-                            data['name'] == "Knitting" ? data['subcategories'].toString() : "",
-
-                            // data['subcategories'].toString(),   //CHANGE WILL OCCUR HERE
-
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: docs!.length,
+                  itemBuilder: (_, i) {
+                    final data = docs[i].data();
+                    return ListView.builder(
+                      itemCount: data['subcategories'].length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                            trailing: Icon(
+                              Icons.arrow_forward,
+                              size: 20,
+                              color: Colors.black,
                             ),
-                          ),
-
-                          // subtitle: Text(data['subcategories'].toString()),
-                          onTap: () {
-
-                            if (i == 0) {
-                              if (data['name'] == "Knitting") {
-                                Text(data['subcategories'].toString());
+                            title: Text(
+                              data['name'] == "Knitting"
+                                  ? data['subcategories'][index]['name']
+                                          .toString() ??
+                                      ""
+                                  : "",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            onTap: () {
+                              if (index == 0) {
+                                if (data['name'] == "Knitting") {
+                                  Text(data['subcategories'].toString());
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              SellerPortfolio()));
+                                }
+                              } else if (index == 1) {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            SellerPortfolio()));
-                              }} else if (i == 1) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => AddProduct()));
-                            }
-                          }),
-                      // Divider(),
-                    ],
-                  );
-                },
-              );
-            }
+                                        builder: (context) => LoginScreen()));
+                              }
+                              Divider();
+                            });
+                      },
+                    );
+                  },
+                );
+              }
 
-            return Center(child: CircularProgressIndicator());
-          },
+              return Center(child: CircularProgressIndicator());
+            },
+          ),
         ),
       ),
-
-
-
-
     );
   }
 }

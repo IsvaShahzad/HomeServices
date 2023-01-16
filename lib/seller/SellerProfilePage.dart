@@ -131,7 +131,7 @@ class MapScreenState extends State<ProfilePage>
                     children: <Widget>[
                       new Container(
                         height: 90.0,
-                        color: Colors.white,
+color: Colors.transparent,
                         child: new Column(
                           children: <Widget>[
                             Padding(
@@ -183,7 +183,15 @@ class MapScreenState extends State<ProfilePage>
                         ),
                       ),
                       new Container(
-                        color: Color(0xffFFFFFF),
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                            image: DecorationImage(
+                                image: AssetImage(
+                                    "assets/images/pastel.png"
+                                ),
+                                fit: BoxFit.cover
+                            )
+                        ),
                         child: Padding(
                           padding: EdgeInsets.only(bottom: 25.0),
                           child: new Column(
