@@ -112,40 +112,40 @@ class _SellerHomePageState extends State<SellerHomePage> {
                               ? Image(
                                   image:
                                       AssetImage('assets/images/tailoring.png'),
-                                  width: 70.0,
+                                  width: 80.0,
                                   height: 70.0,
                                 )
                               : data['name'] == "Knitting"
                                   ? Image(
                                       image: AssetImage(
-                                          'assets/images/knitting.png'),
-                                      width: 70.0,
+                                          'assets/images/knittingpic.png'),
+                                      width: 80.0,
                                       height: 70.0,
                                     )
                                   : data['name'] == "Baking"
                                       ? Image(
                                           image: AssetImage(
                                               'assets/images/baking.png'),
-                                          width: 70.0,
+                                          width: 80.0,
                                           height: 70.0,
                                         )
                                       : data['name'] == "Cooking"
                                           ? Image(
                                               image: AssetImage(
                                                   'assets/images/cooking.png'),
-                                              width: 70.0,
+                                              width: 80.0,
                                               height: 70.0,
                                             )
                                           : data['name'] == "Arts & Crafts "
                                               ? Image(
                                                   image: AssetImage(
-                                                      'assets/images/arts.png'),
+                                                      'assets/images/ac.png'),
+
+
                                                 )
                                               : Image(
                                                   image: AssetImage(
-                                                      'assets/images/arts.png'),
-                                                  width: 75.0,
-                                                  height: 75.0,
+                                                      'assets/images/ac.png'),
                                                 ),
                           title: Text(
                             data['name'],
@@ -157,68 +157,9 @@ class _SellerHomePageState extends State<SellerHomePage> {
                           onTap: () {
                             print("i am calling tap ");
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => SubcategoryScreen(
-                                categories: data,
-                              ),
-                            ));
-                            // if (i == 0) {
-                            //   if (data['name'] == "Tailoring") {
-                            //     Text(data['subcategories'].toString());
-                            //     //display only the subcategories of music
-                            //     print(data['subcategories'].toString());
-                            //   }
-                            //
-                            //   Navigator.push(
-                            //       context,
-                            //       MaterialPageRoute(
-                            //         builder: (context) => seller_tailoring_screen(),
-                            //       ));
-                            //   // Text(data['subcategories'].toString());
-                            //
-                            // } else if (i == 1) {
-                            //   if (data['name'] == "Knitting") {
-                            //     Text(data['subcategories'].toString());
-                            //     //display only the subcategories of music
-                            //     print(data['subcategories'].toString());
-                            //   }
-                            //   Navigator.push(
-                            //       context,
-                            //       MaterialPageRoute(
-                            //           builder: (context) => seller_knitting_screen()));
-                            // }
-                            // else if (i == 2) {
-                            //   if (data['name'] == "Baking") {
-                            //     Text(data['subcategories'].toString());
-                            //     //display only the subcategories of music
-                            //     print(data['subcategories'].toString());
-                            //   }
-                            //   Navigator.push(
-                            //       context,
-                            //       MaterialPageRoute(
-                            //           builder: (context) => seller_baking_screen()));
-                            // }
-                            // else if (i == 3) {
-                            //   if (data['name'] == "Cooking") {
-                            //     Text(data['subcategories'].toString());
-                            //     //display only the subcategories of music
-                            //     print(data['subcategories'].toString());
-                            //   }
-                            //   Navigator.push(
-                            //       context,
-                            //       MaterialPageRoute(
-                            //           builder: (context) => seller_cooking_screen()));
-                            // }
-                            // else if (i == 4) {
-                            //   if (data['name'] == "Arts and Crafts") {
-                            //     Text(data['subcategories'].toString());
-                            //     //display only the subcategories of music
-                            //     print(data['subcategories'].toString());
-                            //   }
-                            //   Navigator.push(
-                            //       context,
-                            //       MaterialPageRoute(
-                            //           builder: (context) => seller_arts_screen()));
-                            // }
+                                builder: (context) => SubcategoryScreen(
+                                      categories: data,
+                                    )));
                           },
                         ),
                         Divider(),

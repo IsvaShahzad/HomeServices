@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
 
 
-enum Categories { baking, cooking, knitting, tailoring, artAndCraft }
+// enum Categories { baking, cooking, knitting, tailoring, artAndCraft }
 
 class SubcategoryScreen extends StatefulWidget {
   final Map<String, dynamic> categories;
 
-  SubcategoryScreen({  required this.categories});
+  SubcategoryScreen({ required this.categories});
 
   @override
   _SubcategoryScreenState createState() => _SubcategoryScreenState();
@@ -19,7 +19,8 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
   int _selectedIndex = 0;
 
   CollectionReference _collectionRef =
-      FirebaseFirestore.instance.collection('Category');
+  FirebaseFirestore.instance.collection('Category');
+
 
   late Stream<QuerySnapshot> _streamCategory = _collectionRef.snapshots();
 
@@ -43,9 +44,9 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-        image: AssetImage("assets/images/pastel.png"),
-        fit: BoxFit.cover,
-      )),
+            image: AssetImage("assets/images/pastel.png"),
+            fit: BoxFit.cover,
+          )),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
@@ -88,7 +89,7 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                     color: Colors.black,
                   ),
                   title: Text(
-                      subcategory['name'].toString() ?? "",
+                    subcategory['name'].toString() ?? "",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),

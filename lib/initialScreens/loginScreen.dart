@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
+import 'package:home_services_flutter/ContinueAsConsumerOrSellerScreen.dart';
 import 'package:home_services_flutter/initialScreens/registration_screen.dart';
 import 'package:home_services_flutter/categories_seller/SellerCategories.dart';
 import '../allServices/services_overview_screen.dart';
@@ -24,11 +25,9 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _auth = FirebaseAuth.instance;
-  // LoginScreen({required Key key}) : super(key: key);
-  // void LoginScreen() {
-  //   Navigator.pushReplacement(
-  //       context, MaterialPageRoute(builder: (BuildContext context) => InspectionScreen()));
-  // }
+
+
+
 
   bool _isObscure = true;
   final loginFormKey = GlobalKey<FormState>();
@@ -40,20 +39,12 @@ class _LoginScreenState extends State<LoginScreen> {
   late String email;
   late String password;
   late bool isLogin;
-  // {
-  //   String authResult;
-  // if (isLogin){
-  // authResult=  _auth.signInWithEmailAndPassword(email: email, password: password) as String;
-  // }
-  // else{
-  //   authResult=  _auth.createUserWithEmailAndPassword(email: email, password: password) as String;
-  //
-  // }
-  // }
+
 
   @override
   Widget build(BuildContext context) {
     return Container(
+
 
       decoration: BoxDecoration(
           image: DecorationImage(
@@ -63,10 +54,13 @@ class _LoginScreenState extends State<LoginScreen> {
               fit: BoxFit.cover
           )
       ),
+
       child: Scaffold(
         backgroundColor: Colors.transparent,
 
         body: Form(
+
+
             key: loginFormKey,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -74,23 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Padding(
-                    //   padding: const EdgeInsets.only(top: 60.0),
-                    //   child: (Container(
-                    //       // width: 200,
-                    //       // height: 150,
-                    //       // decoration: BoxDecoration(
-                    //       //     color: Colors.transparent,
-                    //       //
-                    //       //     image: DecorationImage(
-                    //       //
-                    //       //       image: AssetImage("assets/images/fyphomeservicesicon.png"),
-                    //       //
-                    //       //
-                    //       //     )),
-                    //
-                    //
-                    // ))),
+
                     SizedBox(
                       height: 160.h,
                     ),
@@ -263,32 +241,33 @@ class _LoginScreenState extends State<LoginScreen> {
                                               fontSize: 18)),
                                       onPressed: () async {
                                         try {
+
                                           final user =
                                               await _auth.signInWithEmailAndPassword(
                                                   email: emailController.text,
                                                   password:
                                                       passwordController.text);
-                                          // final newUser = await _auth
-                                          //     .createUserWithEmailAndPassword(
-                                          //         email: emailController.text,
-                                          //         password:
-                                          //             passwordController.text);
-
 
 
                                           print(user);
 
+
                                         } catch (e) {
+
+
                                           print(e);
+
                                         }
 
+
                                         if (loginFormKey.currentState!.validate())
+
                                           Navigator.pushReplacement(
                                               context,
                                               MaterialPageRoute(
                                                   builder: (BuildContext
                                                           context) =>
-                                                      SellerWelcome()));
+                                                      ContinueAsScreen()));
                                       },
                                     ),
                                   ),
@@ -329,21 +308,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           )),
                                       onPressed: () async{
 
-                                        // try {
-                                        //
-                                        //   final newUser = await _auth
-                                        //       .createUserWithEmailAndPassword(
-                                        //       email: emailController.text,
-                                        //       password:
-                                        //       passwordController.text);
-                                        //
-                                        //   if (newUser != null) {
-                                        //     Navigator.pushNamed(context,
-                                        //         ServicesOverviewScreen.id);
-                                        //   }
-                                        // } catch (e) {
-                                        //   print(e);
-                                        // }
+
 
                                         Navigator.pushReplacement(
                                             context,
