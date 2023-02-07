@@ -192,7 +192,7 @@ class _AddProductState extends State<AddProduct> {
                           TextFormField(
                             controller: ProductDescriptionController,
                             decoration: InputDecoration(
-                              hintText: 'Please enter product decription',
+                              hintText: 'Please enter product description',
                               filled: true,
                               fillColor: Colors.white.withOpacity(0.1),
                               contentPadding: const EdgeInsets.symmetric(

@@ -1,16 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:home_services_flutter/categories_seller/artsandcrafts_subcategory.dart';
-import 'package:home_services_flutter/categories_seller/baking_subcategory.dart';
-import 'package:home_services_flutter/categories_seller/cooking_subcategory.dart';
-import 'package:home_services_flutter/categories_seller/knitting_subcategory.dart';
 import 'package:home_services_flutter/categories_seller/subcategory_screen.dart';
-import 'package:home_services_flutter/seller/seller_subcategory_music.dart';
 import 'package:home_services_flutter/seller/SellerProfilePage.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
 import 'package:home_services_flutter/seller/seller_portfolio.dart';
-import 'package:home_services_flutter/categories_seller/tailoring_subcategory.dart';
 import 'package:home_services_flutter/seller/sellerwelcome.dart';
 import '../seller/consumerSignup.dart';
 import '../seller/addProduct.dart';
@@ -140,8 +134,6 @@ class _SellerHomePageState extends State<SellerHomePage> {
                                               ? Image(
                                                   image: AssetImage(
                                                       'assets/images/ac.png'),
-
-
                                                 )
                                               : Image(
                                                   image: AssetImage(
@@ -204,15 +196,7 @@ class _SellerHomePageState extends State<SellerHomePage> {
                 Container(
                   height: 25.0,
                   child: DrawerHeader(
-                    // decoration: BoxDecoration(
-                    //     color: Colors.transparent,
-                    //
-                    //     image: DecorationImage(
-                    //
-                    //       image: AssetImage("assets/images/fyphomeservicesicon.png"),
-                    //
-                    //
-                    //     )),
+
                     child: null,
                   ),
                 ),

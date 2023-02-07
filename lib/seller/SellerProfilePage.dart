@@ -7,6 +7,7 @@ class ProfilePage extends StatefulWidget {
   @override
   MapScreenState createState() => MapScreenState();
 }
+
 final _formKey = GlobalKey<FormState>();
 
 late String _name = "";
@@ -14,6 +15,7 @@ late String _email = "";
 late String _mobile = "";
 late String _pincode = "";
 late String _state = "";
+
 class MapScreenState extends State<ProfilePage>
     with SingleTickerProviderStateMixin {
   bool _status = true;
@@ -26,18 +28,11 @@ class MapScreenState extends State<ProfilePage>
   final TextEditingController pincodeController = TextEditingController();
   final TextEditingController stateController = TextEditingController();
 
-
   late XFile file;
   var _isLoading = false;
   ShowAlert() {
     return showDialog(
       context: context,
-
-      //   return BackdropFilter
-      //(
-      //filter: ImageFilter.blur(sigmaX:6,sigmaY: 6,
-      //) );
-      //}
       builder: (ctx) => AlertDialog(
         title: Text("Profile updated! "),
         actions: <Widget>[
@@ -65,7 +60,6 @@ class MapScreenState extends State<ProfilePage>
     );
   }
 
-
   @override
   void initState() {
     super.initState();
@@ -76,28 +70,19 @@ class MapScreenState extends State<ProfilePage>
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage(
-                  "assets/images/pastel.png"
-              ),
-              fit: BoxFit.cover
-          )
-      ),
-      child:  Scaffold(
-        backgroundColor: Colors.transparent,
+              image: AssetImage("assets/images/pastel.png"),
+              fit: BoxFit.cover)),
+      child: Scaffold(
+          backgroundColor: Colors.transparent,
           appBar: AppBar(
             elevation: 13,
-
             shape: RoundedRectangleBorder(
-
-                borderRadius:  BorderRadius.only(
-
+                borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(12),
-
-                    bottomLeft: Radius.circular(12))
-
-            ),
+                    bottomLeft: Radius.circular(12))),
             leading: IconButton(
-              icon: Icon(Icons.arrow_back,
+              icon: Icon(
+                Icons.arrow_back,
                 color: Colors.white,
               ),
               onPressed: () {
@@ -110,20 +95,12 @@ class MapScreenState extends State<ProfilePage>
               style: TextStyle(color: Colors.white),
             ),
           ),
-
-
           body: Container(
-
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage(
-                        "assets/images/pastel.png"
-                    ),
-                    fit: BoxFit.cover
-                )
-            ),
+                    image: AssetImage("assets/images/pastel.png"),
+                    fit: BoxFit.cover)),
             child: Form(
-
               // color: Colors.white,
               child: new ListView(
                 children: <Widget>[
@@ -131,67 +108,36 @@ class MapScreenState extends State<ProfilePage>
                     children: <Widget>[
                       new Container(
                         height: 90.0,
-color: Colors.transparent,
+                        color: Colors.transparent,
                         child: new Column(
                           children: <Widget>[
                             Padding(
                               padding: EdgeInsets.only(top: 0.0),
-                              child:
-                              new Stack(fit: StackFit.loose, children: <Widget>[
-                                // new Row(
-                                //   crossAxisAlignment: CrossAxisAlignment.center,
-                                //   mainAxisAlignment: MainAxisAlignment.center,
-                                //   children: <Widget>[
-                                //     new Container(
-                                //       width: 140.0,
-                                //       height: 140.0,
-                                //       decoration: new BoxDecoration(
-                                //         shape: BoxShape.circle,
-                                //         color: Colors.grey,
-                                //         // image: new DecorationImage(
-                                //         //   image: new ExactAssetImage(
-                                //         //       'assets/images/as.png'),
-                                //         //   fit: BoxFit.cover,
-                                //         // ),
-                                //       ),
-                                //       // child: IconButton(
-                                //       //   icon: Icon(Icons.add_a_photo),
-                                //       //   onPressed: _pickImage,
-                                //       // ),
-                                //     ),
-                                //   ],
-                                // ),
-                                Padding(
-                                    padding:
-                                    EdgeInsets.only(top: 90.0, right: 100.0),
-                                    child: new Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        // new CircleAvatar(
-                                        //   backgroundColor: Colors.orange,
-                                        //   radius: 25.0,
-                                        // child: new Icon(
-                                        //   Icons.camera_alt,
-                                        //   color: Colors.white,
-                                        // ),
-                                        //)
-                                      ],
-                                    )),
-                              ]),
+                              child: new Stack(
+                                  fit: StackFit.loose,
+                                  children: <Widget>[
+
+                                    Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 90.0, right: 100.0),
+                                        child: new Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+
+                                          ],
+                                        )),
+                                  ]),
                             )
                           ],
                         ),
                       ),
                       new Container(
                         decoration: BoxDecoration(
-                          color: Colors.transparent,
+                            color: Colors.transparent,
                             image: DecorationImage(
-                                image: AssetImage(
-                                    "assets/images/pastel.png"
-                                ),
-                                fit: BoxFit.cover
-                            )
-                        ),
+                                image: AssetImage("assets/images/pastel.png"),
+                                fit: BoxFit.cover)),
                         child: Padding(
                           padding: EdgeInsets.only(bottom: 25.0),
                           child: new Column(
@@ -205,10 +151,11 @@ color: Colors.transparent,
                                   ),
                                   child: new Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       new Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
                                         children: <Widget>[
                                           new Text(
                                             'Personal Information',
@@ -221,7 +168,8 @@ color: Colors.transparent,
                                         ],
                                       ),
                                       new Column(
-                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
                                         mainAxisSize: MainAxisSize.min,
                                         children: <Widget>[
                                           _status
@@ -231,7 +179,6 @@ color: Colors.transparent,
                                       )
                                     ],
                                   )),
-
                               Padding(
                                   padding: EdgeInsets.only(
                                       left: 25.0, right: 25.0, top: 65.0),
@@ -239,7 +186,8 @@ color: Colors.transparent,
                                     mainAxisSize: MainAxisSize.max,
                                     children: <Widget>[
                                       new Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
                                         mainAxisSize: MainAxisSize.min,
                                         children: <Widget>[
                                           new Text(
@@ -266,12 +214,9 @@ color: Colors.transparent,
                                           decoration: const InputDecoration(
                                             hintText: "Enter Your Name",
                                           ),
-
                                           textInputAction: TextInputAction.next,
-
                                           enabled: !_status,
                                           autofocus: !_status,
-
                                           validator: (value) {
                                             if (value!.isEmpty) {
                                               return 'Please enter your name';
@@ -279,9 +224,7 @@ color: Colors.transparent,
                                             return null;
                                           },
                                           onSaved: (value) => _name = value!,
-
                                         ),
-
                                       ),
                                     ],
                                   )),
@@ -292,7 +235,8 @@ color: Colors.transparent,
                                     mainAxisSize: MainAxisSize.max,
                                     children: <Widget>[
                                       new Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
                                         mainAxisSize: MainAxisSize.min,
                                         children: <Widget>[
                                           new Text(
@@ -319,7 +263,6 @@ color: Colors.transparent,
                                           decoration: const InputDecoration(
                                               hintText: "Enter Email ID"),
                                           textInputAction: TextInputAction.next,
-
                                           enabled: !_status,
                                           validator: (value) {
                                             if (value!.isEmpty) {
@@ -339,7 +282,8 @@ color: Colors.transparent,
                                     mainAxisSize: MainAxisSize.max,
                                     children: <Widget>[
                                       new Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
                                         mainAxisSize: MainAxisSize.min,
                                         children: <Widget>[
                                           new Text(
@@ -367,9 +311,7 @@ color: Colors.transparent,
                                           decoration: const InputDecoration(
                                               hintText: "Enter Mobile Number"),
                                           textInputAction: TextInputAction.next,
-
                                           enabled: !_status,
-
                                           validator: (value) {
                                             if (value!.isEmpty) {
                                               return 'Please enter your name';
@@ -431,8 +373,8 @@ color: Colors.transparent,
                                             keyboardType: TextInputType.number,
                                             decoration: const InputDecoration(
                                                 hintText: "Enter Pin Code"),
-                                            textInputAction: TextInputAction.next,
-
+                                            textInputAction:
+                                                TextInputAction.next,
                                             enabled: !_status,
                                             validator: (value) {
                                               if (value!.isEmpty) {
@@ -440,8 +382,8 @@ color: Colors.transparent,
                                               }
                                               return null;
                                             },
-                                            onSaved: (value) => _pincode = value!,
-
+                                            onSaved: (value) =>
+                                                _pincode = value!,
                                           ),
                                         ),
                                         flex: 2,
@@ -449,7 +391,6 @@ color: Colors.transparent,
                                       Flexible(
                                         child: new TextFormField(
                                           controller: stateController,
-
                                           decoration: const InputDecoration(
                                             hintText: "Enter State",
                                           ),
@@ -499,28 +440,21 @@ color: Colors.transparent,
               padding: EdgeInsets.only(right: 10.0),
               child: Container(
                   child: new ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Color(0xFFAB47BC),
-                      onPrimary: Colors.white,
-                      shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(30.0),
+                      style: ElevatedButton.styleFrom(
+                        primary: Color(0xFFAB47BC),
+                        onPrimary: Colors.white,
+                        shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30.0),
+                        ),
+                        elevation: 5,
+                        minimumSize: const Size(130, 50),
+                        maximumSize: const Size(130, 50),
                       ),
-                      elevation: 5,
-                      minimumSize: const Size(130, 50),
-                      maximumSize: const Size(130, 50),
-                    ),
-                    child: new Text("Save"),
-                    // textColor: Colors.white,
-                    // color: Colors.green,is
+                      child: new Text("Save"),
+                      // textColor: Colors.white,
+                      // color: Colors.green,is
 
-                    onPressed: ()  {
-                      // if (_formKey.currentState!.validate()) {
-                      //   _formKey.currentState?.save();
-
-                        // setState(() {
-                        //   _status = true;
-                        //   FocusScope.of(context).requestFocus(new FocusNode());
-                        // });
+                      onPressed: () {
                         try {
                           FirebaseFirestore.instance
                               .collection('seller profile')
@@ -531,24 +465,22 @@ color: Colors.transparent,
                             'mobile': mobileController.text,
                             'pincode': pincodeController.text,
                             'state': stateController.text,
-
                           });
                           print(nameController.text);
                           print(emailController.text);
                           print(stateController.text);
                           print(pincodeController.text);
-                        } catch (e) {};
-
+                        } catch (e) {}
+                        ;
 
                         setState(() {
                           _status = true;
 
                           FocusScope.of(context).requestFocus(new FocusNode());
                           ShowAlert();
-
                         });
-    ;
-                    })),
+                        ;
+                      })),
             ),
             flex: 2,
           ),
@@ -557,27 +489,25 @@ color: Colors.transparent,
               padding: EdgeInsets.only(left: 10.0),
               child: Container(
                   child: new ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Color(0xFFAB47BC),
-                      onPrimary: Colors.white,
-                      shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(30.0),
-                      ),
-                      elevation: 5,
-                      minimumSize: const Size(130, 50),
-                      maximumSize: const Size(130, 50),
-                    ),
-                    child: new Text("Cancel"),
-                    onPressed: () {
-                      setState(() {
-                        _status = true;
-                        FocusScope.of(context).requestFocus(new FocusNode());
-                      });
-                    },
-                    // shape: new RoundedRectangleBorder(
-                    //
-                    //     borderRadius: new BorderRadius.circular(20.0)),
-                  )),
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xFFAB47BC),
+                  onPrimary: Colors.white,
+                  shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(30.0),
+                  ),
+                  elevation: 5,
+                  minimumSize: const Size(130, 50),
+                  maximumSize: const Size(130, 50),
+                ),
+                child: new Text("Cancel"),
+                onPressed: () {
+                  setState(() {
+                    _status = true;
+                    FocusScope.of(context).requestFocus(new FocusNode());
+                  });
+                },
+
+              )),
             ),
             flex: 2,
           ),
@@ -585,18 +515,6 @@ color: Colors.transparent,
       ),
     );
   }
-  //
-  // Future<void> _saveForm() async {
-  //   final isValid = _formKey.currentState?.validate();
-  //   if (isValid == null || !isValid) {
-  //     return;
-  //   }
-  //   _formKey.currentState?.save();
-  //   setState(() {
-  //     _isLoading = true;
-  //     Navigator.of(context).pop();
-  //   });
-  // }
 
   Widget _getEditIcon() {
     return new GestureDetector(

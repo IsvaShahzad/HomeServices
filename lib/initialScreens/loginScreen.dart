@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
-import 'package:home_services_flutter/ContinueAsConsumerOrSellerScreen.dart';
+import 'package:home_services_flutter/initialScreens/ContinueAsConsumerOrSellerScreen.dart';
 import 'package:home_services_flutter/initialScreens/registration_screen.dart';
 import 'package:home_services_flutter/categories_seller/SellerCategories.dart';
 import '../allServices/services_overview_screen.dart';
@@ -26,9 +26,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _auth = FirebaseAuth.instance;
 
-
-
-
   bool _isObscure = true;
   final loginFormKey = GlobalKey<FormState>();
 
@@ -40,27 +37,16 @@ class _LoginScreenState extends State<LoginScreen> {
   late String password;
   late bool isLogin;
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
-
-
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage(
-                  "assets/images/pastel.png"
-              ),
-              fit: BoxFit.cover
-          )
-      ),
-
+              image: AssetImage("assets/images/pastel.png"),
+              fit: BoxFit.cover)),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-
         body: Form(
-
-
             key: loginFormKey,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -68,7 +54,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
                     SizedBox(
                       height: 160.h,
                     ),
@@ -88,12 +73,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     Container(
                         height: 432,
                         decoration: BoxDecoration(
-                          color: Colors.white30,
+                            color: Colors.white30,
                             border: Border.all(
                               color: Color(0xFFAB47BC),
                               width: 1.5,
                             ),
-                            borderRadius: BorderRadius.all(Radius.circular(20))),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
                         child: SingleChildScrollView(
                             child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -127,14 +113,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                       hintStyle: TextStyle(
                                           fontSize: 13, color: Colors.grey),
                                       border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.all(Radius.circular(20)),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20)),
                                         borderSide: BorderSide(
                                             width: 3, color: Colors.purple),
                                       ),
                                     ),
                                     textInputAction: TextInputAction.next,
-
                                     validator: (value) {
                                       RegExp regex = RegExp(
                                           r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$');
@@ -191,7 +176,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                     ),
                                     textInputAction: TextInputAction.next,
-
                                     style: TextStyle(
                                         fontSize: 13,
                                         color: Color(0xFF000000),
@@ -241,33 +225,25 @@ class _LoginScreenState extends State<LoginScreen> {
                                               fontSize: 18)),
                                       onPressed: () async {
                                         try {
-
-                                          final user =
-                                              await _auth.signInWithEmailAndPassword(
+                                          final user = await _auth
+                                              .signInWithEmailAndPassword(
                                                   email: emailController.text,
                                                   password:
                                                       passwordController.text);
 
-
                                           print(user);
-
-
                                         } catch (e) {
-
-
                                           print(e);
-
                                         }
 
-
-                                        if (loginFormKey.currentState!.validate())
-
+                                        if (loginFormKey.currentState!
+                                            .validate())
                                           Navigator.pushReplacement(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (BuildContext
-                                                          context) =>
-                                                      ContinueAsScreen()));
+                                                  builder:
+                                                      (BuildContext context) =>
+                                                          ContinueAsScreen()));
                                       },
                                     ),
                                   ),
@@ -306,20 +282,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                             fontWeight: FontWeight.bold,
                                             fontSize: 18,
                                           )),
-                                      onPressed: () async{
-
-
-
+                                      onPressed: () async {
                                         Navigator.pushReplacement(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (BuildContext context) =>
-                                                    Registration()));
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        Registration()));
                                       }),
                                 )
                               ]),
                         )))
-                    ],
+                  ],
                 ),
               ),
             )),

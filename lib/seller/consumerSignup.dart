@@ -51,13 +51,7 @@ class _signupConsumerState extends State<signupConsumer> {
                   bottomLeft: Radius.circular(12))
 
           ),
-          // title: Align(
-          //   alignment: Alignment.center,
-          //   child: Text(
-          //     "Sign up Consumer account",
-          //     style: TextStyle(color: Colors.white),
-          //   ),
-          // ),
+
           actions: <Widget>[
             IconButton(
                 icon: Icon(

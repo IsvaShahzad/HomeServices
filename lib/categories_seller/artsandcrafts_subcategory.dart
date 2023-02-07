@@ -109,7 +109,7 @@ class _seller_arts_screenState extends State<seller_arts_screen> {
                             ),
                             onTap: () {
                               if (index == 0) {
-                                if (data['name'] == "Tailoring") {
+                                if (data['name'] == "Arts and Crafts") {
                                   Text(data['subcategories'].toString());
                                   Navigator.push(
                                       context,

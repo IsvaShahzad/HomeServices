@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/categories_seller/SellerCategories.dart';
 
 import '../initialScreens/loginScreen.dart';
-class SellerWelcome extends StatefulWidget {
 
+class SellerWelcome extends StatefulWidget {
   @override
   State<SellerWelcome> createState() => _SellerWelcomeState();
 }
@@ -13,36 +13,20 @@ class _SellerWelcomeState extends State<SellerWelcome> {
   @override
   Widget build(BuildContext context) {
     return Container(
-
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage(
-                  "assets/images/lb.png"
-              ),
-              fit: BoxFit.cover
-          )
-      ),
+              image: AssetImage("assets/images/lb.png"), fit: BoxFit.cover)),
       child: Scaffold(
-backgroundColor: Colors.transparent,
-
-
-
-
+          backgroundColor: Colors.transparent,
           appBar: AppBar(
             elevation: 13,
-
-
             shape: RoundedRectangleBorder(
-
-                borderRadius:  BorderRadius.only(
-
+                borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(12),
-
-                    bottomLeft: Radius.circular(12))
-
-            ),
+                    bottomLeft: Radius.circular(12))),
             leading: IconButton(
-              icon: Icon(Icons.arrow_back,
+              icon: Icon(
+                Icons.arrow_back,
                 color: Colors.white,
               ),
               onPressed: () {
@@ -57,59 +41,56 @@ backgroundColor: Colors.transparent,
                 style: TextStyle(color: Colors.white),
               ),
             ),
-
           ),
           body: Container(
-
             child: Form(
-
-            child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18.0),
-      child: SingleChildScrollView(
-      child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-      SizedBox(
-      height: 240.h,
-      ),
-      Align(
-        alignment: Alignment.center,
-        child: Text('Explore seller ',
-        style: TextStyle(
-        fontSize: 36,
-        color: Colors.purple,
-        fontWeight: FontWeight.bold)),
-      ),
-        SizedBox(
-          height: 25.h,
-        ),
-        Align(
-            alignment: Alignment.center,
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-
-                  elevation: 10,
-                  minimumSize: const Size(180, 50),
-                  maximumSize: const Size(180, 50),
-                  primary: Color(0xFFAB47BC),
-                  onPrimary: Colors.white,
-                  shape: new RoundedRectangleBorder(
-                    borderRadius:
-                    new BorderRadius.circular(30.0),
-                  ),
-                ),
-                onPressed: (){
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => SellerHomePage()));
-                },
-                child: const Text(
-                  'Next ',
-                )),
-        )
-      ]),
-
-
-      ))),
+                child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                    child: SingleChildScrollView(
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            SizedBox(
+                              height: 240.h,
+                            ),
+                            Align(
+                              alignment: Alignment.center,
+                              child: Text('Explore seller ',
+                                  style: TextStyle(
+                                      fontSize: 36,
+                                      color: Colors.purple,
+                                      fontWeight: FontWeight.bold)),
+                            ),
+                            SizedBox(
+                              height: 25.h,
+                            ),
+                            Align(
+                              alignment: Alignment.center,
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    elevation: 10,
+                                    minimumSize: const Size(180, 50),
+                                    maximumSize: const Size(180, 50),
+                                    primary: Color(0xFFAB47BC),
+                                    onPrimary: Colors.white,
+                                    shape: new RoundedRectangleBorder(
+                                      borderRadius:
+                                          new BorderRadius.circular(30.0),
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                SellerHomePage()));
+                                  },
+                                  child: const Text(
+                                    'Next ',
+                                  )),
+                            )
+                          ]),
+                    ))),
           )),
     );
   }

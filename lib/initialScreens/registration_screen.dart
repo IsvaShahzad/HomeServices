@@ -26,28 +26,24 @@ class _RegistrationState extends State<Registration> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Container(
+        decoration: BoxDecoration(
+        image: DecorationImage(
+        image: AssetImage(
+        "assets/images/pastel.png"
+    ),
+    fit: BoxFit.cover
+    )
+    ),
+    child: Scaffold(
+      backgroundColor: Colors.transparent,
 
       appBar: AppBar(
         elevation: 13,
-
-
         shape: RoundedRectangleBorder(
-
-            borderRadius:  BorderRadius.only(
-
+            borderRadius: BorderRadius.only(
                 bottomRight: Radius.circular(12),
-
-                bottomLeft: Radius.circular(12))
-
-        ),
-        title: Align(
-          alignment: Alignment.center,
-          child: Text(
-            "Sign up account",
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
+                bottomLeft: Radius.circular(12))),
         actions: <Widget>[
           IconButton(
               icon: Icon(
@@ -58,9 +54,9 @@ class _RegistrationState extends State<Registration> {
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => LoginScreen()));
               }),
+
         ],
       ),
-
       body: Container(
         child: SingleChildScrollView(
           child: Padding(
@@ -68,18 +64,20 @@ class _RegistrationState extends State<Registration> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                      width: 130,
-                      height: 130,
-
-                      decoration: BoxDecoration(),
-
-                      child:
-                      Image.asset('assets/images/homeservicespic.PNG')),
+                Padding(
+                  padding: EdgeInsets.only(top: 15.0),
+                  child: const Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Sign up Account ',
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: Color(0xFFAB47BC),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )),
                 ),
+                SizedBox(height: 35.h),
                 Padding(padding: EdgeInsets.symmetric(horizontal: 30)),
                 Text('First Name',
                     style: TextStyle(
@@ -222,44 +220,41 @@ class _RegistrationState extends State<Registration> {
                 SizedBox(
                   height: 5.h,
                 ),
-
-                 TextFormField(
-                    controller: passwordController,
-                    obscureText: _isObscure,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white.withOpacity(0.1),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(20),
-                        ),
-                      ),
-                      hintText: ' Enter Password',
-                      hintStyle: TextStyle(fontSize: 13, color: Colors.grey),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          _isObscure ? Icons.visibility : Icons.visibility_off,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _isObscure = !_isObscure;
-                          });
-                        },
+                TextFormField(
+                  controller: passwordController,
+                  obscureText: _isObscure,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white.withOpacity(0.1),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20),
                       ),
                     ),
-                    style: TextStyle(
-                        fontSize: 13,
-                        color: Color(0xFF000000),
-                        fontWeight: FontWeight.w600),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please Enter Some Text ';
-                      }
-                      return null;
-                    },
+                    hintText: ' Enter Password',
+                    hintStyle: TextStyle(fontSize: 13, color: Colors.grey),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _isObscure ? Icons.visibility : Icons.visibility_off,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isObscure = !_isObscure;
+                        });
+                      },
+                    ),
                   ),
-
-
+                  style: TextStyle(
+                      fontSize: 13,
+                      color: Color(0xFF000000),
+                      fontWeight: FontWeight.w600),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please Enter Some Text ';
+                    }
+                    return null;
+                  },
+                ),
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
                   child: Text('Mobile Number',
@@ -309,72 +304,71 @@ class _RegistrationState extends State<Registration> {
                 ),
                 Align(
                   alignment: Alignment.center,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Color(0xFFAB47BC),
-                        onPrimary: Colors.white,
-                        elevation: 3,
-                        minimumSize: const Size(200, 50),
-                        maximumSize: const Size(200, 50),
-                        shape: StadiumBorder(),
-                      ),
-                      child: Text('Sign Up',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18)),
-                      onPressed: () async {
-                        try {
-                          final newUser =
-                              await _auth.createUserWithEmailAndPassword(
-                                  email: emailController.text,
-                                  password: passwordController.text);
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFFAB47BC),
+                      onPrimary: Colors.white,
+                      elevation: 3,
+                      minimumSize: const Size(200, 50),
+                      maximumSize: const Size(200, 50),
+                      shape: StadiumBorder(),
+                    ),
+                    child: Text('Sign Up',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18)),
+                    onPressed: () async {
+                      try {
+                        final newUser =
+                            await _auth.createUserWithEmailAndPassword(
+                                email: emailController.text,
+                                password: passwordController.text);
 
-                          final user = (await _auth.signInWithEmailAndPassword(
-                                  email: emailController.text,
-                                  password: passwordController.text))
-                              .user;
+                        final user = (await _auth.signInWithEmailAndPassword(
+                                email: emailController.text,
+                                password: passwordController.text))
+                            .user;
 
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(user?.uid)
-                              .set({
-                            'id': user?.uid,
-                            'firstname': firstNameController.text,
-                            'lastname': lastNameController.text,
-                            'mobile': mobileController.text,
-                            'isAdmin': false,
-                            'isApproved': false,
-                            'email': user?.email,
-                          });
+                        await FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(user?.uid)
+                            .set({
+                          'id': user?.uid,
+                          'firstname': firstNameController.text,
+                          'lastname': lastNameController.text,
+                          'mobile': mobileController.text,
+                          'isAdmin': false,
+                          'isApproved': false,
+                          'email': user?.email,
+                        });
 
-                          print(newUser);
-                        } catch (e) {
-                          print(e);
-                        }
+                        print(newUser);
+                      } catch (e) {
+                        print(e);
+                      }
 
-                        // if (loginFormKey.currentState!.validate())
+                      // if (loginFormKey.currentState!.validate())
 
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  VerifyEmail()));
+                    },
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                      onPressed: () {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (BuildContext context) =>
-                                    VerifyEmail()));
+                                    LoginScreen()));
                       },
-                    ),
-                  ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(onPressed: (){
-
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                LoginScreen()));
-
-                  },
                       child: Text('Already have an account?',
-                        style: TextStyle(
-                        color: Colors.red,
+                          style: TextStyle(
+                            color: Colors.red,
                           ))),
                 ),
               ],
@@ -382,6 +376,6 @@ class _RegistrationState extends State<Registration> {
           ),
         ),
       ),
-    );
+    ));
   }
 }

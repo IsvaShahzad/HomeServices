@@ -1,24 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:home_services_flutter/seller/SellerProfilePage.dart';
+
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
-import 'package:home_services_flutter/seller/addProduct.dart';
-import 'package:home_services_flutter/seller/consumerSignup.dart';
-import 'package:home_services_flutter/categories_seller/SellerCategories.dart';
+
 import 'package:home_services_flutter/seller/seller_portfolio.dart';
 
 class seller_cooking_screen extends StatefulWidget {
   @override
-  _seller_cooking_screenState createState() =>
-      _seller_cooking_screenState();
+  _seller_cooking_screenState createState() => _seller_cooking_screenState();
 }
 
 class _seller_cooking_screenState extends State<seller_cooking_screen> {
   int _selectedIndex = 0;
 
   CollectionReference _collectionRef =
-  FirebaseFirestore.instance.collection('Category');
+      FirebaseFirestore.instance.collection('Category');
 
   late Stream<QuerySnapshot> _streamCategory = _collectionRef.snapshots();
 
@@ -73,7 +69,7 @@ class _seller_cooking_screenState extends State<seller_cooking_screen> {
           padding: EdgeInsets.only(top: 30),
           child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
             stream:
-            FirebaseFirestore.instance.collection('Category').snapshots(),
+                FirebaseFirestore.instance.collection('Category').snapshots(),
             builder: (_, snapshot) {
               if (snapshot.hasError) return Text('Error = ${snapshot.error}');
 
@@ -86,22 +82,20 @@ class _seller_cooking_screenState extends State<seller_cooking_screen> {
                   itemBuilder: (_, i) {
                     final data = docs[i].data();
                     return ListView.builder(
-
                       itemCount: data['subcategories'].length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-
                         return ListTile(
-                            trailing: Icon(Icons.arrow_forward,
+                            trailing: Icon(
+                              Icons.arrow_forward,
                               size: 20,
                               color: Colors.black,
                             ),
                             title: Text(
-
                               data['name'] == "Cooking"
                                   ? data['subcategories'][index]['name']
-                                  .toString() ??
-                                  ""
+                                          .toString() ??
+                                      ""
                                   : "",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -122,24 +116,12 @@ class _seller_cooking_screenState extends State<seller_cooking_screen> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => LoginScreen()));
-
-
                               }
                               Divider();
-
-                            }
-
-
-                        );
-
-
-
+                            });
                       },
-
                     );
-
                   },
-
                 );
               }
 

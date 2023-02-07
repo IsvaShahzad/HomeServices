@@ -15,7 +15,6 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  // LoginScreen({required Key key}) : super(key: key);
   bool _isObscure = true;
   final loginFormKey = GlobalKey<FormState>();
 
@@ -27,11 +26,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     return showDialog(
       context: context,
 
-      //   return BackdropFilter
-      //(
-      //filter: ImageFilter.blur(sigmaX:6,sigmaY: 6,
-      //) );
-      //}
+
       builder: (ctx) => AlertDialog(
         title: Text("Email reset link has been sent! "),
         actions: <Widget>[

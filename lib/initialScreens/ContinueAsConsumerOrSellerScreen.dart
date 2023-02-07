@@ -4,7 +4,7 @@ import 'package:home_services_flutter/categories_seller/SellerCategories.dart';
 import 'package:home_services_flutter/seller/consumerSignup.dart';
 import 'package:home_services_flutter/seller/sellerwelcome.dart';
 
-import '../initialScreens/loginScreen.dart';
+import '../../initialScreens/loginScreen.dart';
 class ContinueAsScreen extends StatefulWidget {
 
   @override
