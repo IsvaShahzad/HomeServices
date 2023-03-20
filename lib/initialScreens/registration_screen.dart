@@ -44,7 +44,19 @@ class _RegistrationState extends State<Registration> {
             borderRadius: BorderRadius.only(
                 bottomRight: Radius.circular(12),
                 bottomLeft: Radius.circular(12))),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => LoginScreen()));
+          },
+        ),
         actions: <Widget>[
+
+
           IconButton(
               icon: Icon(
                 Icons.logout,
@@ -54,6 +66,7 @@ class _RegistrationState extends State<Registration> {
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => LoginScreen()));
               }),
+
 
         ],
       ),
