@@ -4,14 +4,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:home_services_flutter/initialScreens/verify_email.dart';
 
-import 'loginScreen.dart';
+import '../initialScreens/loginScreen.dart';
 
-class Registration extends StatefulWidget {
+class signupSeller extends StatefulWidget {
   @override
-  State<Registration> createState() => _RegistrationState();
+  State<signupSeller> createState() => _signupSellerState();
 }
 
-class _RegistrationState extends State<Registration> {
+class _signupSellerState extends State<signupSeller> {
   bool _isObscure = true;
 
   final loginFormKey = GlobalKey<FormState>();
@@ -65,7 +65,7 @@ class _RegistrationState extends State<Registration> {
                               child: const Align(
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Sign up Account ',
+                                    'Sign up Seller ',
                                     style: TextStyle(
                                       fontSize: 30,
                                       color: Color(0xFFAB47BC),

@@ -3,7 +3,7 @@ import 'package:home_services_flutter/categories_seller/SellerCategories.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ProfilePage extends StatefulWidget {
+class ConsumerProfile extends StatefulWidget {
   @override
   MapScreenState createState() => MapScreenState();
 }
@@ -16,7 +16,7 @@ late String _mobile = "";
 late String _pincode = "";
 late String _state = "";
 
-class MapScreenState extends State<ProfilePage>
+class MapScreenState extends State<ConsumerProfile>
     with SingleTickerProviderStateMixin {
   bool _status = true;
   String email = "";
@@ -51,7 +51,7 @@ class MapScreenState extends State<ProfilePage>
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
               onPressed: () {
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => ProfilePage()));
+                    MaterialPageRoute(builder: (context) => ConsumerProfile()));
               },
             ),
           )
@@ -127,7 +127,7 @@ class MapScreenState extends State<ProfilePage>
                                             top: 90.0, right: 100.0),
                                         child: new Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                           children: <Widget>[
 
                                           ],
@@ -156,11 +156,11 @@ class MapScreenState extends State<ProfilePage>
                                   ),
                                   child: new Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       new Column(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.start,
+                                        MainAxisAlignment.start,
                                         children: <Widget>[
                                           new Text(
                                             'Personal Information',
@@ -174,7 +174,7 @@ class MapScreenState extends State<ProfilePage>
                                       ),
                                       new Column(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                        MainAxisAlignment.end,
                                         mainAxisSize: MainAxisSize.min,
                                         children: <Widget>[
                                           _status
@@ -192,7 +192,7 @@ class MapScreenState extends State<ProfilePage>
                                     children: <Widget>[
                                       new Column(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.start,
+                                        MainAxisAlignment.start,
                                         mainAxisSize: MainAxisSize.min,
                                         children: <Widget>[
                                           new Text(
@@ -241,7 +241,7 @@ class MapScreenState extends State<ProfilePage>
                                     children: <Widget>[
                                       new Column(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.start,
+                                        MainAxisAlignment.start,
                                         mainAxisSize: MainAxisSize.min,
                                         children: <Widget>[
                                           new Text(
@@ -288,7 +288,7 @@ class MapScreenState extends State<ProfilePage>
                                     children: <Widget>[
                                       new Column(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.start,
+                                        MainAxisAlignment.start,
                                         mainAxisSize: MainAxisSize.min,
                                         children: <Widget>[
                                           new Text(
@@ -379,7 +379,7 @@ class MapScreenState extends State<ProfilePage>
                                             decoration: const InputDecoration(
                                                 hintText: "Enter Pin Code"),
                                             textInputAction:
-                                                TextInputAction.next,
+                                            TextInputAction.next,
                                             enabled: !_status,
                                             validator: (value) {
                                               if (value!.isEmpty) {
@@ -388,7 +388,7 @@ class MapScreenState extends State<ProfilePage>
                                               return null;
                                             },
                                             onSaved: (value) =>
-                                                _pincode = value!,
+                                            _pincode = value!,
                                           ),
                                         ),
                                         flex: 2,
@@ -494,25 +494,25 @@ class MapScreenState extends State<ProfilePage>
               padding: EdgeInsets.only(left: 10.0),
               child: Container(
                   child: new ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xFFAB47BC),
-                  onPrimary: Colors.white,
-                  shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(30.0),
-                  ),
-                  elevation: 5,
-                  minimumSize: const Size(130, 50),
-                  maximumSize: const Size(130, 50),
-                ),
-                child: new Text("Cancel"),
-                onPressed: () {
-                  setState(() {
-                    _status = true;
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                  });
-                },
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFFAB47BC),
+                      onPrimary: Colors.white,
+                      shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0),
+                      ),
+                      elevation: 5,
+                      minimumSize: const Size(130, 50),
+                      maximumSize: const Size(130, 50),
+                    ),
+                    child: new Text("Cancel"),
+                    onPressed: () {
+                      setState(() {
+                        _status = true;
+                        FocusScope.of(context).requestFocus(new FocusNode());
+                      });
+                    },
 
-              )),
+                  )),
             ),
             flex: 2,
           ),

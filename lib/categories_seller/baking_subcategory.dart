@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/seller/SellerProfilePage.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
 import 'package:home_services_flutter/seller/addProduct.dart';
-import 'package:home_services_flutter/seller/consumerSignup.dart';
+import 'package:home_services_flutter/Consumer_Screens/consumerSignup.dart';
 import 'package:home_services_flutter/categories_seller/SellerCategories.dart';
 import 'package:home_services_flutter/seller/seller_portfolio.dart';
 

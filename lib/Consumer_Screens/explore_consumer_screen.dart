@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:home_services_flutter/Consumer_Screens/explore_consumer_screen.dart';
+import 'package:home_services_flutter/Consumer_Screens/Consumer_mainpage.dart';
 import 'package:home_services_flutter/categories_seller/SellerCategories.dart';
-import 'package:home_services_flutter/Consumer_Screens/consumerSignup.dart';
-import 'package:home_services_flutter/seller/sellerwelcome.dart';
 
-import '../../initialScreens/loginScreen.dart';
+import '../initialScreens/loginScreen.dart';
 
-class ContinueAsScreen extends StatefulWidget {
+class ExploreConsumer extends StatefulWidget {
   @override
-  State<ContinueAsScreen> createState() => _ContinueAsScreenState();
+  State<ExploreConsumer> createState() => _ExploreConsumerState();
 }
 
-class _ContinueAsScreenState extends State<ContinueAsScreen> {
+class _ExploreConsumerState extends State<ExploreConsumer> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,7 +38,7 @@ class _ContinueAsScreenState extends State<ContinueAsScreen> {
             title: Align(
               alignment: Alignment.center,
               child: Text(
-                "Continue  ",
+                "Welcome ",
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -58,7 +56,7 @@ class _ContinueAsScreenState extends State<ContinueAsScreen> {
                             ),
                             Align(
                               alignment: Alignment.center,
-                              child: Text('Continue as ',
+                              child: Text('Explore Consumer ',
                                   style: TextStyle(
                                       fontSize: 36,
                                       color: Colors.purple,
@@ -71,14 +69,14 @@ class _ContinueAsScreenState extends State<ContinueAsScreen> {
                               alignment: Alignment.center,
                               child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    elevation: 13,
+                                    elevation: 10,
                                     minimumSize: const Size(180, 50),
                                     maximumSize: const Size(180, 50),
                                     primary: Color(0xFFAB47BC),
                                     onPrimary: Colors.white,
                                     shape: new RoundedRectangleBorder(
                                       borderRadius:
-                                          new BorderRadius.circular(30.0),
+                                      new BorderRadius.circular(30.0),
                                     ),
                                   ),
                                   onPressed: () {
@@ -86,49 +84,10 @@ class _ContinueAsScreenState extends State<ContinueAsScreen> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                SellerWelcome()));
+                                                ConsumerMainPageScreen()));
                                   },
                                   child: const Text(
-                                    'Seller ',
-                                  )),
-                            ),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'Or',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.purple),
-                                )),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    elevation: 13,
-                                    minimumSize: const Size(180, 50),
-                                    maximumSize: const Size(180, 50),
-                                    primary: Color(0xFFAB47BC),
-                                    onPrimary: Colors.white,
-                                    shape: new RoundedRectangleBorder(
-                                      borderRadius:
-                                          new BorderRadius.circular(30.0),
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ExploreConsumer()));
-                                  },
-                                  child: const Text(
-                                    'Consumer ',
+                                    'Next ',
                                   )),
                             )
                           ]),
