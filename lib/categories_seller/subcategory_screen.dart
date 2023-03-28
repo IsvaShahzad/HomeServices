@@ -10,24 +10,24 @@ import '../seller/seller_portfolio.dart';
 
 
 class ProductModel {
-  final String name;
-  final double price;
-  final String image;
-  final String description;
+  final String productname;
+  final double productprice;
+  final String ImageURl;
+  final String productdescription;
 
   ProductModel({
-    required this.name,
-    required this.price,
-    required this.image,
-    required this.description,
+    required this.productname,
+    required this.productprice,
+    required this.ImageURl,
+    required this.productdescription,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
-      name: json['name'],
-      price: json['price'].toDouble(),
-      image: json['image'],
-      description: json['description'],
+      productname: json['name'],
+      productprice: json['price'],
+      ImageURl: json['Image URl'],
+      productdescription: json['description'],
     );
   }
 }
@@ -120,41 +120,87 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  onTap: () {
-                    if (index == 0) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  ProductsAddedScreen(added: {},)));
-                    }
 
-                    //check for queries of firestore to filter
-                    //   // } else if (index == 1) {
-                    //   //   Navigator.push(
-                    //   //       context,
-                    //   //       MaterialPageRoute(
-                    //   //           builder: (context) => LoginScreen()));
-                    //   // }
-                    // },
-                    // onTap: () async {
-                    //   final addedProductsSnapshot = await FirebaseFirestore.instance
-                    //       .collection('Category')
-                    //       .doc('Frozen')
-                    //       .collection('subcategories')
-                    //       .get();
-                    //   final addedProducts = addedProductsSnapshot.docs
-                    //       .map((doc) => ProductModel.fromJson(doc.data()))
-                    //       .toList();
-                    //
-                    //   Navigator.push(
-                    //       context,
-                    //       MaterialPageRoute(
-                    //           builder: (context) =>
-                    //               ProductsAddedScreen(added: {'Frozen': addedProducts})));
-                    // },
+                // onTap: () async {
+                //   final addedProductsSnapshot = await FirebaseFirestore.instance
+                //       .collection('Category')
+                //       .doc('subcategories')
+                //       .collection('subcategories')
+                //       .where('name', isEqualTo: 'Frozen')
+                //       .where('parentCategory', isEqualTo: 'Cooking')
+                //       .get();
+                //   final frozenSubcategory = addedProductsSnapshot.docs.first;
+                //   final productsSnapshot = await FirebaseFirestore.instance
+                //       .collection('Category')
+                //       .doc('subcategories')
+                //       .collection('subcategories')
+                //       .doc(frozenSubcategory.id)
+                //       .collection('addproducts')
+                //       .get();
+                //   final frozenProducts = productsSnapshot.docs
+                //       .map((doc) => ProductModel.fromJson(doc.data()))
+                //       .toList();
+                //   Navigator.push(
+                //       context,
+                //       MaterialPageRoute(
+                //           builder: (context) =>
+                //               ProductsAddedScreen(added: {
+                //                 'Frozen': frozenProducts
+                //               })
+                //       )
+                //   );
 
-                  });
+                  // onTap: () async {
+                  //
+                  //   final addedProductsSnapshot = await FirebaseFirestore.instance
+                  //       .collection('Category')
+                  //       .doc('subcategories')
+                  //       .collection('Category')
+                  //       .where('name', isEqualTo: 'Cooking')
+                  //       .where('subcategories', isEqualTo: 'Frozen')
+                  //
+                  //       .get();
+                  //   final addedProducts = addedProductsSnapshot.docs
+                  //       .map((doc) => ProductModel.fromJson(doc.data()))
+                  //       .toList();
+                  //   print(addedProducts); // Add this line to print the list of added products
+                  //
+                  //
+                  //   Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //           builder: (context) =>
+                  //               ProductsAddedScreen(added: {'Cooking': addedProducts})));
+                  // },
+
+                  onTap: () async {
+
+                    final addedProductsSnapshot = await FirebaseFirestore.instance
+                        .collection('addproducts')
+                        .where('product category', isEqualTo: 'Cooking')
+                        .where('product subcategory', isEqualTo: 'Frozen')
+                        .get();
+                    final addedProducts = addedProductsSnapshot.docs
+                        .map((doc) => ProductModel.fromJson(doc.data()))
+                        .toList();
+                    addedProducts.forEach((product) {
+                      print('Name: ${product.productname}');
+                      print('Price: ${product.productprice}');
+                      print('Image: ${product.ImageURl}');
+                      print('Description: ${product.productdescription}');
+                    });
+
+                    print(addedProducts); // Add this line to print the list of added products
+
+
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ProductsAddedScreen(added: {'Cooking': addedProducts})));
+                  },
+
+                );
               },
             )),
       ),

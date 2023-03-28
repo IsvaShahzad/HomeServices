@@ -337,6 +337,7 @@ class _AddProductState extends State<AddProduct> {
                               );
                             },
                           ),
+
                           SizedBox(
                             height: 20.h,
                           ),

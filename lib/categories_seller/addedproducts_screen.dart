@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
 
-enum Addedproducts { image, description, name, price }
+enum Addedproducts { image, description, name, price, ImageURL }
 
 class ProductsAddedScreen extends StatefulWidget {
   final Map<String, dynamic> added;
@@ -43,6 +43,8 @@ class _ProductsAddedScreenState extends State<ProductsAddedScreen> {
     final productPrice = widget.added?["product price"];
     final productName = widget.added?["product name"];
     final productDescription = widget.added?["product description"];
+    final ImageURL = widget.added?["Image URL"];
+
 
     return Container(
         decoration: BoxDecoration(
@@ -80,18 +82,23 @@ class _ProductsAddedScreenState extends State<ProductsAddedScreen> {
           body: Padding(
             padding: EdgeInsets.only(top: 30),
             child: GridView.builder(
-              itemCount: 1,
+              itemCount: widget.added != null ? widget.added.length : 0,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
               ),
               itemBuilder: (context, index) {
-                final addedproductss = widget.added?[index];
+                final addedproductss = widget.added?['Frozen'][index];
+                final ImageURL = addedproductss['image'];
+                final productName = addedproductss['name'];
+                final productPrice = addedproductss['price'];
+                final productDescription = addedproductss['description'];
+
                 return Card(
                   child: Column(
                     children: <Widget>[
-                      // Image.network(addedproductss["Image URl"]),
+                      Image.network(ImageURL),
                       Text(
-                        "${productName} - ${productPrice} - ${productDescription}",
+                        "$productName - $productPrice - $productDescription",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
@@ -100,6 +107,7 @@ class _ProductsAddedScreenState extends State<ProductsAddedScreen> {
                   ),
                 );
               },
+
             ),
           ),
         ));
