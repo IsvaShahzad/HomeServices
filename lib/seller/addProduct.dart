@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -8,8 +7,6 @@ import 'package:home_services_flutter/categories_seller/SellerCategories.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
-
-
 
 class AddProduct extends StatefulWidget {
   @override
@@ -22,8 +19,6 @@ class _AddProductState extends State<AddProduct> {
   ShowAlert() {
     return showDialog(
       context: context,
-
-
       builder: (ctx) => AlertDialog(
         title: Text("Product has been added! "),
         actions: <Widget>[
@@ -55,12 +50,38 @@ class _AddProductState extends State<AddProduct> {
   late String _productDescription;
   late double _productPrice;
   File? imageFile;
-  List<String> categoryOptions = [];
-  late String _selectedCategory='';
+  List<String> categoryOptions = [
+    'Cooking',
+    'Arts and Crafts',
+    'Knitting',
+    'Tailoring',
+    'Baking'
+  ];
+  List<String> subcategoryOptions = [
+    'Frozen',
+    'Home made',
+    'Western',
+    'Banner Making',
+    'Quilting',
+    'Canvas Painting',
+    'sweaters',
+    'Socks',
+    'scarfs',
+    'Coats',
+    'Pants',
+    'Shirt',
+    'Cakes',
+    'Brownies',
+    'Pizza',
+    'Cupcake',
+  ];
+
+  late String _selectedCategory = 'Cooking';
+  late String? _selectedSubCategory = 'Frozen';
 
   final TextEditingController ProductnameController = TextEditingController();
   final TextEditingController ProductDescriptionController =
-  TextEditingController();
+      TextEditingController();
   final TextEditingController ProductpriceController = TextEditingController();
 
   selectFile() async {
@@ -73,43 +94,29 @@ class _AddProductState extends State<AddProduct> {
       });
     }
   }
-  FirebaseStorage storage = FirebaseStorage.instance;
 
+  FirebaseStorage storage = FirebaseStorage.instance;
 
   @override
   Widget build(BuildContext context) {
-
     String filename = "";
 
-
     return Container(
-
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage(
-                  "assets/images/pastel.png"
-              ),
-              fit: BoxFit.cover
-          )
-      ),
+              image: AssetImage("assets/images/pastel.png"),
+              fit: BoxFit.cover)),
       child: Scaffold(
-
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             elevation: 13,
-
             shape: RoundedRectangleBorder(
-
-                borderRadius:  BorderRadius.only(
-
+                borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(12),
-
-                    bottomLeft: Radius.circular(12))
-
-            ),
-
+                    bottomLeft: Radius.circular(12))),
             leading: IconButton(
-              icon: Icon(Icons.arrow_back,
+              icon: Icon(
+                Icons.arrow_back,
                 color: Colors.white,
               ),
               onPressed: () {
@@ -120,7 +127,7 @@ class _AddProductState extends State<AddProduct> {
             title: Align(
               alignment: Alignment.center,
               child: Text(
-                'Add Product ➕',
+                'Add Product',
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -141,7 +148,6 @@ class _AddProductState extends State<AddProduct> {
                                   fontSize: 24,
                                   color: Colors.purple,
                                   fontWeight: FontWeight.bold)),
-
                           Padding(padding: EdgeInsets.only(top: 18)),
                           Text('Product name',
                               style: TextStyle(
@@ -152,10 +158,7 @@ class _AddProductState extends State<AddProduct> {
                             height: 5.h,
                           ),
                           TextFormField(
-
                             controller: ProductnameController,
-
-
                             decoration: InputDecoration(
                               hintText: 'Please enter product name',
                               filled: true,
@@ -163,17 +166,15 @@ class _AddProductState extends State<AddProduct> {
                               contentPadding: const EdgeInsets.symmetric(
                                   vertical: 15, horizontal: 10.0),
                               hintStyle:
-                              TextStyle(fontSize: 13, color: Colors.grey),
+                                  TextStyle(fontSize: 13, color: Colors.grey),
                               border: OutlineInputBorder(
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(4)),
+                                    BorderRadius.all(Radius.circular(4)),
                                 borderSide:
-                                BorderSide(width: 1, color: Colors.purple),
+                                    BorderSide(width: 1, color: Colors.purple),
                               ),
-
                             ),
                             textInputAction: TextInputAction.next,
-
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Please enter a product name';
@@ -204,16 +205,15 @@ class _AddProductState extends State<AddProduct> {
                               contentPadding: const EdgeInsets.symmetric(
                                   vertical: 15, horizontal: 10.0),
                               hintStyle:
-                              TextStyle(fontSize: 13, color: Colors.grey),
+                                  TextStyle(fontSize: 13, color: Colors.grey),
                               border: OutlineInputBorder(
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(4)),
+                                    BorderRadius.all(Radius.circular(4)),
                                 borderSide:
-                                BorderSide(width: 1, color: Colors.purple),
+                                    BorderSide(width: 1, color: Colors.purple),
                               ),
                             ),
                             textInputAction: TextInputAction.next,
-
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Please enter a product description';
@@ -243,16 +243,15 @@ class _AddProductState extends State<AddProduct> {
                               contentPadding: const EdgeInsets.symmetric(
                                   vertical: 15, horizontal: 10.0),
                               hintStyle:
-                              TextStyle(fontSize: 13, color: Colors.grey),
+                                  TextStyle(fontSize: 13, color: Colors.grey),
                               border: OutlineInputBorder(
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(4)),
+                                    BorderRadius.all(Radius.circular(4)),
                                 borderSide:
-                                BorderSide(width: 1, color: Colors.orange),
+                                    BorderSide(width: 1, color: Colors.orange),
                               ),
                             ),
                             textInputAction: TextInputAction.next,
-
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Please enter a product price';
@@ -260,7 +259,7 @@ class _AddProductState extends State<AddProduct> {
                               return null;
                             },
                             onSaved: (value) =>
-                            _productPrice = double.parse(value!),
+                                _productPrice = double.parse(value!),
                           ),
                           SizedBox(
                             height: 20.h,
@@ -272,174 +271,255 @@ class _AddProductState extends State<AddProduct> {
                                 color: Color(0xFF000000),
                                 fontWeight: FontWeight.bold),
                           ),
-
-                    StreamBuilder<QuerySnapshot>(
-                      stream: FirebaseFirestore.instance.collection('Category').snapshots(),
-                      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                        if (snapshot.hasError) {
-                          return Text('Error: ${snapshot.error}');
-                        }
-
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return CircularProgressIndicator();
-                        }
-
-
-                        snapshot.data?.docs.forEach((doc) {
-                          final categoryName = doc['name'];
-                          if (!categoryOptions.contains(categoryName)) {
-                            categoryOptions.add(categoryName);
-                          }
-                        });
-
-                        // Ensure that each category in categoryOptions list is unique
-                        Set<String> uniqueCategories = categoryOptions.toSet();
-                        categoryOptions = uniqueCategories.toList();
-
-                        // Set the initial value of _selectedCategory to the first category in the list
-                        if (_selectedCategory == null && categoryOptions.isNotEmpty) {
-                          _selectedCategory = categoryOptions[0];
-                        }
-
-                        return DropdownButtonFormField<String>(
-                          value: _selectedCategory,
-                          onChanged: (String? selectedCategory) {
-                            setState(() {
-                              _selectedCategory = selectedCategory!;
-                            });
-                          },
-                          items: categoryOptions.map((String category) {
-                            return DropdownMenuItem<String>(
-                              value: category,
-                              child: Text(category),
-                            );
-                          }).toList(),
-                          decoration: InputDecoration(
-                            labelText: 'Product Category',
-                            border: OutlineInputBorder(),
+                          SizedBox(
+                            height: 5.h,
                           ),
-                        );
-                      },
-                    ),
+                          StreamBuilder<QuerySnapshot>(
+                            stream: FirebaseFirestore.instance
+                                .collection('Category')
+                                .snapshots(),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<QuerySnapshot> snapshot) {
+                              if (snapshot.hasError) {
+                                return Text('Error: ${snapshot.error}');
+                              }
 
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return CircularProgressIndicator();
+                              }
 
+                              snapshot.data?.docs.forEach((doc) {
+                                final categoryName = doc['name'];
+                                if (!categoryOptions.contains(categoryName)) {
+                                  categoryOptions.add(categoryName);
+                                }
+                              });
 
+                              // Ensure that each category in categoryOptions list is unique
+                              categoryOptions =
+                                  categoryOptions.toSet().toList();
+
+                              // Set the initial value of _selectedCategory to the first category in the list
+                              if (_selectedCategory == null &&
+                                  categoryOptions.isNotEmpty) {
+                                _selectedCategory = categoryOptions[0];
+                              }
+
+                              return DropdownButtonFormField<String>(
+                                value: _selectedCategory,
+                                onChanged: (String? selectedCategory) {
+                                  setState(() {
+                                    _selectedCategory = selectedCategory!;
+                                    _selectedSubCategory = null;
+                                  });
+                                },
+                                items: categoryOptions.map((String category) {
+                                  return DropdownMenuItem<String>(
+                                    value: category,
+                                    child: Text(category),
+                                  );
+                                }).toList(),
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.white.withOpacity(0.1),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 15, horizontal: 10.0),
+                                  hintStyle: TextStyle(
+                                      fontSize: 13, color: Colors.grey),
+                                  border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(4)),
+                                    borderSide: BorderSide(
+                                        width: 1, color: Colors.orange),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
                           SizedBox(
                             height: 20.h,
                           ),
-
-                          Text('Product Image Sample',
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: Color(0xFF000000),
-                                  fontWeight: FontWeight.bold)),
+                          Text(
+                            'Product Subcategory',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Color(0xFF000000),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                           SizedBox(
-                            height: 10.h,
+                            height: 5.h,
                           ),
+                          StreamBuilder<QuerySnapshot>(
+                            stream: FirebaseFirestore.instance
+                                .collection('subcategories')
+                                .snapshots(),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<QuerySnapshot> snapshot) {
+                              if (snapshot.hasError) {
+                                return Text('Error: ${snapshot.error}');
+                              }
 
-                          Container(
-                            height: 160,
-                            width: 200,
-                            child: Column(
-                              children: [
-                                if (imageFile != null)
-                                  Container(
-                                    child: Image.file(
-                                      File(imageFile!.path),
-                                    ),
-                                  ),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        primary: Color(0xFFAB47BC),
-                                        onPrimary: Colors.white,
-                                        shape: new RoundedRectangleBorder(
-                                          borderRadius:
-                                          new BorderRadius.circular(30.0),
-                                        ),
-                                      ),
-                                      onPressed: selectFile,
-                                      child: const Text(
-                                        'Select file',
-                                      )),
-                                )
-                              ],
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                primary: Color(0xFFAB47BC),
-                                onPrimary: Colors.white,
-                                shape: new RoundedRectangleBorder(
-                                  borderRadius: new BorderRadius.circular(30.0),
-                                ),
-                                elevation: 3,
-                                minimumSize: const Size(180, 50),
-                                maximumSize: const Size(180, 50),
-                              ),
-                              child: Text('Add Product',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                  )),
-                              onPressed: () async {
-                                if (_formKey.currentState!.validate()) {
-                                  _formKey.currentState?.save();
-                                  ShowAlert();
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return CircularProgressIndicator();
+                              }
 
-                                  if(imageFile != null){
-                                    try {
-                                      final ref = FirebaseStorage.instance
-                                          .ref()
-                                          .child('images/$filename');
-                                      await ref.putFile(imageFile!);
-                                      final url = await ref.getDownloadURL();
-                                      // final randomId = Random().nextInt(100000).toString();
-                                      FirebaseFirestore.instance
-                                          .collection('addproducts')
-                                          .doc()
-                                          .set({
-                                        'product name': ProductnameController.text,
-                                        'product description': ProductDescriptionController.text,
-                                        'product price': ProductpriceController.text,
-                                        'Image URl': url,
-                                      });
-                                    } catch (e) {
-                                      print(e);
-                                    }
-                                  }else{
-                                    print("image not selected");
-                                  }
-                                  // print(storage);
+                              snapshot.data?.docs.forEach((doc) {
+                                final subCategoryName = doc['name'];
+                                if (!subcategoryOptions
+                                    .contains(subCategoryName)) {
+                                  subcategoryOptions.add(subCategoryName);
                                 }
+                              });
 
-                              },
-                            ),
+                              // Ensure that each subcategory in subcategoryOptions list is unique
+                              subcategoryOptions =
+                                  subcategoryOptions.toSet().toList();
+
+                              // Set the initial value of _selectedSubCategory to the first subcategory in the list
+                              if (_selectedSubCategory == null &&
+                                  subcategoryOptions.isNotEmpty) {
+                                _selectedSubCategory = subcategoryOptions[0];
+                              }
+
+                              return DropdownButtonFormField<String>(
+                                value: _selectedSubCategory,
+                                onChanged: (String? selectedSubCategory) {
+                                  setState(() {
+                                    _selectedSubCategory = selectedSubCategory!;
+                                  });
+                                },
+                                items: subcategoryOptions
+                                    .map((String subcategory) {
+                                  return DropdownMenuItem<String>(
+                                    value: subcategory,
+                                    child: Text(subcategory),
+                                  );
+                                }).toList(),
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.white.withOpacity(0.1),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 15,
+                                    horizontal: 10.0,
+                                  ),
+                                  hintStyle: TextStyle(
+                                      fontSize: 13, color: Colors.grey),
+                                  border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(4)),
+                                    borderSide: BorderSide(
+                                        width: 1, color: Colors.orange),
+                                  ),
+                                ),
+                              );
+                            },
                           ),
+                          SizedBox(
+                            height: 20.h,
+                          ),
+                          if (_selectedCategory != null) ...[
+                            Text('Product Image Sample',
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Color(0xFF000000),
+                                    fontWeight: FontWeight.bold)),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            Container(
+                              height: 160,
+                              width: 200,
+                              child: Column(
+                                children: [
+                                  if (imageFile != null)
+                                    Container(
+                                      child: Image.file(
+                                        File(imageFile!.path),
+                                      ),
+                                    ),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Color(0xFFAB47BC),
+                                          onPrimary: Colors.white,
+                                          shape: new RoundedRectangleBorder(
+                                            borderRadius:
+                                                new BorderRadius.circular(30.0),
+                                          ),
+                                        ),
+                                        onPressed: selectFile,
+                                        child: const Text(
+                                          'Select file',
+                                        )),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.center,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Color(0xFFAB47BC),
+                                  onPrimary: Colors.white,
+                                  shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(30.0),
+                                  ),
+                                  elevation: 3,
+                                  minimumSize: const Size(180, 50),
+                                  maximumSize: const Size(180, 50),
+                                ),
+                                child: Text('Add Product',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    )),
+                                onPressed: () async {
+                                  if (_formKey.currentState!.validate()) {
+                                    _formKey.currentState?.save();
+                                    ShowAlert();
 
-
+                                    if (imageFile != null) {
+                                      try {
+                                        final ref = FirebaseStorage.instance
+                                            .ref()
+                                            .child('images/$filename');
+                                        await ref.putFile(imageFile!);
+                                        final url = await ref.getDownloadURL();
+                                        // final randomId = Random().nextInt(100000).toString();
+                                        FirebaseFirestore.instance
+                                            .collection('addproducts')
+                                            .doc()
+                                            .set({
+                                          'product name':
+                                              ProductnameController.text,
+                                          'product description':
+                                              ProductDescriptionController.text,
+                                          'product price':
+                                              ProductpriceController.text,
+                                          'product category': _selectedCategory,
+                                          'product subcategory':
+                                              _selectedSubCategory,
+                                          'Image URl': url,
+                                        });
+                                      } catch (e) {
+                                        print(e);
+                                      }
+                                    } else {
+                                      print("image not selected");
+                                    }
+                                    // print(storage);
+                                  }
+                                },
+                              ),
+                            )
+                          ]
                         ]),
                   )))),
     );
-
   }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
