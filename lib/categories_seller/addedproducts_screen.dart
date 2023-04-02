@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
 
-enum Addedproducts { image, description, name, price, ImageURL }
+// enum Addedproducts { image, description, name, price, ImageURL }
 
 class ProductsAddedScreen extends StatefulWidget {
   final Map<String, dynamic> added;
@@ -34,17 +34,17 @@ class _ProductsAddedScreenState extends State<ProductsAddedScreen> {
     _streamCategory = _collectionRef.snapshots();
   }
 
-  //
   // String getAppbarTitle() => "Add products ${widget.added['product price']}";
   String getAppbarTitle() => "Add products";
 
   @override
   Widget build(BuildContext context) {
+    print(widget.added);
+
     final productPrice = widget.added?["product price"];
     final productName = widget.added?["product name"];
     final productDescription = widget.added?["product description"];
     final ImageURL = widget.added?["Image URL"];
-
 
     return Container(
         decoration: BoxDecoration(
@@ -53,63 +53,121 @@ class _ProductsAddedScreenState extends State<ProductsAddedScreen> {
           fit: BoxFit.cover,
         )),
         child: Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            elevation: 7,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(12),
-                    bottomLeft: Radius.circular(12))),
-            title: Align(
-              alignment: Alignment.center,
-              child: Text(
-                getAppbarTitle(),
-                style: TextStyle(color: Colors.white),
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              elevation: 7,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(12),
+                      bottomLeft: Radius.circular(12))),
+              title: Align(
+                alignment: Alignment.center,
+                child: Text(
+                  getAppbarTitle(),
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
+              actions: <Widget>[
+                IconButton(
+                    icon: Icon(
+                      Icons.logout,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()));
+                    }),
+              ],
             ),
-            actions: <Widget>[
-              IconButton(
-                  icon: Icon(
-                    Icons.logout,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()));
-                  }),
-            ],
-          ),
-          body: Padding(
-            padding: EdgeInsets.only(top: 30),
-            child: GridView.builder(
-              itemCount: widget.added != null ? widget.added.length : 0,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              ),
-              itemBuilder: (context, index) {
-                final addedproductss = widget.added?['Frozen'][index];
-                final ImageURL = addedproductss['image'];
-                final productName = addedproductss['name'];
-                final productPrice = addedproductss['price'];
-                final productDescription = addedproductss['description'];
+            body: Padding(
+              padding: EdgeInsets.only(top: 30),
+              child: widget.added != null &&
+                      widget.added['Frozen'] != null &&
+                      widget.added['Frozen'].isNotEmpty
+                  ? GridView.builder(
+                      itemCount: widget.added['Frozen'].length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 18.0,
+                        crossAxisSpacing: 10.0,
+                      ),
+                      itemBuilder: (context, index) {
+                        final addedproductss = widget.added['Frozen'][index];
 
-                return Card(
-                  child: Column(
-                    children: <Widget>[
-                      Image.network(ImageURL),
-                      Text(
-                        "$productName - $productPrice - $productDescription",
+                        final ImageURL = addedproductss.ImageURl;
+                        final productName = addedproductss.productname;
+                        final productPrice = addedproductss.productprice;
+                        final productDescription = addedproductss.productdescription;
+
+                        return Card(
+                          child: Column(
+                            children: <Widget>[
+                              Text(addedproductss.productprice),
+                              Text(addedproductss.productname),
+                              Text(addedproductss.productdescription),
+                              Image.network(ImageURL,
+                                fit: BoxFit.cover,
+                                height: 100.0,
+                              ),
+                              Text(
+                                "$productName - $productPrice - $productDescription",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    )
+                  : Center(
+                      child: Text(
+                        'No products found',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
+                          fontSize: 20.0,
                         ),
                       ),
-                    ],
-                  ),
-                );
-              },
+                    ),
+            )
 
-            ),
-          ),
-        ));
+            // body: Padding(
+            //   padding: EdgeInsets.only(top: 30),
+            //   child: GridView.builder(
+            //     // itemCount: widget.added != null ? widget.added.length : 0,
+            //     itemCount: widget.added != null && widget.added['Frozen'] != null
+            //         ? widget.added['Frozen'].length
+            //         : 0,
+            //
+            //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            //       crossAxisCount: 2,
+            //     ),
+            //     itemBuilder: (context, index) {
+            //       final addedproductss = widget.added?['Frozen'][index];
+            //
+            //       final ImageURL = addedproductss['image'];
+            //       final productName = addedproductss['name'];
+            //       final productPrice = addedproductss['price'];
+            //       final productDescription = addedproductss['description'];
+            //
+            //       return Card(
+            //         child: Column(
+            //           children: <Widget>[
+            //             Image.network(ImageURL),
+            //             Text(
+            //               "$productName - $productPrice - $productDescription",
+            //               style: TextStyle(
+            //                 fontWeight: FontWeight.bold,
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            //       );
+            //     },
+            //   ),
+            // ),
+            ));
   }
 }
