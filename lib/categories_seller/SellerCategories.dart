@@ -6,6 +6,7 @@ import 'package:home_services_flutter/seller/SellerProfilePage.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
 import 'package:home_services_flutter/seller/seller_portfolio.dart';
 import 'package:home_services_flutter/seller/sellerwelcome.dart';
+import '../Consumer_Screens/add_requirements_consumer.dart';
 import '../Consumer_Screens/consumerSignup.dart';
 import '../seller/addProduct.dart';
 
@@ -256,6 +257,27 @@ class _SellerHomePageState extends State<SellerHomePage> {
                   onTap: () {
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (context) => ProfilePage()));
+                  },
+                ),
+                Divider(),
+
+                ListTile(
+                  tileColor: Colors.white38,
+                  trailing: Icon(
+                    Icons.post_add,
+                    size: 18,
+                    color: Colors.purple,
+                  ),
+                  title: Text(
+                    "Show requirements/Postings",
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold),
+                  ),
+                  onTap: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AddRequirements()));
                   },
                 ),
                 Divider(),

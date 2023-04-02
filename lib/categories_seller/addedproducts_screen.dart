@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
 
 // enum Addedproducts { image, description, name, price, ImageURL }
@@ -102,24 +103,45 @@ class _ProductsAddedScreenState extends State<ProductsAddedScreen> {
                         final productDescription = addedproductss.productdescription;
 
                         return Card(
+                          elevation: 5,
+                          color:Colors.white70,// add some elevation to create a shadow effect
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0), // round the edges of the card
+                            side: BorderSide(width: 1, color: Colors.grey), // add a border around the card
+                          ),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text(addedproductss.productprice),
-                              Text(addedproductss.productname),
-                              Text(addedproductss.productdescription),
-                              Image.network(ImageURL,
-                                fit: BoxFit.cover,
-                                height: 100.0,
+                              Container(
+                                height: 100,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10),
+                                  ),
+                                  image: DecorationImage(
+                                    image: NetworkImage(addedproductss.ImageURl), // Use addedproductss.ImageURL instead of ImageURL
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                               ),
-                              Text(
-                                "$productName - $productPrice - $productDescription",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
+
+                              Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Text(
+                                  "Item: $productName\nRs. $productPrice\n$productDescription",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                  ),
                                 ),
                               ),
                             ],
                           ),
                         );
+
+
                       },
                     )
                   : Center(
@@ -133,41 +155,7 @@ class _ProductsAddedScreenState extends State<ProductsAddedScreen> {
                     ),
             )
 
-            // body: Padding(
-            //   padding: EdgeInsets.only(top: 30),
-            //   child: GridView.builder(
-            //     // itemCount: widget.added != null ? widget.added.length : 0,
-            //     itemCount: widget.added != null && widget.added['Frozen'] != null
-            //         ? widget.added['Frozen'].length
-            //         : 0,
-            //
-            //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            //       crossAxisCount: 2,
-            //     ),
-            //     itemBuilder: (context, index) {
-            //       final addedproductss = widget.added?['Frozen'][index];
-            //
-            //       final ImageURL = addedproductss['image'];
-            //       final productName = addedproductss['name'];
-            //       final productPrice = addedproductss['price'];
-            //       final productDescription = addedproductss['description'];
-            //
-            //       return Card(
-            //         child: Column(
-            //           children: <Widget>[
-            //             Image.network(ImageURL),
-            //             Text(
-            //               "$productName - $productPrice - $productDescription",
-            //               style: TextStyle(
-            //                 fontWeight: FontWeight.bold,
-            //               ),
-            //             ),
-            //           ],
-            //         ),
-            //       );
-            //     },
-            //   ),
-            // ),
+
             ));
   }
 }

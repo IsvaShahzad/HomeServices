@@ -51,6 +51,8 @@ dependencies:
   url_launcher: ^6.1.2
   dropdown_formfield: ^0.1.4
   flutter_colorpicker: ^1.0.3
+  intl: ^0.17.0
+
 
 
 

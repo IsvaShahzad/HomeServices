@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/Consumer_Screens/Consumer_Profile.dart';
+import 'package:home_services_flutter/Consumer_Screens/add_requirements_consumer.dart';
 import 'package:home_services_flutter/Consumer_Screens/cart_screen.dart';
 import 'package:home_services_flutter/Consumer_Screens/explore_consumer_screen.dart';
 import 'package:home_services_flutter/categories_seller/subcategory_screen.dart';
@@ -243,6 +244,26 @@ class _ConsumerMainPageScreenState extends State<ConsumerMainPageScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => ConsumerMainPageScreen()));
+                  },
+                ),
+                Divider(),
+                ListTile(
+                  tileColor: Colors.white38,
+                  trailing: Icon(
+                    Icons.post_add,
+                    size: 18,
+                    color: Colors.purple,
+                  ),
+                  title: Text(
+                    "Add requirements/Postings",
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold),
+                  ),
+                  onTap: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AddRequirements()));
                   },
                 ),
                 Divider(),

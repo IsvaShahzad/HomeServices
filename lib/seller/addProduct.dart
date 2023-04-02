@@ -491,7 +491,7 @@ class _AddProductState extends State<AddProduct> {
                                             .child('images/$filename');
                                         await ref.putFile(imageFile!);
                                         final url = await ref.getDownloadURL();
-                                        // final randomId = Random().nextInt(100000).toString();
+
                                         FirebaseFirestore.instance
                                             .collection('addproducts')
                                             .doc()
