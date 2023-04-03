@@ -85,17 +85,17 @@ class _ProductsAddedScreenState extends State<ProductsAddedScreen> {
             body: Padding(
               padding: EdgeInsets.only(top: 30),
               child: widget.added != null &&
-                      widget.added['Frozen'] != null &&
-                      widget.added['Frozen'].isNotEmpty
+                      widget.added['Frozenlist'] != null &&
+                      widget.added['Frozenlist'].isNotEmpty
                   ? GridView.builder(
-                      itemCount: widget.added['Frozen'].length,
+                      itemCount: widget.added['Frozenlist'].length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         mainAxisSpacing: 18.0,
                         crossAxisSpacing: 10.0,
                       ),
                       itemBuilder: (context, index) {
-                        final addedproductss = widget.added['Frozen'][index];
+                        final addedproductss = widget.added['Frozenlist'][index];
 
                         final ImageURL = addedproductss.ImageURl;
                         final productName = addedproductss.productname;

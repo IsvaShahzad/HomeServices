@@ -60,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const Align(
                         alignment: Alignment.topLeft,
                         child: Text(
-                          'Home Services Login to Continue ',
+                          'Crafty Hands ✨ \nLogin to Continue',
                           style: TextStyle(
                             fontSize: 25,
                             color: Color(0xFFAB47BC),

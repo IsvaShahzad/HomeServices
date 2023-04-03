@@ -6,14 +6,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/Consumer_Screens/Consumer_mainpage.dart';
-import 'package:home_services_flutter/Consumer_Screens/postings_displayed.dart';
+import 'package:home_services_flutter/Consumer_Screens/added_postings.dart';
 import 'package:home_services_flutter/categories_seller/SellerCategories.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:intl/intl.dart';
 
-class ProductModel {
+class RequirementModel {
   final String productname;
   final String productprice;
   final String ImageURl;
@@ -23,7 +23,7 @@ class ProductModel {
   final String mobile;
   final String deliverydate;
 
-  ProductModel({
+  RequirementModel({
     required this.productname,
     required this.productprice,
     required this.ImageURl,
@@ -34,8 +34,8 @@ class ProductModel {
     required this.deliverydate,
   });
 
-  factory ProductModel.fromJson(Map<String, dynamic> json) {
-    return ProductModel(
+  factory RequirementModel.fromJson(Map<String, dynamic> json) {
+    return RequirementModel(
       productname: json['product name'],
       productprice: json['product price'],
       ImageURl: json['Image URl'],
@@ -76,18 +76,20 @@ class _AddRequirementsState extends State<AddRequirements> {
               child: Text('OK',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
               onPressed: () async {
-                final addedProductsSnapshot = await FirebaseFirestore.instance
+                final addedReqSnapshot = await FirebaseFirestore.instance
                     .collection('AddRequirements')
                     .get();
-                final addedrequirements = addedProductsSnapshot.docs
-                    .map((doc) => ProductModel.fromJson(doc.data()))
+                final addedrequirements = addedReqSnapshot.docs
+                    .map((doc) => RequirementModel.fromJson(doc.data()))
                     .toList();
-                addedrequirements.forEach((product) {
-                  print('Name: ${product.productname}');
-                  print('Price: ${product.productprice}');
-                  print('Image: ${product.ImageURl}');
-                  print('Description: ${product.productdescription}');
-                  print('Quantity: ${product.productquantity}');
+                addedrequirements.forEach((require) {
+                  print('Name: ${require.productname}');
+                  print('Price: ${require.productprice}');
+                  // print('Image: ${product.ImageURl}');
+                  print('Description: ${require.productdescription}');
+                  print('Quantity: ${require.productquantity}');
+                  print('Email: ${require.email}');
+
                 });
 
                 print(addedrequirements);
@@ -98,7 +100,7 @@ class _AddRequirementsState extends State<AddRequirements> {
                     MaterialPageRoute(
                         builder: (context) => PostingDisplayedScreen(
                                 addedposting: {
-                                  'AddRequirements': addedrequirements
+                                  'All Requirements': addedrequirements
                                 })));
               },
             ),
@@ -185,7 +187,7 @@ class _AddRequirementsState extends State<AddRequirements> {
               title: Align(
                 alignment: Alignment.center,
                 child: Text(
-                  'Add Requirements',
+                  'Add Requirements ✨',
                   style: TextStyle(color: Colors.white),
                 ),
               ),
@@ -199,7 +201,7 @@ class _AddRequirementsState extends State<AddRequirements> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             SizedBox(
-                              height: 45.h,
+                              height: 35.h,
                             ),
                             Text('Add and post requirements your way!',
                                 style: TextStyle(
@@ -505,10 +507,9 @@ class _AddRequirementsState extends State<AddRequirements> {
                               onSaved: (value) => _productName = value!,
                             ),
                             SizedBox(
-                              height: 15.h,
+                              height: 25.h,
                             ),
 
-                            // if (_selectedCategory != null) ...[
                             Text('Product Sample Image',
                                 style: TextStyle(
                                     fontSize: 15,

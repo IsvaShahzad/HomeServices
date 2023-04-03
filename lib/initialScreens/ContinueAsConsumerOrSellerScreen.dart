@@ -120,6 +120,7 @@ class _ContinueAsScreenState extends State<ContinueAsScreen> {
                                           new BorderRadius.circular(30.0),
                                     ),
                                   ),
+
                                   onPressed: () {
                                     Navigator.pushReplacement(
                                         context,

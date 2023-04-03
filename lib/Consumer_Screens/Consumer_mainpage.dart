@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/Consumer_Screens/Consumer_Profile.dart';
 import 'package:home_services_flutter/Consumer_Screens/add_requirements_consumer.dart';
+import 'package:home_services_flutter/Consumer_Screens/added_postings.dart';
 import 'package:home_services_flutter/Consumer_Screens/cart_screen.dart';
 import 'package:home_services_flutter/Consumer_Screens/explore_consumer_screen.dart';
 import 'package:home_services_flutter/categories_seller/subcategory_screen.dart';
@@ -302,6 +303,36 @@ class _ConsumerMainPageScreenState extends State<ConsumerMainPageScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => signupSeller()));
+                  },
+                ),
+                Divider(),
+                ListTile(
+                  tileColor: Colors.white38,
+                  trailing: Icon(
+                    Icons.calendar_view_month_rounded,
+                    size: 18,
+                    color: Colors.purple,
+                  ),
+                  title: Text(
+                    "View posted requirements",
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold),
+                  ),
+                  onTap: () async {
+                    final addedReqSnapshot = await FirebaseFirestore.instance
+                        .collection('AddRequirements')
+                        .get();
+                    final addedrequirements = addedReqSnapshot.docs
+                        .map((doc) => RequirementModel.fromJson(doc.data()))
+                        .toList();
+
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PostingDisplayedScreen(
+                                addedposting: {
+                                  'All Requirements': addedrequirements
+                                })));
                   },
                 ),
                 Divider(),

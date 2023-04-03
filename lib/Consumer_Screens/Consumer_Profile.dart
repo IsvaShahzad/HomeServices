@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:home_services_flutter/Consumer_Screens/Consumer_mainpage.dart';
 import 'package:home_services_flutter/categories_seller/SellerCategories.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -92,7 +93,7 @@ class MapScreenState extends State<ConsumerProfile>
               ),
               onPressed: () {
                 Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => SellerHomePage()));
+                    MaterialPageRoute(builder: (context) => ConsumerMainPageScreen()));
               },
             ),
             title: Text(

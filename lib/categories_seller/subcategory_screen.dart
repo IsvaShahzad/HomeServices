@@ -148,7 +148,7 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => ProductsAddedScreen(
-                                  added: {'Frozen': addedProducts})));
+                                  added: {'Frozenlist': addedProducts})));
                     }
 
                     if (index == 1) {
