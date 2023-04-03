@@ -162,7 +162,7 @@ class _PostingDisplayedScreenState extends State<PostingDisplayedScreen> {
                                               child: Align(
                                                 alignment: Alignment.center,
                                                 child: Text(
-                                                  "Detail: $productDescription \nQuantity: $productQuantity \nAmount: $productPrice ",
+                                                  "Detail: $productDescription \nQuantity: $productQuantity \nAmount: $productPrice \nDelivery on: $Deliverydate ",
                                                   style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 13,

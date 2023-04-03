@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:home_services_flutter/Consumer_Screens/added_postings.dart';
 import 'package:home_services_flutter/categories_seller/subcategory_screen.dart';
 import 'package:home_services_flutter/seller/SellerProfilePage.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
@@ -273,11 +274,21 @@ class _SellerHomePageState extends State<SellerHomePage> {
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold),
                   ),
-                  onTap: () {
-                    Navigator.pushReplacement(
+                  onTap: () async {
+                    final addedReqSnapshot = await FirebaseFirestore.instance
+                        .collection('AddRequirements')
+                        .get();
+                    final addedrequirements = addedReqSnapshot.docs
+                        .map((doc) => RequirementModel.fromJson(doc.data()))
+                        .toList();
+
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => AddRequirements()));
+                            builder: (context) => PostingDisplayedScreen(
+                                addedposting: {
+                                  'All Requirements': addedrequirements
+                                })));
                   },
                 ),
                 Divider(),
