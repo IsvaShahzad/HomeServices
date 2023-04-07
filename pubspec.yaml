@@ -52,6 +52,8 @@ dependencies:
   dropdown_formfield: ^0.1.4
   flutter_colorpicker: ^1.0.3
   intl: ^0.17.0
+  uuid: ^3.0.7
+
 
 
 

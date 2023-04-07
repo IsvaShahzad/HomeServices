@@ -331,8 +331,8 @@ class _ConsumerMainPageScreenState extends State<ConsumerMainPageScreen> {
                         MaterialPageRoute(
                             builder: (context) => PostingDisplayedScreen(
                                 addedposting: {
-                                  'All Requirements': addedrequirements
-                                })));
+                                  'All Requirements': addedrequirements,
+                                }, id: 'id',)));
                   },
                 ),
                 Divider(),

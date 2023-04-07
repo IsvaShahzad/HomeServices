@@ -288,7 +288,7 @@ class _SellerHomePageState extends State<SellerHomePage> {
                             builder: (context) => PostingDisplayedScreen(
                                 addedposting: {
                                   'All Requirements': addedrequirements
-                                })));
+                                }, id: 'id',)));
                   },
                 ),
                 Divider(),

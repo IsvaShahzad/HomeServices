@@ -12,8 +12,11 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
+
 
 class RequirementModel {
+  final String id;
   final String productname;
   final String productprice;
   final String ImageURl;
@@ -24,6 +27,7 @@ class RequirementModel {
   final String deliverydate;
 
   RequirementModel({
+    required this.id,
     required this.productname,
     required this.productprice,
     required this.ImageURl,
@@ -34,8 +38,13 @@ class RequirementModel {
     required this.deliverydate,
   });
 
+
+
+
   factory RequirementModel.fromJson(Map<String, dynamic> json) {
     return RequirementModel(
+      id: Uuid().v4(),
+
       productname: json['product name'],
       productprice: json['product price'],
       ImageURl: json['Image URl'],
@@ -55,6 +64,7 @@ class AddRequirements extends StatefulWidget {
 
 class _AddRequirementsState extends State<AddRequirements> {
   final _formKey = GlobalKey<FormState>();
+
 
   ShowAlert() {
     return showDialog(
@@ -85,11 +95,11 @@ class _AddRequirementsState extends State<AddRequirements> {
                 addedrequirements.forEach((require) {
                   print('Name: ${require.productname}');
                   print('Price: ${require.productprice}');
+                  print('ID: ${require.id}');
                   // print('Image: ${product.ImageURl}');
                   print('Description: ${require.productdescription}');
                   print('Quantity: ${require.productquantity}');
                   print('Email: ${require.email}');
-
                 });
 
                 print(addedrequirements);
@@ -100,13 +110,21 @@ class _AddRequirementsState extends State<AddRequirements> {
                     MaterialPageRoute(
                         builder: (context) => PostingDisplayedScreen(
                                 addedposting: {
-                                  'All Requirements': addedrequirements
-                                })));
+                                  'All Requirements': addedrequirements,
+                                }, id: 'idlist',)));
+
+
+
               },
             ),
           )
-        ],
+
+
+
+    ],
+
       ),
+
     );
   }
 
@@ -117,6 +135,8 @@ class _AddRequirementsState extends State<AddRequirements> {
   late String _Deliverydate;
   late int _mobile;
   late String _email;
+  late String id;
+
 
   File? imageFile;
 
@@ -129,6 +149,8 @@ class _AddRequirementsState extends State<AddRequirements> {
   final TextEditingController dateinput = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController Mobilecontroller = TextEditingController();
+  final TextEditingController IDcontroller = TextEditingController();
+
 
   CollectionReference _collectionRef =
       FirebaseFirestore.instance.collection('AddRequirements');
@@ -192,424 +214,443 @@ class _AddRequirementsState extends State<AddRequirements> {
                 ),
               ),
             ),
-            body: Form(
-                key: _formKey,
+            body: Padding(
+                padding: const EdgeInsets.only(top: 22),
                 child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                    child: SingleChildScrollView(
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            SizedBox(
-                              height: 35.h,
-                            ),
-                            Text('Add and post requirements your way!',
-                                style: TextStyle(
-                                    fontSize: 24,
-                                    color: Colors.purple,
-                                    fontWeight: FontWeight.bold)),
-                            Padding(padding: EdgeInsets.only(top: 18)),
-                            Text('Product name',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: Color(0xFF000000),
-                                    fontWeight: FontWeight.bold)),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            TextFormField(
-                              controller: ProductnameController,
-                              decoration: InputDecoration(
-                                hintText: 'Please enter product name',
-                                filled: true,
-                                fillColor: Colors.white.withOpacity(0.1),
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 15, horizontal: 10.0),
-                                hintStyle:
-                                    TextStyle(fontSize: 13, color: Colors.grey),
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(4)),
-                                  borderSide: BorderSide(
-                                      width: 1, color: Colors.purple),
-                                ),
-                              ),
-                              textInputAction: TextInputAction.next,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a product name';
-                                }
-                                return null;
-                              },
-                              onSaved: (value) => _productName = value!,
-                            ),
-                            SizedBox(
-                              height: 20.h,
-                            ),
-                            Text(
-                              'Product Description/Customization',
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: Color(0xFF000000),
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            TextFormField(
-                              controller: ProductDescriptionController,
-                              decoration: InputDecoration(
-                                hintText: 'Please enter product description',
-                                filled: true,
-                                fillColor: Colors.white.withOpacity(0.1),
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 15, horizontal: 10.0),
-                                hintStyle:
-                                    TextStyle(fontSize: 13, color: Colors.grey),
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(4)),
-                                  borderSide: BorderSide(
-                                      width: 1, color: Colors.purple),
-                                ),
-                              ),
-                              textInputAction: TextInputAction.next,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a product description';
-                                }
-                                return null;
-                              },
-                              onSaved: (value) => _productDescription = value!,
-                            ),
-                            SizedBox(
-                              height: 20.h,
-                            ),
-                            Text('Product Price',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: Color(0xFF000000),
-                                    fontWeight: FontWeight.bold)),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            TextFormField(
-                              controller: ProductpriceController,
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                hintText: 'Please enter product price',
-                                filled: true,
-                                fillColor: Colors.white.withOpacity(0.1),
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 15, horizontal: 10.0),
-                                hintStyle:
-                                    TextStyle(fontSize: 13, color: Colors.grey),
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(4)),
-                                  borderSide: BorderSide(
-                                      width: 1, color: Colors.orange),
-                                ),
-                              ),
-                              textInputAction: TextInputAction.next,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a product price';
-                                }
-                                return null;
-                              },
-                              onSaved: (value) =>
-                                  _productPrice = double.parse(value!),
-                            ),
-                            SizedBox(
-                              height: 20.h,
-                            ),
-                            Text(
-                              'Product Quantity',
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: Color(0xFF000000),
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            TextFormField(
-                              controller: ProductQuantityController,
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                hintText: 'Please enter product quantity',
-                                filled: true,
-                                fillColor: Colors.white.withOpacity(0.1),
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 15, horizontal: 10.0),
-                                hintStyle:
-                                    TextStyle(fontSize: 13, color: Colors.grey),
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(4)),
-                                  borderSide: BorderSide(
-                                      width: 1, color: Colors.purple),
-                                ),
-                              ),
-                              textInputAction: TextInputAction.next,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a product name';
-                                }
-                                return null;
-                              },
-                              onSaved: (value) => _productName = value!,
-                            ),
+                    padding: const EdgeInsets.symmetric(horizontal: 13.0),
 
-                            SizedBox(
-                              height: 20.h,
+                    child: Container(
+                        height: 660,
+                        decoration: BoxDecoration(
+                            color: Colors.white30,
+                            border: Border.all(
+                              color: Color(0xFFAB47BC),
+                              width: 1.5,
                             ),
-                            Text(' Delivery Date',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Color(0xFF000000),
-                                  fontWeight: FontWeight.bold,
-                                )),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 0),
-                              child: TextFormField(
-                                controller: dateinput,
-                                decoration: InputDecoration(
-                                  //icon of text field
-                                  labelText: "",
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(20),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
+                        child: Form(
+                          key: _formKey,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 18.0),
+                        child: SingleChildScrollView(
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                Text('Add and post requirements your way!',
+                                    style: TextStyle(
+                                        fontSize: 24,
+                                        color: Colors.purple,
+                                        fontWeight: FontWeight.bold)),
+                                Padding(padding: EdgeInsets.only(top: 18)),
+                                Text('Product name',
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        color: Color(0xFF000000),
+                                        fontWeight: FontWeight.bold)),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                TextFormField(
+                                  controller: ProductnameController,
+                                  decoration: InputDecoration(
+                                    hintText: 'Please enter product name',
+                                    filled: true,
+                                    fillColor: Colors.white.withOpacity(0.1),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 15, horizontal: 10.0),
+                                    hintStyle: TextStyle(
+                                        fontSize: 13, color: Colors.grey),
+                                    border: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(4)),
+                                      borderSide: BorderSide(
+                                          width: 1, color: Colors.purple),
                                     ),
                                   ),
-                                  icon: Icon(Icons.calendar_today),
-                                  hintText: ' Enter date ',
+                                  textInputAction: TextInputAction.next,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Please enter a product name';
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (value) => _productName = value!,
                                 ),
-                                readOnly: true,
-                                onTap: () async {
-                                  DateTime? pickedDate = await showDatePicker(
-                                      context: context,
-                                      initialDate: DateTime.now(),
-                                      firstDate: DateTime(1950),
-                                      //DateTime.now() - not to allow to choose before today.
-                                      lastDate: DateTime(2100));
-
-                                  if (pickedDate != null) {
-                                    print(
-                                        pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-                                    String formattedDate =
-                                        DateFormat('dd-MM-yyyy')
-                                            .format(pickedDate);
-                                    print(
-                                        formattedDate); //formatted date output using intl package =>  2021-03-16
-                                    setState(() {
-                                      dateinput.text =
-                                          formattedDate; //set output date to TextField value.
-                                    });
-                                  } else {}
-                                },
-                                style: TextStyle(
-                                    fontSize: 13,
-                                    color: Color(0xFF000000),
-                                    fontWeight: FontWeight.w600),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please Enter Some Text ';
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-
-                            SizedBox(
-                              height: 15.h,
-                            ),
-                            Text(
-                              'Contact Email',
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: Color(0xFF000000),
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            TextFormField(
-                              controller: emailController,
-                              keyboardType: TextInputType.emailAddress,
-                              decoration: InputDecoration(
-                                hintText: 'Please your email',
-                                filled: true,
-                                fillColor: Colors.white.withOpacity(0.1),
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 15, horizontal: 10.0),
-                                hintStyle:
-                                    TextStyle(fontSize: 13, color: Colors.grey),
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(4)),
-                                  borderSide: BorderSide(
-                                      width: 1, color: Colors.purple),
+                                SizedBox(
+                                  height: 20.h,
                                 ),
-                              ),
-                              textInputAction: TextInputAction.next,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter email';
-                                }
-                                return null;
-                              },
-                              onSaved: (value) => _productName = value!,
-                            ),
-
-                            SizedBox(
-                              height: 20.h,
-                            ),
-                            Text(
-                              'Mobile Number',
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: Color(0xFF000000),
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            TextFormField(
-                              controller: Mobilecontroller,
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                hintText: 'Please enter mobile number',
-                                filled: true,
-                                fillColor: Colors.white.withOpacity(0.1),
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 15, horizontal: 10.0),
-                                hintStyle:
-                                    TextStyle(fontSize: 13, color: Colors.grey),
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(4)),
-                                  borderSide: BorderSide(
-                                      width: 1, color: Colors.purple),
+                                Text(
+                                  'Product Description/Customization',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: Color(0xFF000000),
+                                      fontWeight: FontWeight.bold),
                                 ),
-                              ),
-                              textInputAction: TextInputAction.next,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter mobile number';
-                                }
-                                return null;
-                              },
-                              onSaved: (value) => _productName = value!,
-                            ),
-                            SizedBox(
-                              height: 25.h,
-                            ),
-
-                            Text('Product Sample Image',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: Color(0xFF000000),
-                                    fontWeight: FontWeight.bold)),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            Container(
-                              height: 160,
-                              width: 200,
-                              child: Column(
-                                children: [
-                                  if (imageFile != null)
-                                    Container(
-                                      child: Image.file(
-                                        File(imageFile!.path),
-                                      ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                TextFormField(
+                                  controller: ProductDescriptionController,
+                                  decoration: InputDecoration(
+                                    hintText:
+                                        'Please enter product description',
+                                    filled: true,
+                                    fillColor: Colors.white.withOpacity(0.1),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 15, horizontal: 10.0),
+                                    hintStyle: TextStyle(
+                                        fontSize: 13, color: Colors.grey),
+                                    border: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(4)),
+                                      borderSide: BorderSide(
+                                          width: 1, color: Colors.purple),
                                     ),
-                                  Align(
-                                    alignment: Alignment.centerRight,
-                                    child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          primary: Color(0xFFAB47BC),
-                                          onPrimary: Colors.white,
-                                          shape: new RoundedRectangleBorder(
-                                            borderRadius:
-                                                new BorderRadius.circular(30.0),
+                                  ),
+                                  textInputAction: TextInputAction.next,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Please enter a product description';
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (value) =>
+                                      _productDescription = value!,
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                Text('Product Price',
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        color: Color(0xFF000000),
+                                        fontWeight: FontWeight.bold)),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                TextFormField(
+                                  controller: ProductpriceController,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    hintText: 'Please enter product price',
+                                    filled: true,
+                                    fillColor: Colors.white.withOpacity(0.1),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 15, horizontal: 10.0),
+                                    hintStyle: TextStyle(
+                                        fontSize: 13, color: Colors.grey),
+                                    border: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(4)),
+                                      borderSide: BorderSide(
+                                          width: 1, color: Colors.orange),
+                                    ),
+                                  ),
+                                  textInputAction: TextInputAction.next,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Please enter a product price';
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (value) =>
+                                      _productPrice = double.parse(value!),
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                Text(
+                                  'Product Quantity',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: Color(0xFF000000),
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                TextFormField(
+                                  controller: ProductQuantityController,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    hintText: 'Please enter product quantity',
+                                    filled: true,
+                                    fillColor: Colors.white.withOpacity(0.1),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 15, horizontal: 10.0),
+                                    hintStyle: TextStyle(
+                                        fontSize: 13, color: Colors.grey),
+                                    border: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(4)),
+                                      borderSide: BorderSide(
+                                          width: 1, color: Colors.purple),
+                                    ),
+                                  ),
+                                  textInputAction: TextInputAction.next,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Please enter a product name';
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (value) => _productName = value!,
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                Text(' Delivery Date',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Color(0xFF000000),
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 0),
+                                  child: TextFormField(
+                                    controller: dateinput,
+                                    decoration: InputDecoration(
+                                      //icon of text field
+                                      labelText: "",
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(20),
+                                        ),
+                                      ),
+                                      icon: Icon(Icons.calendar_today),
+                                      hintText: ' Enter date ',
+                                    ),
+                                    readOnly: true,
+                                    onTap: () async {
+                                      DateTime? pickedDate = await showDatePicker(
+                                          context: context,
+                                          initialDate: DateTime.now(),
+                                          firstDate: DateTime(1950),
+                                          //DateTime.now() - not to allow to choose before today.
+                                          lastDate: DateTime(2100));
+
+                                      if (pickedDate != null) {
+                                        print(
+                                            pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                                        String formattedDate =
+                                            DateFormat('dd-MM-yyyy')
+                                                .format(pickedDate);
+                                        print(
+                                            formattedDate); //formatted date output using intl package =>  2021-03-16
+                                        setState(() {
+                                          dateinput.text =
+                                              formattedDate; //set output date to TextField value.
+                                        });
+                                      } else {}
+                                    },
+                                    style: TextStyle(
+                                        fontSize: 13,
+                                        color: Color(0xFF000000),
+                                        fontWeight: FontWeight.w600),
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please Enter Some Text ';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 15.h,
+                                ),
+                                Text(
+                                  'Contact Email',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: Color(0xFF000000),
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                TextFormField(
+                                  controller: emailController,
+                                  keyboardType: TextInputType.emailAddress,
+                                  decoration: InputDecoration(
+                                    hintText: 'Please your email',
+                                    filled: true,
+                                    fillColor: Colors.white.withOpacity(0.1),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 15, horizontal: 10.0),
+                                    hintStyle: TextStyle(
+                                        fontSize: 13, color: Colors.grey),
+                                    border: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(4)),
+                                      borderSide: BorderSide(
+                                          width: 1, color: Colors.purple),
+                                    ),
+                                  ),
+                                  textInputAction: TextInputAction.next,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Please enter email';
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (value) => _productName = value!,
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                Text(
+                                  'Mobile Number',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: Color(0xFF000000),
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                TextFormField(
+                                  controller: Mobilecontroller,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    hintText: 'Please enter mobile number',
+                                    filled: true,
+                                    fillColor: Colors.white.withOpacity(0.1),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 15, horizontal: 10.0),
+                                    hintStyle: TextStyle(
+                                        fontSize: 13, color: Colors.grey),
+                                    border: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(4)),
+                                      borderSide: BorderSide(
+                                          width: 1, color: Colors.purple),
+                                    ),
+                                  ),
+                                  textInputAction: TextInputAction.next,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Please enter mobile number';
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (value) => _productName = value!,
+                                ),
+                                SizedBox(
+                                  height: 25.h,
+                                ),
+                                Text('Product Sample Image',
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        color: Color(0xFF000000),
+                                        fontWeight: FontWeight.bold)),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                Container(
+                                  height: 160,
+                                  width: 200,
+                                  child: Column(
+                                    children: [
+                                      if (imageFile != null)
+                                        Container(
+                                          child: Image.file(
+                                            File(imageFile!.path),
                                           ),
                                         ),
-                                        onPressed: selectFile,
-                                        child: const Text(
-                                          'Select file',
-                                        )),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary: Color(0xFFAB47BC),
-                                  onPrimary: Colors.white,
-                                  shape: new RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(30.0),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              primary: Color(0xFFAB47BC),
+                                              onPrimary: Colors.white,
+                                              shape: new RoundedRectangleBorder(
+                                                borderRadius:
+                                                    new BorderRadius.circular(
+                                                        30.0),
+                                              ),
+                                            ),
+                                            onPressed: selectFile,
+                                            child: const Text(
+                                              'Select file',
+                                            )),
+                                      )
+                                    ],
                                   ),
-                                  elevation: 3,
-                                  minimumSize: const Size(180, 50),
-                                  maximumSize: const Size(180, 50),
                                 ),
-                                child: Text('Post Requirement',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                    )),
-                                onPressed: () async {
-                                  if (_formKey.currentState!.validate()) {
-                                    _formKey.currentState?.save();
-                                    ShowAlert();
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Color(0xFFAB47BC),
+                                      onPrimary: Colors.white,
+                                      shape: new RoundedRectangleBorder(
+                                        borderRadius:
+                                            new BorderRadius.circular(30.0),
+                                      ),
+                                      elevation: 3,
+                                      minimumSize: const Size(180, 50),
+                                      maximumSize: const Size(180, 50),
+                                    ),
+                                    child: Text('Post Requirement',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18,
+                                        )),
+                                    onPressed: () async {
+                                      if (_formKey.currentState!.validate()) {
+                                        _formKey.currentState?.save();
+                                        ShowAlert();
 
-                                    if (imageFile != null) {
-                                      try {
-                                        final ref = FirebaseStorage.instance
-                                            .ref()
-                                            .child('images/$filename');
-                                        await ref.putFile(imageFile!);
-                                        final url = await ref.getDownloadURL();
+                                        if (imageFile != null) {
+                                          try {
+                                            final ref = FirebaseStorage.instance
+                                                .ref()
+                                                .child('images/$filename');
+                                            await ref.putFile(imageFile!);
+                                            final url =
+                                                await ref.getDownloadURL();
 
-                                        FirebaseFirestore.instance
-                                            .collection('AddRequirements')
-                                            .doc()
-                                            .set({
-                                          'product name':
-                                              ProductnameController.text,
-                                          'product description':
-                                              ProductDescriptionController.text,
-                                          'product price':
-                                              ProductpriceController.text,
-                                          'product quantity':
-                                              ProductQuantityController.text,
-                                          'Delivery Date': dateinput.text,
-                                          'Contact email': emailController.text,
-                                          'Mobile Number':
-                                              Mobilecontroller.text,
-                                          'Image URl': url,
-                                        });
-                                      } catch (e) {
-                                        print(e);
+                                            FirebaseFirestore.instance
+                                                .collection('AddRequirements')
+                                                .doc()
+                                                .set({
+                                              'product name':
+                                                  ProductnameController.text,
+                                              'product description':
+                                                  ProductDescriptionController
+                                                      .text,
+                                              'product price':
+                                                  ProductpriceController.text,
+                                              'product quantity':
+                                                  ProductQuantityController
+                                                      .text,
+                                              'Delivery Date': dateinput.text,
+                                              'Contact email':
+                                                  emailController.text,
+                                              'ID': IDcontroller.text,
+                                              'Mobile Number':
+                                                  Mobilecontroller.text,
+                                              'Image URl': url,
+                                            });
+                                          } catch (e) {
+                                            print(e);
+                                          }
+                                        } else {
+                                          print("image not selected");
+                                        }
+                                        // print(storage);
                                       }
-                                    } else {
-                                      print("image not selected");
-                                    }
-                                    // print(storage);
-                                  }
-                                },
-                              ),
-                            )
-                          ]),
-                    )))));
+                                    },
+                                  ),
+                                )
+                              ]),
+                        ))))))));
   }
 }

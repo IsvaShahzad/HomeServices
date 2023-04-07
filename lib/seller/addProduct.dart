@@ -132,395 +132,423 @@ class _AddProductState extends State<AddProduct> {
               ),
             ),
           ),
-          body: Form(
-              key: _formKey,
-              child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                  child: SingleChildScrollView(
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          SizedBox(
-                            height: 45.h,
-                          ),
-                          Text('Add a new product to your inventory!',
-                              style: TextStyle(
-                                  fontSize: 24,
-                                  color: Colors.purple,
-                                  fontWeight: FontWeight.bold)),
-                          Padding(padding: EdgeInsets.only(top: 18)),
-                          Text('Product name',
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: Color(0xFF000000),
-                                  fontWeight: FontWeight.bold)),
-                          SizedBox(
-                            height: 5.h,
-                          ),
-                          TextFormField(
-                            controller: ProductnameController,
-                            decoration: InputDecoration(
-                              hintText: 'Please enter product name',
-                              filled: true,
-                              fillColor: Colors.white.withOpacity(0.1),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 15, horizontal: 10.0),
-                              hintStyle:
-                                  TextStyle(fontSize: 13, color: Colors.grey),
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(4)),
-                                borderSide:
-                                    BorderSide(width: 1, color: Colors.purple),
-                              ),
-                            ),
-                            textInputAction: TextInputAction.next,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter a product name';
-                              }
-                              return null;
-                            },
-                            onSaved: (value) => _productName = value!,
-                          ),
-                          SizedBox(
-                            height: 20.h,
-                          ),
-                          Text(
-                            'Product Description',
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Color(0xFF000000),
-                                fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            height: 5.h,
-                          ),
-                          TextFormField(
-                            controller: ProductDescriptionController,
-                            decoration: InputDecoration(
-                              hintText: 'Please enter product description',
-                              filled: true,
-                              fillColor: Colors.white.withOpacity(0.1),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 15, horizontal: 10.0),
-                              hintStyle:
-                                  TextStyle(fontSize: 13, color: Colors.grey),
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(4)),
-                                borderSide:
-                                    BorderSide(width: 1, color: Colors.purple),
-                              ),
-                            ),
-                            textInputAction: TextInputAction.next,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter a product description';
-                              }
-                              return null;
-                            },
-                            onSaved: (value) => _productDescription = value!,
-                          ),
-                          SizedBox(
-                            height: 20.h,
-                          ),
-                          Text('Product Price',
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: Color(0xFF000000),
-                                  fontWeight: FontWeight.bold)),
-                          SizedBox(
-                            height: 5.h,
-                          ),
-                          TextFormField(
-                            controller: ProductpriceController,
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              hintText: 'Please enter product price',
-                              filled: true,
-                              fillColor: Colors.white.withOpacity(0.1),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 15, horizontal: 10.0),
-                              hintStyle:
-                                  TextStyle(fontSize: 13, color: Colors.grey),
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(4)),
-                                borderSide:
-                                    BorderSide(width: 1, color: Colors.orange),
-                              ),
-                            ),
-                            textInputAction: TextInputAction.next,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter a product price';
-                              }
-                              return null;
-                            },
-                            onSaved: (value) =>
-                                _productPrice = double.parse(value!),
-                          ),
-                          SizedBox(
-                            height: 20.h,
-                          ),
-                          Text(
-                            'Product Category',
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Color(0xFF000000),
-                                fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            height: 5.h,
-                          ),
-                          StreamBuilder<QuerySnapshot>(
-                            stream: FirebaseFirestore.instance
-                                .collection('Category')
-                                .snapshots(),
-                            builder: (BuildContext context,
-                                AsyncSnapshot<QuerySnapshot> snapshot) {
-                              if (snapshot.hasError) {
-                                return Text('Error: ${snapshot.error}');
-                              }
+          body: Padding(
+            padding: const EdgeInsets.only(top: 25),
 
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return CircularProgressIndicator();
-                              }
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
 
-                              snapshot.data?.docs.forEach((doc) {
-                                final categoryName = doc['name'];
-                                if (!categoryOptions.contains(categoryName)) {
-                                  categoryOptions.add(categoryName);
-                                }
-                              });
-
-                              // Ensure that each category in categoryOptions list is unique
-                              categoryOptions =
-                                  categoryOptions.toSet().toList();
-
-                              // Set the initial value of _selectedCategory to the first category in the list
-                              if (_selectedCategory == null &&
-                                  categoryOptions.isNotEmpty) {
-                                _selectedCategory = categoryOptions[0];
-                              }
-
-                              return DropdownButtonFormField<String>(
-                                value: _selectedCategory,
-                                onChanged: (String? selectedCategory) {
-                                  setState(() {
-                                    _selectedCategory = selectedCategory!;
-                                    _selectedSubCategory = null;
-                                  });
-                                },
-                                items: categoryOptions.map((String category) {
-                                  return DropdownMenuItem<String>(
-                                    value: category,
-                                    child: Text(category),
-                                  );
-                                }).toList(),
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.white.withOpacity(0.1),
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 15, horizontal: 10.0),
-                                  hintStyle: TextStyle(
-                                      fontSize: 13, color: Colors.grey),
-                                  border: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(4)),
-                                    borderSide: BorderSide(
-                                        width: 1, color: Colors.orange),
-                                  ),
+              child: Container(
+                height: 637,
+                decoration: BoxDecoration(
+                    color: Colors.white30,
+                    border: Border.all(
+                      color: Color(0xFFAB47BC),
+                      width: 1.5,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                child: Form(
+                    key: _formKey,
+                    child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                        child: SingleChildScrollView(
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                SizedBox(
+                                  height: 25.h,
                                 ),
-                              );
-                            },
-                          ),
-
-                          SizedBox(
-                            height: 20.h,
-                          ),
-                          Text(
-                            'Product Subcategory',
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Color(0xFF000000),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 5.h,
-                          ),
-                          StreamBuilder<QuerySnapshot>(
-                            stream: FirebaseFirestore.instance
-                                .collection('subcategories')
-                                .snapshots(),
-                            builder: (BuildContext context,
-                                AsyncSnapshot<QuerySnapshot> snapshot) {
-                              if (snapshot.hasError) {
-                                return Text('Error: ${snapshot.error}');
-                              }
-
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return CircularProgressIndicator();
-                              }
-
-                              snapshot.data?.docs.forEach((doc) {
-                                final subCategoryName = doc['name'];
-                                if (!subcategoryOptions
-                                    .contains(subCategoryName)) {
-                                  subcategoryOptions.add(subCategoryName);
-                                }
-                              });
-
-                              // Ensure that each subcategory in subcategoryOptions list is unique
-                              subcategoryOptions =
-                                  subcategoryOptions.toSet().toList();
-
-                              // Set the initial value of _selectedSubCategory to the first subcategory in the list
-                              if (_selectedSubCategory == null &&
-                                  subcategoryOptions.isNotEmpty) {
-                                _selectedSubCategory = subcategoryOptions[0];
-                              }
-
-                              return DropdownButtonFormField<String>(
-                                value: _selectedSubCategory,
-                                onChanged: (String? selectedSubCategory) {
-                                  setState(() {
-                                    _selectedSubCategory = selectedSubCategory!;
-                                  });
-                                },
-                                items: subcategoryOptions
-                                    .map((String subcategory) {
-                                  return DropdownMenuItem<String>(
-                                    value: subcategory,
-                                    child: Text(subcategory),
-                                  );
-                                }).toList(),
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.white.withOpacity(0.1),
-                                  contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 15,
-                                    horizontal: 10.0,
-                                  ),
-                                  hintStyle: TextStyle(
-                                      fontSize: 13, color: Colors.grey),
-                                  border: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(4)),
-                                    borderSide: BorderSide(
-                                        width: 1, color: Colors.orange),
-                                  ),
+                                Text('Add a new product to your inventory!',
+                                    style: TextStyle(
+                                        fontSize: 24,
+                                        color: Colors.purple,
+                                        fontWeight: FontWeight.bold)),
+                                Padding(padding: EdgeInsets.only(top: 18)),
+                                Text('Product name',
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        color: Color(0xFF000000),
+                                        fontWeight: FontWeight.bold)),
+                                SizedBox(
+                                  height: 5.h,
                                 ),
-                              );
-                            },
-                          ),
-                          SizedBox(
-                            height: 20.h,
-                          ),
-                          if (_selectedCategory != null) ...[
-                            Text('Product Image Sample',
-                                style: TextStyle(
+                                TextFormField(
+                                  controller: ProductnameController,
+                                  decoration: InputDecoration(
+                                    hintText: 'Please enter product name',
+                                    filled: true,
+                                    fillColor: Colors.white.withOpacity(0.1),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 15, horizontal: 10.0),
+                                    hintStyle: TextStyle(
+                                        fontSize: 13, color: Colors.grey),
+                                    border: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(4)),
+                                      borderSide: BorderSide(
+                                          width: 1, color: Colors.purple),
+                                    ),
+                                  ),
+                                  textInputAction: TextInputAction.next,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Please enter a product name';
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (value) => _productName = value!,
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                Text(
+                                  'Product Description',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: Color(0xFF000000),
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                TextFormField(
+                                  controller: ProductDescriptionController,
+                                  decoration: InputDecoration(
+                                    hintText: 'Please enter product description',
+                                    filled: true,
+                                    fillColor: Colors.white.withOpacity(0.1),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 15, horizontal: 10.0),
+                                    hintStyle: TextStyle(
+                                        fontSize: 13, color: Colors.grey),
+                                    border: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(4)),
+                                      borderSide: BorderSide(
+                                          width: 1, color: Colors.purple),
+                                    ),
+                                  ),
+                                  textInputAction: TextInputAction.next,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Please enter a product description';
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (value) =>
+                                      _productDescription = value!,
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                Text('Product Price',
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        color: Color(0xFF000000),
+                                        fontWeight: FontWeight.bold)),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                TextFormField(
+                                  controller: ProductpriceController,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    hintText: 'Please enter product price',
+                                    filled: true,
+                                    fillColor: Colors.white.withOpacity(0.1),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 15, horizontal: 10.0),
+                                    hintStyle: TextStyle(
+                                        fontSize: 13, color: Colors.grey),
+                                    border: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(4)),
+                                      borderSide: BorderSide(
+                                          width: 1, color: Colors.orange),
+                                    ),
+                                  ),
+                                  textInputAction: TextInputAction.next,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Please enter a product price';
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (value) =>
+                                      _productPrice = double.parse(value!),
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                Text(
+                                  'Product Category',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: Color(0xFF000000),
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                StreamBuilder<QuerySnapshot>(
+                                  stream: FirebaseFirestore.instance
+                                      .collection('Category')
+                                      .snapshots(),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                                    if (snapshot.hasError) {
+                                      return Text('Error: ${snapshot.error}');
+                                    }
+
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return CircularProgressIndicator();
+                                    }
+
+                                    snapshot.data?.docs.forEach((doc) {
+                                      final categoryName = doc['name'];
+                                      if (!categoryOptions
+                                          .contains(categoryName)) {
+                                        categoryOptions.add(categoryName);
+                                      }
+                                    });
+
+                                    // Ensure that each category in categoryOptions list is unique
+                                    categoryOptions =
+                                        categoryOptions.toSet().toList();
+
+                                    // Set the initial value of _selectedCategory to the first category in the list
+                                    if (_selectedCategory == null &&
+                                        categoryOptions.isNotEmpty) {
+                                      _selectedCategory = categoryOptions[0];
+                                    }
+
+                                    return DropdownButtonFormField<String>(
+                                      value: _selectedCategory,
+                                      onChanged: (String? selectedCategory) {
+                                        setState(() {
+                                          _selectedCategory = selectedCategory!;
+                                          _selectedSubCategory = null;
+                                        });
+                                      },
+                                      items:
+                                          categoryOptions.map((String category) {
+                                        return DropdownMenuItem<String>(
+                                          value: category,
+                                          child: Text(category),
+                                        );
+                                      }).toList(),
+                                      decoration: InputDecoration(
+                                        filled: true,
+                                        fillColor: Colors.white.withOpacity(0.1),
+                                        contentPadding:
+                                            const EdgeInsets.symmetric(
+                                                vertical: 15, horizontal: 10.0),
+                                        hintStyle: TextStyle(
+                                            fontSize: 13, color: Colors.grey),
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(4)),
+                                          borderSide: BorderSide(
+                                              width: 1, color: Colors.orange),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                Text(
+                                  'Product Subcategory',
+                                  style: TextStyle(
                                     fontSize: 15,
                                     color: Color(0xFF000000),
-                                    fontWeight: FontWeight.bold)),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            Container(
-                              height: 160,
-                              width: 200,
-                              child: Column(
-                                children: [
-                                  if (imageFile != null)
-                                    Container(
-                                      child: Image.file(
-                                        File(imageFile!.path),
-                                      ),
-                                    ),
-                                  Align(
-                                    alignment: Alignment.centerRight,
-                                    child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          primary: Color(0xFFAB47BC),
-                                          onPrimary: Colors.white,
-                                          shape: new RoundedRectangleBorder(
-                                            borderRadius:
-                                                new BorderRadius.circular(30.0),
-                                          ),
-                                        ),
-                                        onPressed: selectFile,
-                                        child: const Text(
-                                          'Select file',
-                                        )),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary: Color(0xFFAB47BC),
-                                  onPrimary: Colors.white,
-                                  shape: new RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(30.0),
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  elevation: 3,
-                                  minimumSize: const Size(180, 50),
-                                  maximumSize: const Size(180, 50),
                                 ),
-                                child: Text('Add Product',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                    )),
-                                onPressed: () async {
-                                  if (_formKey.currentState!.validate()) {
-                                    _formKey.currentState?.save();
-                                    ShowAlert();
-
-                                    if (imageFile != null) {
-                                      try {
-                                        final ref = FirebaseStorage.instance
-                                            .ref()
-                                            .child('images/$filename');
-                                        await ref.putFile(imageFile!);
-                                        final url = await ref.getDownloadURL();
-
-                                        FirebaseFirestore.instance
-                                            .collection('addproducts')
-                                            .doc()
-                                            .set({
-                                          'product name':
-                                              ProductnameController.text,
-                                          'product description':
-                                              ProductDescriptionController.text,
-                                          'product price':
-                                              ProductpriceController.text,
-                                          'product category': _selectedCategory,
-                                          'product subcategory':
-                                              _selectedSubCategory,
-                                          'Image URl': url,
-                                        });
-                                      } catch (e) {
-                                        print(e);
-                                      }
-                                    } else {
-                                      print("image not selected");
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                StreamBuilder<QuerySnapshot>(
+                                  stream: FirebaseFirestore.instance
+                                      .collection('subcategories')
+                                      .snapshots(),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                                    if (snapshot.hasError) {
+                                      return Text('Error: ${snapshot.error}');
                                     }
-                                    // print(storage);
-                                  }
-                                },
-                              ),
-                            )
-                          ]
-                        ]),
-                  )))),
+
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return CircularProgressIndicator();
+                                    }
+
+                                    snapshot.data?.docs.forEach((doc) {
+                                      final subCategoryName = doc['name'];
+                                      if (!subcategoryOptions
+                                          .contains(subCategoryName)) {
+                                        subcategoryOptions.add(subCategoryName);
+                                      }
+                                    });
+
+                                    // Ensure that each subcategory in subcategoryOptions list is unique
+                                    subcategoryOptions =
+                                        subcategoryOptions.toSet().toList();
+
+                                    // Set the initial value of _selectedSubCategory to the first subcategory in the list
+                                    if (_selectedSubCategory == null &&
+                                        subcategoryOptions.isNotEmpty) {
+                                      _selectedSubCategory =
+                                          subcategoryOptions[0];
+                                    }
+
+                                    return DropdownButtonFormField<String>(
+                                      value: _selectedSubCategory,
+                                      onChanged: (String? selectedSubCategory) {
+                                        setState(() {
+                                          _selectedSubCategory =
+                                              selectedSubCategory!;
+                                        });
+                                      },
+                                      items: subcategoryOptions
+                                          .map((String subcategory) {
+                                        return DropdownMenuItem<String>(
+                                          value: subcategory,
+                                          child: Text(subcategory),
+                                        );
+                                      }).toList(),
+                                      decoration: InputDecoration(
+                                        filled: true,
+                                        fillColor: Colors.white.withOpacity(0.1),
+                                        contentPadding:
+                                            const EdgeInsets.symmetric(
+                                          vertical: 15,
+                                          horizontal: 10.0,
+                                        ),
+                                        hintStyle: TextStyle(
+                                            fontSize: 13, color: Colors.grey),
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(4)),
+                                          borderSide: BorderSide(
+                                              width: 1, color: Colors.orange),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                if (_selectedCategory != null) ...[
+                                  Text('Product Image Sample',
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: Color(0xFF000000),
+                                          fontWeight: FontWeight.bold)),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  Container(
+                                    height: 160,
+                                    width: 200,
+                                    child: Column(
+                                      children: [
+                                        if (imageFile != null)
+                                          Container(
+                                            child: Image.file(
+                                              File(imageFile!.path),
+                                            ),
+                                          ),
+                                        Align(
+                                          alignment: Alignment.centerRight,
+                                          child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                primary: Color(0xFFAB47BC),
+                                                onPrimary: Colors.white,
+                                                shape: new RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      new BorderRadius.circular(
+                                                          30.0),
+                                                ),
+                                              ),
+                                              onPressed: selectFile,
+                                              child: const Text(
+                                                'Select file',
+                                              )),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Color(0xFFAB47BC),
+                                        onPrimary: Colors.white,
+                                        shape: new RoundedRectangleBorder(
+                                          borderRadius:
+                                              new BorderRadius.circular(30.0),
+                                        ),
+                                        elevation: 3,
+                                        minimumSize: const Size(180, 50),
+                                        maximumSize: const Size(180, 50),
+                                      ),
+                                      child: Text('Add Product',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18,
+                                          )),
+                                      onPressed: () async {
+                                        if (_formKey.currentState!.validate()) {
+                                          _formKey.currentState?.save();
+                                          ShowAlert();
+
+                                          if (imageFile != null) {
+                                            try {
+                                              final ref = FirebaseStorage.instance
+                                                  .ref()
+                                                  .child('images/$filename');
+                                              await ref.putFile(imageFile!);
+                                              final url =
+                                                  await ref.getDownloadURL();
+
+                                              FirebaseFirestore.instance
+                                                  .collection('addproducts')
+                                                  .doc()
+                                                  .set({
+                                                'product name':
+                                                    ProductnameController.text,
+                                                'product description':
+                                                    ProductDescriptionController
+                                                        .text,
+                                                'product price':
+                                                    ProductpriceController.text,
+                                                'product category':
+                                                    _selectedCategory,
+                                                'product subcategory':
+                                                    _selectedSubCategory,
+                                                'Image URl': url,
+                                              });
+                                            } catch (e) {
+                                              print(e);
+                                            }
+                                          } else {
+                                            print("image not selected");
+                                          }
+                                          // print(storage);
+                                        }
+                                      },
+                                    ),
+                                  )
+                                ]
+                              ]),
+                        ))),
+              ),
+            ),
+          )),
     );
   }
 }

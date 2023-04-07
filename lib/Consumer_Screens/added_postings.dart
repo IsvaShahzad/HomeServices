@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:uuid/uuid.dart';
 
 class PostingDisplayedScreen extends StatefulWidget {
   final Map<String, dynamic> addedposting;
+  final String id;
 
-  PostingDisplayedScreen({required this.addedposting});
+
+  PostingDisplayedScreen({required this.addedposting, required this.id});
 
   @override
   _PostingDisplayedScreenState createState() => _PostingDisplayedScreenState();
@@ -34,6 +37,13 @@ class _PostingDisplayedScreenState extends State<PostingDisplayedScreen> {
     _streamCategory = _collectionRef.snapshots();
   }
 
+  Future<void> removeRequirement(dynamic addedp) async {
+    setState(() {
+      widget.addedposting['All Requirements']
+          .removeWhere((id) => id == addedp);
+    });
+  }
+
   String getAppbarTitle() => "Added Postings ✨ ";
 
   @override
@@ -48,6 +58,9 @@ class _PostingDisplayedScreenState extends State<PostingDisplayedScreen> {
     final ContactEmail = widget.addedposting?["Contact email"];
     final Mobilenumber = widget.addedposting?["Mobile Number"];
     // final ImageURL = widget.addedposting?["Image URL"];
+    String documentId;
+
+
 
     return Container(
         decoration: BoxDecoration(
@@ -125,139 +138,182 @@ class _PostingDisplayedScreenState extends State<PostingDisplayedScreen> {
                                       color: Colors
                                           .grey), // add a border around the card
                                 ),
-
-                                child: ClipRRect(
-
-                                  borderRadius: BorderRadius.circular(10.0),
-
-                                  child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-
-                                        Padding(
-                                          padding: EdgeInsets.all(13),
-                                          child: Align(
-                                            alignment: Alignment.center,
-
-                                            child: Text(
-                                              "  • $productName •",
-
-
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-
-                                                decoration:
-                                                    TextDecoration.underline,
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-
-                                        Expanded(
-                                          child: ClipRRect(
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(horizontal: 6),
-                                              child: Align(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  "Detail: $productDescription \nQuantity: $productQuantity \nAmount: $productPrice \nDelivery on: $Deliverydate ",
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 13,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(horizontal: 19),
-
-                                          child: Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: GestureDetector(
-                                              onTap: () async {
-                                                final url = 'tel:$Mobilenumber';
-                                                if (await canLaunch(url)) {
-                                                  await launch(url);
-                                                } else {
-                                                  throw 'Could not launch $url';
-                                                }
-                                              },
-
-                                              child: Padding(
-                                                padding: EdgeInsets.symmetric(horizontal: 1),
-                                                child: Row(
-                                                  children:[
-                                                Icon(Icons.phone, color: Colors.black, size: 16,),
-                                                    SizedBox(width: 8),
-
-                                                Text(
-                                                  "$Mobilenumber",
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 13,
-                                                    color: Colors.blue,
-
-                                                    decoration:
-                                                        TextDecoration.underline,
-
-                                                  ),
-                                                ),
-                                              ]),
-                                            ),
-                                          ),
-                                        ),
-                            ),
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 18),
-                                          child: Row(
-                                            children: [
-                                              Icon(
-                                                Icons.email,
-                                                color: Color(0xFF006400),
-                                                size: 20,
-                                              ),
-                                              SizedBox(width: 6),
-                                              Expanded(
-                                                child: GestureDetector(
-                                                  onTap: () async {
-                                                    final Uri params = Uri(
-                                                      scheme: 'mailto',
-                                                      path: '$ContactEmail',
-                                                    );
-                                                    Uri emailUri = Uri.parse(
-                                                        params.toString());
-                                                    if (await canLaunch(
-                                                        emailUri.toString())) {
-                                                      await launch(
-                                                          emailUri.toString());
-                                                    } else {
-                                                      throw 'Could not launch $emailUri';
-                                                    }
+                                child: Stack(children: [
+                                  Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    child: IconButton(
+                                      icon: Icon(Icons.delete,
+                                          color: Color(0xFF8b0000)),
+                                      onPressed: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: Text("Delete Product?"),
+                                              content: Text(
+                                                  "Are you sure you want to delete this product?"),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  child: Text("CANCEL"),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
                                                   },
+                                                ),
+                                                TextButton(
+                                                  child: Text("DELETE"),
+                                                  onPressed: () async {
+                                                    removeRequirement(addedp);
+
+                                                    // TODO: Implement delete product functionality
+                                                    CollectionReference _collectionRef =
+                                                    FirebaseFirestore.instance.collection('AddRequirements');
+//call id from previous screen
+                                                    await _collectionRef.doc(widget.id).delete(); // use widget.id to access the id passed from the previous screen
+                                                    // print('Document deleted successfully!');                                                    print('Document deleted successfully!');
+
+
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: EdgeInsets.all(13),
+                                            child: Align(
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                "  • $productName •",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                  fontSize: 14,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: ClipRRect(
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 6),
+                                                child: Align(
+                                                  alignment: Alignment.center,
                                                   child: Text(
-                                                    '$ContactEmail',
+                                                    "Detail: $productDescription \nQuantity: $productQuantity \nAmount: $productPrice \nDelivery on: $Deliverydate ",
                                                     style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       fontSize: 13,
-                                                      color: Colors.blue,
-                                                      decoration: TextDecoration
-                                                          .underline,
                                                     ),
                                                   ),
                                                 ),
                                               ),
-                                            ],
+                                            ),
                                           ),
-                                        ),
-
-                                      ]),
-                                ));
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 19),
+                                            child: Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: GestureDetector(
+                                                onTap: () async {
+                                                  final url =
+                                                      'tel:$Mobilenumber';
+                                                  if (await canLaunch(url)) {
+                                                    await launch(url);
+                                                  } else {
+                                                    throw 'Could not launch $url';
+                                                  }
+                                                },
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 1),
+                                                  child: Row(children: [
+                                                    Icon(
+                                                      Icons.phone,
+                                                      color: Colors.black,
+                                                      size: 16,
+                                                    ),
+                                                    SizedBox(width: 8),
+                                                    Text(
+                                                      "$Mobilenumber",
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 13,
+                                                        color: Colors.blue,
+                                                        decoration:
+                                                            TextDecoration
+                                                                .underline,
+                                                      ),
+                                                    ),
+                                                  ]),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 18),
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.email,
+                                                  color: Color(0xFF006400),
+                                                  size: 20,
+                                                ),
+                                                SizedBox(width: 6),
+                                                Expanded(
+                                                  child: GestureDetector(
+                                                    onTap: () async {
+                                                      final Uri params = Uri(
+                                                        scheme: 'mailto',
+                                                        path: '$ContactEmail',
+                                                      );
+                                                      Uri emailUri = Uri.parse(
+                                                          params.toString());
+                                                      if (await canLaunch(
+                                                          emailUri
+                                                              .toString())) {
+                                                        await launch(emailUri
+                                                            .toString());
+                                                      } else {
+                                                        throw 'Could not launch $emailUri';
+                                                      }
+                                                    },
+                                                    child: Text(
+                                                      '$ContactEmail',
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 13,
+                                                        color: Colors.blue,
+                                                        decoration:
+                                                            TextDecoration
+                                                                .underline,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ]),
+                                  )
+                                ]));
                           },
                         ),
                       ),
