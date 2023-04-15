@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/initialScreens/splash_screen.dart';
+import 'Consumer_Screens/add_requirements_consumer.dart';
 import 'provider/Services.dart';
 import 'allServices/services_detail.dart';
 import 'package:provider/provider.dart';
@@ -26,10 +27,19 @@ class MyApp extends StatelessWidget {
       designSize: const Size(360, 804),
       minTextAdapt: true,
       builder: (BuildContext context, Widget? child) {
-        return ChangeNotifierProvider(
-          create: (context) => Service(),
+        final requirementModel = RequirementModel(id: '',
+            productname: '',
+            productprice: '',
+            ImageURl: '',
+            productdescription: '',
+            productquantity: '',
+            email: '',
+            mobile: '',
+            deliverydate: ''
+        );
+        return ChangeNotifierProvider.value(
+          value: requirementModel,
           child: MaterialApp(
-
             theme: ThemeData(
               scaffoldBackgroundColor: const Color(0xFFFFFFFF),
               primarySwatch: Colors.purple,

@@ -53,6 +53,8 @@ dependencies:
   flutter_colorpicker: ^1.0.3
   intl: ^0.17.0
   uuid: ^3.0.7
+  cached_network_image: ^3.2.3
+
 
 
 

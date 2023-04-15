@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:home_services_flutter/categories_seller/SellerCategories.dart';
+import 'package:home_services_flutter/seller/SellerMainPage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -127,7 +127,7 @@ class _AddProductState extends State<AddProduct> {
             title: Align(
               alignment: Alignment.center,
               child: Text(
-                'Add Product',
+                'Add Product✨',
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -508,9 +508,11 @@ class _AddProductState extends State<AddProduct> {
 
                                           if (imageFile != null) {
                                             try {
+                                              final timestamp = DateTime.now().millisecondsSinceEpoch;
                                               final ref = FirebaseStorage.instance
                                                   .ref()
-                                                  .child('images/$filename');
+                                                  .child('images/${timestamp}_$filename');
+
                                               await ref.putFile(imageFile!);
                                               final url =
                                                   await ref.getDownloadURL();

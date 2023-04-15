@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:home_services_flutter/subcategories_products_added/Homemade_screen.dart';
-import 'package:home_services_flutter/categories_seller/addedproducts_screen.dart';
+import 'package:home_services_flutter/categories_seller/displayaddedproducts.dart';
 
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
 

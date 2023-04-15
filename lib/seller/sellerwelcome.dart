@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:home_services_flutter/categories_seller/SellerCategories.dart';
+import 'package:home_services_flutter/seller/SellerMainPage.dart';
 import 'package:home_services_flutter/initialScreens/ContinueAsConsumerOrSellerScreen.dart';
 
 import '../initialScreens/loginScreen.dart';

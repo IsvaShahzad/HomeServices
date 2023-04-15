@@ -7,9 +7,10 @@ import 'package:home_services_flutter/seller/SellerProfilePage.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
 import 'package:home_services_flutter/seller/seller_portfolio.dart';
 import 'package:home_services_flutter/seller/sellerwelcome.dart';
+import 'package:home_services_flutter/seller/show_postings_seller.dart';
 import '../Consumer_Screens/add_requirements_consumer.dart';
 import '../Consumer_Screens/consumerSignup.dart';
-import '../seller/addProduct.dart';
+import 'addProduct.dart';
 
 class SellerHomePage extends StatefulWidget {
   @override
@@ -96,65 +97,71 @@ class _SellerHomePageState extends State<SellerHomePage> {
                     final data = docs[i].data();
                     return Column(
                       children: [
-                        ListTile(
-                          tileColor: Colors.white24,
+                        Container(
+                    decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black12),
+                    borderRadius: BorderRadius.circular(10),
+                    ),
+                          child: ListTile(
+                            tileColor: Colors.white24,
 
-                          trailing: Icon(
-                            Icons.arrow_forward,
-                            size: 20,
-                            color: Colors.black,
-                          ),
-                          leading: data['name'] == "Tailoring"
-                              ? Image(
-                                  image:
-                                      AssetImage('assets/images/tailoring.png'),
-                                  width: 80.0,
-                                  height: 70.0,
-                                )
-                              : data['name'] == "Knitting"
-                                  ? Image(
-                                      image: AssetImage(
-                                          'assets/images/knittingpic.png'),
-                                      width: 80.0,
-                                      height: 70.0,
-                                    )
-                                  : data['name'] == "Baking"
-                                      ? Image(
-                                          image: AssetImage(
-                                              'assets/images/baking.png'),
-                                          width: 80.0,
-                                          height: 70.0,
-                                        )
-                                      : data['name'] == "Cooking"
-                                          ? Image(
-                                              image: AssetImage(
-                                                  'assets/images/cooking.png'),
-                                              width: 80.0,
-                                              height: 70.0,
-                                            )
-                                          : data['name'] == "Arts & Crafts "
-                                              ? Image(
-                                                  image: AssetImage(
-                                                      'assets/images/ac.png'),
-                                                )
-                                              : Image(
-                                                  image: AssetImage(
-                                                      'assets/images/ac.png'),
-                                                ),
-                          title: Text(
-                            data['name'],
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                            trailing: Icon(
+                              Icons.arrow_forward,
+                              size: 20,
+                              color: Colors.black,
                             ),
+                            leading: data['name'] == "Tailoring"
+                                ? Image(
+                                    image:
+                                        AssetImage('assets/images/tailoring.png'),
+                                    width: 80.0,
+                                    height: 70.0,
+                                  )
+                                : data['name'] == "Knitting"
+                                    ? Image(
+                                        image: AssetImage(
+                                            'assets/images/knittingpic.png'),
+                                        width: 80.0,
+                                        height: 70.0,
+                                      )
+                                    : data['name'] == "Baking"
+                                        ? Image(
+                                            image: AssetImage(
+                                                'assets/images/baking.png'),
+                                            width: 80.0,
+                                            height: 70.0,
+                                          )
+                                        : data['name'] == "Cooking"
+                                            ? Image(
+                                                image: AssetImage(
+                                                    'assets/images/cooking.png'),
+                                                width: 80.0,
+                                                height: 70.0,
+                                              )
+                                            : data['name'] == "Arts & Crafts "
+                                                ? Image(
+                                                    image: AssetImage(
+                                                        'assets/images/ac.png'),
+                                                  )
+                                                : Image(
+                                                    image: AssetImage(
+                                                        'assets/images/ac.png'),
+                                                  ),
+                            title: Text(
+                              data['name'],
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            // subtitle: Text(data['subcategories'].toString()),
+                            onTap: () {
+                              print("i am calling tap ");
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => SubcategoryScreen(
+                                        categories: data,
+                                      )));
+                            },
                           ),
-                          // subtitle: Text(data['subcategories'].toString()),
-                          onTap: () {
-                            print("i am calling tap ");
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => SubcategoryScreen(
-                                      categories: data,
-                                    )));
-                          },
                         ),
                         Divider(),
                       ],
@@ -175,7 +182,7 @@ class _SellerHomePageState extends State<SellerHomePage> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.production_quantity_limits_sharp),
-              label: 'Products',
+              label: 'Add Products',
             ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.person), label: 'Portfolio'),
@@ -285,7 +292,7 @@ class _SellerHomePageState extends State<SellerHomePage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => PostingDisplayedScreen(
+                            builder: (context) => SellerShowPostings(
                                 addedposting: {
                                   'All Requirements': addedrequirements
                                 }, id: 'id',)));

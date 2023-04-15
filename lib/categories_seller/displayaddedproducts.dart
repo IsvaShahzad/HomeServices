@@ -47,6 +47,7 @@ class _ProductsAddedScreenState extends State<ProductsAddedScreen> {
     final productDescription = widget.added?["product description"];
     final ImageURL = widget.added?["Image URL"];
 
+
     return Container(
         decoration: BoxDecoration(
             image: DecorationImage(
@@ -82,7 +83,8 @@ class _ProductsAddedScreenState extends State<ProductsAddedScreen> {
                     }),
               ],
             ),
-            body: Padding(
+
+        body: Padding(
               padding: EdgeInsets.only(top: 30),
               child: widget.added != null &&
                       widget.added['Frozenlist'] != null &&
@@ -121,8 +123,10 @@ class _ProductsAddedScreenState extends State<ProductsAddedScreen> {
                                     topRight: Radius.circular(10),
                                   ),
                                   image: DecorationImage(
-                                    image: NetworkImage(addedproductss.ImageURl), // Use addedproductss.ImageURL instead of ImageURL
+                                    image: NetworkImage(ImageURL), // Use addedproductss.ImageURL instead of ImageURL
                                     fit: BoxFit.cover,
+                                    filterQuality: FilterQuality.high, // Add this line to improve image quality
+
                                   ),
                                 ),
                               ),

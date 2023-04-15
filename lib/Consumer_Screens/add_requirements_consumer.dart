@@ -7,55 +7,77 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/Consumer_Screens/Consumer_mainpage.dart';
 import 'package:home_services_flutter/Consumer_Screens/added_postings.dart';
-import 'package:home_services_flutter/categories_seller/SellerCategories.dart';
+import 'package:home_services_flutter/seller/SellerMainPage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
-
-
-class RequirementModel {
-  final String id;
-  final String productname;
-  final String productprice;
-  final String ImageURl;
-  final String productdescription;
-  final String productquantity;
-  final String email;
-  final String mobile;
-  final String deliverydate;
-
-  RequirementModel({
-    required this.id,
-    required this.productname,
-    required this.productprice,
-    required this.ImageURl,
-    required this.productdescription,
-    required this.productquantity,
-    required this.email,
-    required this.mobile,
-    required this.deliverydate,
-  });
+import 'package:flutter/foundation.dart';
+import 'package:provider/provider.dart';
 
 
 
+    class RequirementModel with ChangeNotifier {
 
-  factory RequirementModel.fromJson(Map<String, dynamic> json) {
-    return RequirementModel(
-      id: Uuid().v4(),
+      Map<String, dynamic> _addedposting = {};
 
-      productname: json['product name'],
-      productprice: json['product price'],
-      ImageURl: json['Image URl'],
-      productdescription: json['product description'],
-      productquantity: json['product quantity'],
-      mobile: json['Mobile Number'],
-      email: json['Contact email'],
-      deliverydate: json['Delivery Date'],
-    );
-  }
-}
+
+      final String id;
+      final String productname;
+      final String productprice;
+      final String ImageURl;
+      final String productdescription;
+      final String productquantity;
+      final String email;
+      final String mobile;
+      final String deliverydate;
+
+      RequirementModel({
+        required this.id,
+        required this.productname,
+        required this.productprice,
+        required this.ImageURl,
+        required this.productdescription,
+        required this.productquantity,
+        required this.email,
+        required this.mobile,
+        required this.deliverydate,
+      });
+
+
+
+
+      factory RequirementModel.fromJson(Map<String, dynamic> json) {
+        return RequirementModel(
+          id: Uuid().v4(),
+
+          productname: json['product name'],
+          productprice: json['product price'],
+          ImageURl: json['Image URl'],
+          productdescription: json['product description'],
+          productquantity: json['product quantity'],
+          mobile: json['Mobile Number'],
+          email: json['Contact email'],
+          deliverydate: json['Delivery Date'],
+        );
+      }
+      Map<String, dynamic> get addedposting => _addedposting;
+
+      void removeRequirement(String id) async {
+        print('Removing requirement with ID: ${id}');
+
+        await FirebaseFirestore.instance
+            .collection('AddRequirements')
+            .doc(id)
+            .delete();
+
+        _addedposting.remove(id);
+        print(_addedposting); // print the updated _addedposting map
+        notifyListeners();
+      }
+
+    }
 
 class AddRequirements extends StatefulWidget {
   @override
@@ -64,7 +86,6 @@ class AddRequirements extends StatefulWidget {
 
 class _AddRequirementsState extends State<AddRequirements> {
   final _formKey = GlobalKey<FormState>();
-
 
   ShowAlert() {
     return showDialog(
@@ -403,68 +424,6 @@ class _AddRequirementsState extends State<AddRequirements> {
                                 SizedBox(
                                   height: 20.h,
                                 ),
-                                Text(' Delivery Date',
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: Color(0xFF000000),
-                                      fontWeight: FontWeight.bold,
-                                    )),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 0),
-                                  child: TextFormField(
-                                    controller: dateinput,
-                                    decoration: InputDecoration(
-                                      //icon of text field
-                                      labelText: "",
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(20),
-                                        ),
-                                      ),
-                                      icon: Icon(Icons.calendar_today),
-                                      hintText: ' Enter date ',
-                                    ),
-                                    readOnly: true,
-                                    onTap: () async {
-                                      DateTime? pickedDate = await showDatePicker(
-                                          context: context,
-                                          initialDate: DateTime.now(),
-                                          firstDate: DateTime(1950),
-                                          //DateTime.now() - not to allow to choose before today.
-                                          lastDate: DateTime(2100));
-
-                                      if (pickedDate != null) {
-                                        print(
-                                            pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-                                        String formattedDate =
-                                            DateFormat('dd-MM-yyyy')
-                                                .format(pickedDate);
-                                        print(
-                                            formattedDate); //formatted date output using intl package =>  2021-03-16
-                                        setState(() {
-                                          dateinput.text =
-                                              formattedDate; //set output date to TextField value.
-                                        });
-                                      } else {}
-                                    },
-                                    style: TextStyle(
-                                        fontSize: 13,
-                                        color: Color(0xFF000000),
-                                        fontWeight: FontWeight.w600),
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please Enter Some Text ';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 15.h,
-                                ),
                                 Text(
                                   'Contact Email',
                                   style: TextStyle(
@@ -488,7 +447,7 @@ class _AddRequirementsState extends State<AddRequirements> {
                                         fontSize: 13, color: Colors.grey),
                                     border: OutlineInputBorder(
                                       borderRadius:
-                                          BorderRadius.all(Radius.circular(4)),
+                                      BorderRadius.all(Radius.circular(4)),
                                       borderSide: BorderSide(
                                           width: 1, color: Colors.purple),
                                     ),
@@ -505,6 +464,7 @@ class _AddRequirementsState extends State<AddRequirements> {
                                 SizedBox(
                                   height: 20.h,
                                 ),
+
                                 Text(
                                   'Mobile Number',
                                   style: TextStyle(
@@ -545,6 +505,69 @@ class _AddRequirementsState extends State<AddRequirements> {
                                 SizedBox(
                                   height: 25.h,
                                 ),
+                                Text(' Delivery Date',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Color(0xFF000000),
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 0),
+                                  child: TextFormField(
+                                    controller: dateinput,
+                                    decoration: InputDecoration(
+                                      //icon of text field
+                                      labelText: "",
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(20),
+                                        ),
+                                      ),
+                                      icon: Icon(Icons.calendar_today,size: 22,),
+                                      hintText: ' Enter date ',
+                                    ),
+                                    readOnly: true,
+                                    onTap: () async {
+                                      DateTime? pickedDate = await showDatePicker(
+                                          context: context,
+                                          initialDate: DateTime.now(),
+                                          firstDate: DateTime(1950),
+                                          //DateTime.now() - not to allow to choose before today.
+                                          lastDate: DateTime(2100));
+
+                                      if (pickedDate != null) {
+                                        print(
+                                            pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                                        String formattedDate =
+                                        DateFormat('dd-MM-yyyy')
+                                            .format(pickedDate);
+                                        print(
+                                            formattedDate); //formatted date output using intl package =>  2021-03-16
+                                        setState(() {
+                                          dateinput.text =
+                                              formattedDate; //set output date to TextField value.
+                                        });
+                                      } else {}
+                                    },
+                                    style: TextStyle(
+                                        fontSize: 13,
+                                        color: Color(0xFF000000),
+                                        fontWeight: FontWeight.w600),
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please Enter Some Text ';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 15.h,
+                                ),
+
                                 Text('Product Sample Image',
                                     style: TextStyle(
                                         fontSize: 15,
