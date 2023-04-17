@@ -36,7 +36,7 @@ class _ProductsAddedScreenState extends State<ProductsAddedScreen> {
   }
 
   // String getAppbarTitle() => "Add products ${widget.added['product price']}";
-  String getAppbarTitle() => "Add products";
+  String getAppbarTitle() => "Frozen products";
 
   @override
   Widget build(BuildContext context) {

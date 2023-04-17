@@ -99,7 +99,6 @@ class _SellerHomePageState extends State<SellerHomePage> {
                       children: [
                         Container(
                     decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black12),
                     borderRadius: BorderRadius.circular(10),
                     ),
                           child: ListTile(

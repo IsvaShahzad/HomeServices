@@ -4,16 +4,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
 
 
-class WesternScreen extends StatefulWidget {
+class PizzaScreen extends StatefulWidget {
   final Map<String, dynamic> added;
 
-  WesternScreen({required this.added});
+  PizzaScreen({required this.added});
 
   @override
-  _WesternScreenState createState() => _WesternScreenState();
+  _PizzaScreenState createState() => _PizzaScreenState();
 }
 
-class _WesternScreenState extends State<WesternScreen> {
+class _PizzaScreenState extends State<PizzaScreen> {
   int _selectedIndex = 0;
 
   CollectionReference _collectionRef =
@@ -35,7 +35,7 @@ class _WesternScreenState extends State<WesternScreen> {
   }
 
   // String getAppbarTitle() => "Add products ${widget.added['product price']}";
-  String getAppbarTitle() => "Add products";
+  String getAppbarTitle() => "Pizzas ";
 
   @override
   Widget build(BuildContext context) {
@@ -84,17 +84,17 @@ class _WesternScreenState extends State<WesternScreen> {
             body: Padding(
               padding: EdgeInsets.only(top: 30),
               child: widget.added != null &&
-                  widget.added['Western'] != null &&
-                  widget.added['Western'].isNotEmpty
+                  widget.added['pizzalist'] != null &&
+                  widget.added['pizzalist'].isNotEmpty
                   ? GridView.builder(
-                itemCount: widget.added['Western'].length,
+                itemCount: widget.added['pizzalist'].length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   mainAxisSpacing: 18.0,
                   crossAxisSpacing: 10.0,
                 ),
                 itemBuilder: (context, index) {
-                  final addedproductss = widget.added['Western'][index];
+                  final addedproductss = widget.added['pizzalist'][index];
 
                   final ImageURL = addedproductss.ImageURl;
                   final productName = addedproductss.productname;
@@ -103,7 +103,7 @@ class _WesternScreenState extends State<WesternScreen> {
 
                   return Card(
                     elevation: 5,
-                      color: Colors.white70,// add some elevation to create a shadow effect
+                    color: Colors.white70,// add some elevation to create a shadow effect
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0), // round the edges of the card
                       side: BorderSide(width: 1, color: Colors.grey), // add a border around the card

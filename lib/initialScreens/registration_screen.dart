@@ -124,16 +124,16 @@ class _RegistrationState extends State<Registration> {
                                             ),
                                           ),
                                           validator: (value) {
-                                            RegExp regex = RegExp(
-                                                r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$');
+                                            RegExp regex = RegExp(r'^\(\d{3}\) \d{3}\-\d{4}$');
                                             if (value == null || value.isEmpty) {
-                                              return 'Please Enter Some Text ';
-                                            } else if (value.length > 20) {
-                                              return 'Enter less than 20 numbers';
+                                              return 'Please Enter Some Text';
+                                            } else if (value.length > 14) {
+                                              return 'Enter less than 14 numbers';
                                             } else if (!regex.hasMatch(value)) {
-                                              return 'Enter according to format';
+                                              return 'Enter according to format (xxx) xxx-xxxx';
                                             }
                                             return null;
+
                                           },
                                         ),
                                       ),
@@ -392,12 +392,16 @@ class _RegistrationState extends State<Registration> {
                                       Align(
                                         alignment: Alignment.centerRight,
                                         child: TextButton(
+
                                             onPressed: () {
+                                              if (loginFormKey.currentState!
+                                                  .validate())
                                               Navigator.pushReplacement(
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (BuildContext context) =>
                                                           LoginScreen()));
+
                                             },
                                             child: Text('Already have an account?',
                                                 style: TextStyle(

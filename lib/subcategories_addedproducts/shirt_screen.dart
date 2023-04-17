@@ -4,16 +4,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
 
 
-class HomemadeScreen extends StatefulWidget {
+class ShirtScreen extends StatefulWidget {
   final Map<String, dynamic> added;
 
-  HomemadeScreen({required this.added});
+  ShirtScreen({required this.added});
 
   @override
-  _HomemadeScreenState createState() => _HomemadeScreenState();
+  _ShirtScreenState createState() => _ShirtScreenState();
 }
 
-class _HomemadeScreenState extends State<HomemadeScreen> {
+class _ShirtScreenState extends State<ShirtScreen> {
   int _selectedIndex = 0;
 
   CollectionReference _collectionRef =
@@ -35,7 +35,7 @@ class _HomemadeScreenState extends State<HomemadeScreen> {
   }
 
   // String getAppbarTitle() => "Add products ${widget.added['product price']}";
-  String getAppbarTitle() => "Add products";
+  String getAppbarTitle() => "Tailored Shirts";
 
   @override
   Widget build(BuildContext context) {
@@ -84,17 +84,17 @@ class _HomemadeScreenState extends State<HomemadeScreen> {
             body: Padding(
               padding: EdgeInsets.only(top: 30),
               child: widget.added != null &&
-                  widget.added['Home made'] != null &&
-                  widget.added['Home made'].isNotEmpty
+                  widget.added['shirtlist'] != null &&
+                  widget.added['shirtlist'].isNotEmpty
                   ? GridView.builder(
-                itemCount: widget.added['Home made'].length,
+                itemCount: widget.added['shirtlist'].length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   mainAxisSpacing: 18.0,
                   crossAxisSpacing: 10.0,
                 ),
                 itemBuilder: (context, index) {
-                  final addedproductss = widget.added['Home made'][index];
+                  final addedproductss = widget.added['shirtlist'][index];
 
                   final ImageURL = addedproductss.ImageURl;
                   final productName = addedproductss.productname;

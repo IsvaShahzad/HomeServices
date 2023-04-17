@@ -118,7 +118,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       const Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            'Home Services Forgot Password',
+                            'Crafty Hands✨  \nForgot Password',
                             style: TextStyle(
                               fontSize: 33,
                               color: Color(0xFFAB47BC),
