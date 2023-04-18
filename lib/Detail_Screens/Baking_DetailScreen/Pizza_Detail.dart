@@ -4,13 +4,13 @@ import 'package:home_services_flutter/subcategories_addedproducts/Cooking_addedp
 
 import 'package:provider/provider.dart';
 
-class ShirtDetailScreen extends StatefulWidget {
+class PizzaDetailScreen extends StatefulWidget {
   final String productName;
   final String productPrice;
   final String productDescription;
   final String ImageURL;
 
-  const ShirtDetailScreen({
+  const PizzaDetailScreen({
     Key? key,
     required this.productName,
     required this.productPrice,
@@ -19,10 +19,10 @@ class ShirtDetailScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ShirtDetailScreen> createState() => _ShirtDetailScreenState();
+  State<PizzaDetailScreen> createState() => _PizzaDetailScreenState();
 }
 
-class _ShirtDetailScreenState extends State<ShirtDetailScreen> {
+class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
 
   int _quantity = 1;
   bool _isFavorite = false;
