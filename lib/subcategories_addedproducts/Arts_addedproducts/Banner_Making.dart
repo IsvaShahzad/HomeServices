@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
 
+import '../../Detail_Screens/ArtsnCrafts_DetailScreen/banner_detailscreen.dart';
+
 
 class BannerScreen extends StatefulWidget {
   final Map<String, dynamic> added;
@@ -101,42 +103,57 @@ class _BannerScreenState extends State<BannerScreen> {
                   final productPrice = addedproductss.productprice;
                   final productDescription = addedproductss.productdescription;
 
-                  return Card(
-                    elevation: 5,
-                    color: Colors.white70,// add some elevation to create a shadow effect
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0), // round the edges of the card
-                      side: BorderSide(width: 1, color: Colors.grey), // add a border around the card
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          height: 100,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10),
-                            ),
-                            image: DecorationImage(
-                              image: NetworkImage(ImageURL),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
+                  return InkWell(
 
-                        Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Text(
-                            "Item: $productName\nRs. $productPrice\n$productDescription",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
+                    onTap: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => BannerDetailScreen(
+                                productName: productName,
+                                productPrice: productPrice,
+                                productDescription:
+                                productDescription,
+                                ImageURL: ImageURL,
+                              )));
+                    },
+                    child: Card(
+                      elevation: 5,
+                      color: Colors.white70,// add some elevation to create a shadow effect
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0), // round the edges of the card
+                        side: BorderSide(width: 1, color: Colors.grey), // add a border around the card
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            height: 100,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10),
+                              ),
+                              image: DecorationImage(
+                                image: NetworkImage(ImageURL),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+
+                          Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Text(
+                              "Item: $productName\nRs. $productPrice\n$productDescription",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   );
 

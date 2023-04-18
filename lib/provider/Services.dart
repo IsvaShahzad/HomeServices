@@ -1,12 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/material/list_tile.dart';
 
 class Services with ChangeNotifier {
   final String id;
-  final String title;
-  final String description;
-  final double price;
+  final String productname;
+  final String productdescription;
+  final double productprice;
   final String imageUrl;
   final  tile;
 
@@ -18,9 +17,9 @@ class Services with ChangeNotifier {
   Services(    {
 
     required this.id,
-    required this.title,
-    required this.description,
-    required this.price,
+    required this.productname,
+    required this.productdescription,
+    required this.productprice,
     required this.imageUrl,
     required this.tile,
 

@@ -1,26 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:home_services_flutter/subcategories_addedproducts/cake_screen.dart';
-import 'package:home_services_flutter/subcategories_addedproducts/cupcake_screen.dart';
-import 'package:home_services_flutter/subcategories_addedproducts/pants_screen.dart';
+import 'package:home_services_flutter/subcategories_addedproducts/Baking_addedproducts/cake_screen.dart';
+import 'package:home_services_flutter/subcategories_addedproducts/Baking_addedproducts/cupcake_screen.dart';
+import 'package:home_services_flutter/subcategories_addedproducts/Tailoring_addedproducts/pants_screen.dart';
 
-import 'package:home_services_flutter/categories_seller/displayaddedproducts.dart';
+import 'package:home_services_flutter/subcategories_addedproducts/Cooking_addedproducts/Frozenscreen.dart';
 
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
-import 'package:home_services_flutter/subcategories_addedproducts/pizza_screen.dart';
+import 'package:home_services_flutter/subcategories_addedproducts/Baking_addedproducts/pizza_screen.dart';
 
-import '../subcategories_addedproducts/Banner_Making.dart';
-import '../subcategories_addedproducts/CanvasPaintingScreen.dart';
-import '../subcategories_addedproducts/Homemade_screen.dart';
-import '../subcategories_addedproducts/Quilting_screen.dart';
-import '../subcategories_addedproducts/Western_Screen.dart';
-import '../subcategories_addedproducts/brownies_screen.dart';
-import '../subcategories_addedproducts/coats_screen.dart';
-import '../subcategories_addedproducts/scarf_screen.dart';
-import '../subcategories_addedproducts/shirt_screen.dart';
-import '../subcategories_addedproducts/socks_screen.dart';
-import '../subcategories_addedproducts/sweaters_screen.dart';
+import '../subcategories_addedproducts/Arts_addedproducts/Banner_Making.dart';
+import '../subcategories_addedproducts/Arts_addedproducts/CanvasPaintingScreen.dart';
+import '../subcategories_addedproducts/Cooking_addedproducts/Homemade_screen.dart';
+import '../subcategories_addedproducts/Arts_addedproducts/Quilting_screen.dart';
+import '../subcategories_addedproducts/Cooking_addedproducts/Western_Screen.dart';
+import '../subcategories_addedproducts/Baking_addedproducts/brownies_screen.dart';
+import '../subcategories_addedproducts/Tailoring_addedproducts/coats_screen.dart';
+import '../subcategories_addedproducts/Knitting_addedproducts/scarf_screen.dart';
+import '../subcategories_addedproducts/Tailoring_addedproducts/shirt_screen.dart';
+import '../subcategories_addedproducts/Knitting_addedproducts/socks_screen.dart';
+import '../subcategories_addedproducts/Knitting_addedproducts/sweaters_screen.dart';
 
 
 // enum Categories { baking, cooking, knitting, tailoring, artAndCraft }

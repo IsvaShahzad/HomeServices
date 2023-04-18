@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
             home:SplashScreen(),
             routes: {
 
-              ServiceDetail.routeName: (context) => ServiceDetail(),
+              // ServiceDetail.routeName: (context) => ServiceDetail(),
             },
             debugShowCheckedModeBanner: false,
           ),

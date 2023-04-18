@@ -219,32 +219,41 @@ class _LoginScreenState extends State<LoginScreen> {
                                         maximumSize: const Size(200, 50),
                                         shape: StadiumBorder(),
                                       ),
-                                      child: Text('Login',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18)),
+                                      child: Text(
+                                        'Login',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18,
+                                        ),
+                                      ),
                                       onPressed: () async {
                                         try {
-                                          final user = await _auth
-                                              .signInWithEmailAndPassword(
-                                                  email: emailController.text,
-                                                  password:
-                                                      passwordController.text);
-
+                                          final user = await _auth.signInWithEmailAndPassword(
+                                            email: emailController.text,
+                                            password: passwordController.text,
+                                          );
                                           print(user);
-                                        } catch (e) {
-                                          print(e);
-                                        }
-
-                                        if (loginFormKey.currentState!
-                                            .validate())
-                                          Navigator.pushReplacement(
+                                          // Navigate to the next screen only if the user is registered
+                                          if (user != null) {
+                                            Navigator.pushReplacement(
                                               context,
                                               MaterialPageRoute(
-                                                  builder:
-                                                      (BuildContext context) =>
-                                                          ContinueAsScreen()));
+                                                builder: (BuildContext context) => ContinueAsScreen(),
+                                              ),
+                                            );
+                                          }
+                                        } catch (e) {
+                                          print(e);
+                                          // Display an error message to the user
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(
+                                              content: Text('User not found. Please check your email and password.'),
+                                              backgroundColor: Colors.red,
+                                            ),
+                                          );
+                                        }
                                       },
+
                                     ),
                                   ),
                                 ),
