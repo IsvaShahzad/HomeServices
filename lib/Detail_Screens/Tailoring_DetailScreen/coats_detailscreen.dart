@@ -23,10 +23,14 @@ class CoatsDetailScreen extends StatefulWidget {
 }
 
 class _CoatsDetailScreenState extends State<CoatsDetailScreen> {
-
   int _quantity = 1;
   bool _isFavorite = false;
-
+  void _toggleFavorite() {
+    setState(() {
+      _isFavorite = !_isFavorite;
+    });
+    // TODO: Add the product to favorites here
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,20 +98,23 @@ class _CoatsDetailScreenState extends State<CoatsDetailScreen> {
                 ],
               ),
             ),
-
           ],
-
         ),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             FloatingActionButton(
-              child: _isFavorite ? Icon(Icons.favorite) : Icon(Icons.favorite_border),
+              child: _isFavorite
+                  ? Icon(Icons.favorite)
+                  : Icon(Icons.favorite_border),
               onPressed: () {
-                setState(() {
-                  _isFavorite = !_isFavorite;
-                });
-                // Add the product to favorites
+                _toggleFavorite;
+                if (_isFavorite) {
+                  // Add product to favorites list
+                  // You can use Provider or any other state management library to do this
+                } else {
+                  // Remove product from favorites list
+                }
               },
               backgroundColor: Colors.white,
               foregroundColor: Colors.red,
@@ -125,13 +132,9 @@ class _CoatsDetailScreenState extends State<CoatsDetailScreen> {
               },
               // child: Icon(Icons.remove),
             ),
-
-
           ],
         ),
       ),
     );
-
-
   }
 }

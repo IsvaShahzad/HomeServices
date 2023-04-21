@@ -75,9 +75,35 @@ class _AddProductState extends State<AddProduct> {
     'Pizza',
     'Cupcake',
   ];
+  late String _selectedCategory;
 
-  late String _selectedCategory = 'Cooking';
-  late String? _selectedSubCategory = 'Frozen';
+  // List<String> subcategoryOptions = [];
+
+  void updateSubcategories() {
+    if (_selectedCategory == 'Cooking') {
+      subcategoryOptions = ['Frozen', 'Home made', 'Western'];
+    } else if (_selectedCategory == 'Arts and Crafts') {
+      subcategoryOptions = ['Banner Making', 'Quilting', 'Canvas Painting'];
+    } else if (_selectedCategory == 'Knitting') {
+      subcategoryOptions = ['sweaters', 'Socks', 'scarfs'];
+    } else if (_selectedCategory == 'Tailoring') {
+      subcategoryOptions = ['Coats', 'Pants', 'Shirt'];
+    } else if (_selectedCategory == 'Baking') {
+      subcategoryOptions = ['Cakes', 'Brownies', 'Pizza', 'Cupcake'];
+    } else {
+      subcategoryOptions = [];
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedCategory = categoryOptions[0];
+    updateSubcategories();
+  }
+
+  // late String _selectedCategory = 'Cooking';
+  late String? _selectedSubCategory = subcategoryOptions[0];
 
   final TextEditingController ProductnameController = TextEditingController();
   final TextEditingController ProductDescriptionController =
@@ -134,10 +160,8 @@ class _AddProductState extends State<AddProduct> {
           ),
           body: Padding(
             padding: const EdgeInsets.only(top: 25),
-
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
-
               child: Container(
                 height: 637,
                 decoration: BoxDecoration(
@@ -214,7 +238,8 @@ class _AddProductState extends State<AddProduct> {
                                 TextFormField(
                                   controller: ProductDescriptionController,
                                   decoration: InputDecoration(
-                                    hintText: 'Please enter product description',
+                                    hintText:
+                                        'Please enter product description',
                                     filled: true,
                                     fillColor: Colors.white.withOpacity(0.1),
                                     contentPadding: const EdgeInsets.symmetric(
@@ -323,27 +348,23 @@ class _AddProductState extends State<AddProduct> {
                                       _selectedCategory = categoryOptions[0];
                                     }
 
-                                    return DropdownButtonFormField<String>(
+                                    return DropdownButtonFormField(
                                       value: _selectedCategory,
-                                      onChanged: (String? selectedCategory) {
-                                        setState(() {
-                                          _selectedCategory = selectedCategory!;
-                                          _selectedSubCategory = null;
-                                        });
-                                      },
-                                      items:
-                                          categoryOptions.map((String category) {
-                                        return DropdownMenuItem<String>(
+                                      items: categoryOptions.map((category) {
+                                        return DropdownMenuItem(
                                           value: category,
                                           child: Text(category),
                                         );
                                       }).toList(),
                                       decoration: InputDecoration(
                                         filled: true,
-                                        fillColor: Colors.white.withOpacity(0.1),
+                                        fillColor:
+                                            Colors.white.withOpacity(0.1),
                                         contentPadding:
                                             const EdgeInsets.symmetric(
-                                                vertical: 15, horizontal: 10.0),
+                                          vertical: 15,
+                                          horizontal: 10.0,
+                                        ),
                                         hintStyle: TextStyle(
                                             fontSize: 13, color: Colors.grey),
                                         border: OutlineInputBorder(
@@ -353,6 +374,20 @@ class _AddProductState extends State<AddProduct> {
                                               width: 1, color: Colors.orange),
                                         ),
                                       ),
+                                      onChanged: (selectedCategory) {
+                                        setState(() {
+                                          _selectedCategory =
+                                              selectedCategory.toString();
+                                          updateSubcategories();
+                                          _selectedSubCategory =
+                                              subcategoryOptions[0];
+                                        });
+                                      },
+                                    );
+                                    SizedBox(height: 20.0);
+                                    Text(
+                                      'Product Subcategory',
+                                      style: TextStyle(fontSize: 16.0),
                                     );
                                   },
                                 ),
@@ -421,7 +456,8 @@ class _AddProductState extends State<AddProduct> {
                                       }).toList(),
                                       decoration: InputDecoration(
                                         filled: true,
-                                        fillColor: Colors.white.withOpacity(0.1),
+                                        fillColor:
+                                            Colors.white.withOpacity(0.1),
                                         contentPadding:
                                             const EdgeInsets.symmetric(
                                           vertical: 15,
@@ -468,7 +504,8 @@ class _AddProductState extends State<AddProduct> {
                                               style: ElevatedButton.styleFrom(
                                                 primary: Color(0xFFAB47BC),
                                                 onPrimary: Colors.white,
-                                                shape: new RoundedRectangleBorder(
+                                                shape:
+                                                    new RoundedRectangleBorder(
                                                   borderRadius:
                                                       new BorderRadius.circular(
                                                           30.0),
@@ -508,10 +545,13 @@ class _AddProductState extends State<AddProduct> {
 
                                           if (imageFile != null) {
                                             try {
-                                              final timestamp = DateTime.now().millisecondsSinceEpoch;
-                                              final ref = FirebaseStorage.instance
+                                              final timestamp = DateTime.now()
+                                                  .millisecondsSinceEpoch;
+                                              final ref = FirebaseStorage
+                                                  .instance
                                                   .ref()
-                                                  .child('images/${timestamp}_$filename');
+                                                  .child(
+                                                      'images/${timestamp}_$filename');
 
                                               await ref.putFile(imageFile!);
                                               final url =

@@ -6,13 +6,13 @@ import 'package:home_services_flutter/Consumer_Screens/add_requirements_consumer
 import 'package:home_services_flutter/Consumer_Screens/added_postings.dart';
 import 'package:home_services_flutter/Consumer_Screens/cart_screen.dart';
 import 'package:home_services_flutter/Consumer_Screens/explore_consumer_screen.dart';
-import 'package:home_services_flutter/categories_seller/subcategory_screen.dart';
 import 'package:home_services_flutter/provider/provider.dart';
 import 'package:home_services_flutter/seller/SellerProfilePage.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
 import 'package:home_services_flutter/seller/seller_portfolio.dart';
 import 'package:home_services_flutter/seller/sellerwelcome.dart';
 import 'package:home_services_flutter/seller/signupSeller.dart';
+import '../Categories/subcategory_screen.dart';
 import '../Consumer_Screens/consumerSignup.dart';
 import '../seller/addProduct.dart';
 import 'favourites.dart';

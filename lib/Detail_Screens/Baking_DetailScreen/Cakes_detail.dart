@@ -4,6 +4,8 @@ import 'package:home_services_flutter/subcategories_addedproducts/Cooking_addedp
 
 import 'package:provider/provider.dart';
 
+import '../../seller/seller_portfolio.dart';
+
 class CakesDetailScreen extends StatefulWidget {
   final String productName;
   final String productPrice;
@@ -101,6 +103,8 @@ class _CakesDetailScreenState extends State<CakesDetailScreen> {
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+
+
             FloatingActionButton(
               child: _isFavorite ? Icon(Icons.favorite) : Icon(Icons.favorite_border),
               onPressed: () {
@@ -124,6 +128,18 @@ class _CakesDetailScreenState extends State<CakesDetailScreen> {
                 });
               },
               // child: Icon(Icons.remove),
+            ),
+            SizedBox(width: 120.0),
+
+            FloatingActionButton(
+              child: Icon(Icons.person),
+              onPressed: () {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => SellerPortfolio()));
+              },
+
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.red,
             ),
 
 

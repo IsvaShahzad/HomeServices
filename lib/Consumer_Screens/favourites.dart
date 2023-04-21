@@ -12,6 +12,14 @@ class Favourites_Screen extends StatefulWidget {
 }
 
 class _Favourites_ScreenState extends State<Favourites_Screen> {
+  List<Map<String, dynamic>> _favoriteProducts = [];
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _getFavoriteProducts();
+  // }
+
   bool _isObscure = true;
 
   final loginFormKey = GlobalKey<FormState>();
@@ -61,6 +69,20 @@ class _Favourites_ScreenState extends State<Favourites_Screen> {
                 ),
               ),
             ),
-            body: Container()));
+            body: Container(
+              child: Padding(
+                padding: EdgeInsets.only(top: 30),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Text('Favourite products added: ',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18
+                  ),
+                  ),
+                ),
+              )
+
+            )));
   }
 }

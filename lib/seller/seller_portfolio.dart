@@ -99,8 +99,9 @@ class _SellerPortfolioState extends State<SellerPortfolio> {
                 color: Colors.white,
               ),
               onPressed: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => SellerHomePage()));
+                // Navigator.pushReplacement(context,
+                //     MaterialPageRoute(builder: (context) => SellerHomePage()));
+                Navigator.pop(context);
               },
             ),
             title: Align(

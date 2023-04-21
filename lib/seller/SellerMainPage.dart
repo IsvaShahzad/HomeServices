@@ -1,13 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:home_services_flutter/Consumer_Screens/added_postings.dart';
-import 'package:home_services_flutter/categories_seller/subcategory_screen.dart';
 import 'package:home_services_flutter/seller/SellerProfilePage.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
 import 'package:home_services_flutter/seller/seller_portfolio.dart';
 import 'package:home_services_flutter/seller/sellerwelcome.dart';
 import 'package:home_services_flutter/seller/show_postings_seller.dart';
+import '../Categories/subcategory_screen.dart';
 import '../Consumer_Screens/add_requirements_consumer.dart';
 import '../Consumer_Screens/consumerSignup.dart';
 import 'addProduct.dart';
@@ -98,9 +97,9 @@ class _SellerHomePageState extends State<SellerHomePage> {
                     return Column(
                       children: [
                         Container(
-                    decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                           child: ListTile(
                             tileColor: Colors.white24,
 
@@ -111,8 +110,8 @@ class _SellerHomePageState extends State<SellerHomePage> {
                             ),
                             leading: data['name'] == "Tailoring"
                                 ? Image(
-                                    image:
-                                        AssetImage('assets/images/tailoring.png'),
+                                    image: AssetImage(
+                                        'assets/images/tailoring.png'),
                                     width: 80.0,
                                     height: 70.0,
                                   )
@@ -204,7 +203,6 @@ class _SellerHomePageState extends State<SellerHomePage> {
                 Container(
                   height: 25.0,
                   child: DrawerHeader(
-
                     child: null,
                   ),
                 ),
@@ -267,7 +265,6 @@ class _SellerHomePageState extends State<SellerHomePage> {
                   },
                 ),
                 Divider(),
-
                 ListTile(
                   tileColor: Colors.white38,
                   trailing: Icon(
@@ -292,9 +289,11 @@ class _SellerHomePageState extends State<SellerHomePage> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => SellerShowPostings(
-                                addedposting: {
-                                  'All Requirements': addedrequirements
-                                }, id: 'id',)));
+                                  addedposting: {
+                                    'All Requirements': addedrequirements
+                                  },
+                                  id: 'id',
+                                )));
                   },
                 ),
                 Divider(),
