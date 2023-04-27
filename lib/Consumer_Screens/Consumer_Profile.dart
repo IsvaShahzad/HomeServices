@@ -463,10 +463,10 @@ class MapScreenState extends State<ConsumerProfile>
                       onPressed: () {
                         try {
                           FirebaseFirestore.instance
-                              .collection('seller profile')
+                              .collection('consumer profile')
                               .doc()
                               .set({
-                            'sellername': nameController.text,
+                            'consumername': nameController.text,
                             'emailid': emailController.text,
                             'mobile': mobileController.text,
                             'pincode': pincodeController.text,
