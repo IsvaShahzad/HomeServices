@@ -6,12 +6,14 @@ import 'package:home_services_flutter/Consumer_Screens/add_requirements_consumer
 import 'package:home_services_flutter/Consumer_Screens/added_postings.dart';
 import 'package:home_services_flutter/Consumer_Screens/cart_screen.dart';
 import 'package:home_services_flutter/Consumer_Screens/explore_consumer_screen.dart';
+import 'package:home_services_flutter/main.dart';
 import 'package:home_services_flutter/provider/provider.dart';
 import 'package:home_services_flutter/seller/SellerProfilePage.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
 import 'package:home_services_flutter/seller/seller_portfolio.dart';
 import 'package:home_services_flutter/seller/sellerwelcome.dart';
 import 'package:home_services_flutter/seller/signupSeller.dart';
+import 'package:provider/provider.dart';
 import '../Categories/subcategory_screen.dart';
 import '../Consumer_Screens/consumerSignup.dart';
 import '../seller/addProduct.dart';
@@ -24,7 +26,11 @@ class ConsumerMainPageScreen extends StatefulWidget {
 
 class _ConsumerMainPageScreenState extends State<ConsumerMainPageScreen> {
   int _selectedIndex = 0;
+   // late final  FavouriteProductPage model = add ;
 
+
+
+  // final FavoriteProductsPage _favoriteProductsModel = FavoriteProductsPage(model: FavouriteProductPage);
 
   CollectionReference _collectionRef =
   FirebaseFirestore.instance.collection('Category');
@@ -42,7 +48,7 @@ class _ConsumerMainPageScreenState extends State<ConsumerMainPageScreen> {
       );
     } else if (index == 2) {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Favourites_Screen()));
+          context, MaterialPageRoute(builder: (context) => FavoriteProductsPage(model: Provider.of<FavouriteProductPage>(context),)));
     }
   }
 
@@ -185,7 +191,7 @@ class _ConsumerMainPageScreenState extends State<ConsumerMainPageScreen> {
               label: 'Cart',
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.favorite_outlined), label: 'Favourite'),
+                icon: Icon(Icons.favorite_outlined), label: 'Favourites'),
           ],
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,

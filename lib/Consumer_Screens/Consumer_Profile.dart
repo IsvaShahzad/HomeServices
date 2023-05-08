@@ -64,11 +64,11 @@ class MapScreenState extends State<ConsumerProfile>
   @override
   void initState() {
     super.initState();
-    nameController.text= 'Isva Shahzad';
-    emailController.text='isvashahzad3356@gmail.com';
-    mobileController.text='03125643211';
-    pincodeController.text='44000';
-    stateController.text='Federal State';
+    nameController.text = 'Isva Shahzad';
+    emailController.text = 'isvashahzad3356@gmail.com';
+    mobileController.text = '03125643211';
+    pincodeController.text = '44000';
+    stateController.text = 'Federal State';
   }
 
   @override
@@ -92,8 +92,10 @@ class MapScreenState extends State<ConsumerProfile>
                 color: Colors.white,
               ),
               onPressed: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => ConsumerMainPageScreen()));
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ConsumerMainPageScreen()));
               },
             ),
             title: Text(
@@ -122,16 +124,13 @@ class MapScreenState extends State<ConsumerProfile>
                               child: new Stack(
                                   fit: StackFit.loose,
                                   children: <Widget>[
-
                                     Padding(
                                         padding: EdgeInsets.only(
                                             top: 90.0, right: 100.0),
                                         child: new Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                          children: <Widget>[
-
-                                          ],
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[],
                                         )),
                                   ]),
                             )
@@ -157,11 +156,11 @@ class MapScreenState extends State<ConsumerProfile>
                                   ),
                                   child: new Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       new Column(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.start,
+                                            MainAxisAlignment.start,
                                         children: <Widget>[
                                           new Text(
                                             'Personal Information',
@@ -175,7 +174,7 @@ class MapScreenState extends State<ConsumerProfile>
                                       ),
                                       new Column(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.end,
+                                            MainAxisAlignment.end,
                                         mainAxisSize: MainAxisSize.min,
                                         children: <Widget>[
                                           _status
@@ -193,7 +192,7 @@ class MapScreenState extends State<ConsumerProfile>
                                     children: <Widget>[
                                       new Column(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.start,
+                                            MainAxisAlignment.start,
                                         mainAxisSize: MainAxisSize.min,
                                         children: <Widget>[
                                           new Text(
@@ -242,7 +241,7 @@ class MapScreenState extends State<ConsumerProfile>
                                     children: <Widget>[
                                       new Column(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.start,
+                                            MainAxisAlignment.start,
                                         mainAxisSize: MainAxisSize.min,
                                         children: <Widget>[
                                           new Text(
@@ -289,7 +288,7 @@ class MapScreenState extends State<ConsumerProfile>
                                     children: <Widget>[
                                       new Column(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.start,
+                                            MainAxisAlignment.start,
                                         mainAxisSize: MainAxisSize.min,
                                         children: <Widget>[
                                           new Text(
@@ -380,7 +379,7 @@ class MapScreenState extends State<ConsumerProfile>
                                             decoration: const InputDecoration(
                                                 hintText: "Enter Pin Code"),
                                             textInputAction:
-                                            TextInputAction.next,
+                                                TextInputAction.next,
                                             enabled: !_status,
                                             validator: (value) {
                                               if (value!.isEmpty) {
@@ -389,7 +388,7 @@ class MapScreenState extends State<ConsumerProfile>
                                               return null;
                                             },
                                             onSaved: (value) =>
-                                            _pincode = value!,
+                                                _pincode = value!,
                                           ),
                                         ),
                                         flex: 2,
@@ -495,25 +494,24 @@ class MapScreenState extends State<ConsumerProfile>
               padding: EdgeInsets.only(left: 10.0),
               child: Container(
                   child: new ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Color(0xFFAB47BC),
-                      onPrimary: Colors.white,
-                      shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(30.0),
-                      ),
-                      elevation: 5,
-                      minimumSize: const Size(130, 50),
-                      maximumSize: const Size(130, 50),
-                    ),
-                    child: new Text("Cancel"),
-                    onPressed: () {
-                      setState(() {
-                        _status = true;
-                        FocusScope.of(context).requestFocus(new FocusNode());
-                      });
-                    },
-
-                  )),
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xFFAB47BC),
+                  onPrimary: Colors.white,
+                  shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(30.0),
+                  ),
+                  elevation: 5,
+                  minimumSize: const Size(130, 50),
+                  maximumSize: const Size(130, 50),
+                ),
+                child: new Text("Cancel"),
+                onPressed: () {
+                  setState(() {
+                    _status = true;
+                    FocusScope.of(context).requestFocus(new FocusNode());
+                  });
+                },
+              )),
             ),
             flex: 2,
           ),

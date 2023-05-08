@@ -45,6 +45,7 @@ class _PantsDetailScreenState extends State<PantsDetailScreen> {
                 background: Image.network(
                   widget.ImageURL,
                   fit: BoxFit.cover,
+
                 ),
               ),
               leading: IconButton(
@@ -61,21 +62,23 @@ class _PantsDetailScreenState extends State<PantsDetailScreen> {
                   SizedBox(
                     height: 25.h,
                   ),
-                  Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        widget.productName,
-                        style: TextStyle(
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 11.0),
+                    child: Text(
+                      widget.productName,
+                      style: TextStyle(
                           fontSize: 24.0,
                           fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline,
-                        ),
-                      )),
-                  SizedBox(height: 26.0),
+                          color: Colors.black87
+                        // decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 25.0),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 11.0),
                     child: Text(
-                      'Price: Rs.${widget.productPrice}',
+                      ' ${widget.productDescription}',
                       style: TextStyle(
                         fontSize: 18.0,
                       ),
@@ -85,24 +88,56 @@ class _PantsDetailScreenState extends State<PantsDetailScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Text(
-                      'Description: ${widget.productDescription}',
+                      'Rs.${widget.productPrice}',
                       style: TextStyle(
                         fontSize: 18.0,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 30.0),
+                  Align(
+                    alignment: Alignment.center,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // TODO: Add the selected product to the cart
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.shopping_cart),
+                          SizedBox(width: 8.0),
+                          Text(
+                            'Add to Cart',
+                            style: TextStyle(
+                              fontSize: 16.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        primary: Color(0xFFAB47BC),
+                        onPrimary: Colors.white,
+                        elevation: 6,
+                        minimumSize: const Size(200, 50),
+                        maximumSize: const Size(200, 50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-
           ],
-
         ),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             FloatingActionButton(
-              child: _isFavorite ? Icon(Icons.favorite) : Icon(Icons.favorite_border),
+              child: _isFavorite
+                  ? Icon(Icons.favorite)
+                  : Icon(Icons.favorite_border),
               onPressed: () {
                 setState(() {
                   _isFavorite = !_isFavorite;
@@ -112,26 +147,23 @@ class _PantsDetailScreenState extends State<PantsDetailScreen> {
               backgroundColor: Colors.white,
               foregroundColor: Colors.red,
             ),
-            SizedBox(width: 24.0),
-            FloatingActionButton(
-              backgroundColor: Colors.purple,
-              child: Icon(Icons.add_shopping_cart),
-              onPressed: () {
-                setState(() {
-                  if (_quantity > 1) {
-                    _quantity--;
-                  }
-                });
-              },
-              // child: Icon(Icons.remove),
-            ),
 
-
+            // SizedBox(width: 24.0),
+            // FloatingActionButton(
+            //   backgroundColor: Colors.purple,
+            //   child: Icon(Icons.add_shopping_cart),
+            //   onPressed: () {
+            //     setState(() {
+            //       if (_quantity > 1) {
+            //         _quantity--;
+            //       }
+            //     });
+            //   },
+            //   // child: Icon(Icons.remove),
+            // ),
           ],
         ),
       ),
     );
-
-
   }
 }

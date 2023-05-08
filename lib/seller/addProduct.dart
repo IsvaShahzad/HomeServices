@@ -237,6 +237,7 @@ class _AddProductState extends State<AddProduct> {
                                 ),
                                 TextFormField(
                                   controller: ProductDescriptionController,
+                                  maxLines: 2,
                                   decoration: InputDecoration(
                                     hintText:
                                         'Please enter product description',

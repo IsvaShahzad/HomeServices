@@ -30,12 +30,14 @@ class ProductModel {
   final String productprice;
   final String ImageURl;
   final String productdescription;
+  final String product;
 
   ProductModel({
     required this.productname,
     required this.productprice,
     required this.ImageURl,
     required this.productdescription,
+    required this.product,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
@@ -44,6 +46,8 @@ class ProductModel {
       productprice: json['product price'],
       ImageURl: json['Image URl'],
       productdescription: json['product description'],
+      product: json['product'],
+
     );
   }
 }

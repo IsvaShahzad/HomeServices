@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/Detail_Screens/Baking_DetailScreen/Pizza_Detail.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
+import 'package:provider/provider.dart';
+
+import '../../Consumer_Screens/favourites.dart';
 
 
 class PizzaScreen extends StatefulWidget {
@@ -46,6 +49,8 @@ class _PizzaScreenState extends State<PizzaScreen> {
     final productName = widget.added?["product name"];
     final productDescription = widget.added?["product description"];
     final ImageURL = widget.added?["Image URL"];
+
+    // Product product = Provider.of<Product>(context);
 
     return Container(
         decoration: BoxDecoration(
@@ -101,6 +106,8 @@ class _PizzaScreenState extends State<PizzaScreen> {
                   final productName = addedproductss.productname;
                   final productPrice = addedproductss.productprice;
                   final productDescription = addedproductss.productdescription;
+                  final product = addedproductss.product;
+
 
                   return InkWell(
                     onTap: () {
@@ -113,6 +120,7 @@ class _PizzaScreenState extends State<PizzaScreen> {
                                 productDescription:
                                 productDescription,
                                 ImageURL: ImageURL,
+                                product: product,
                               )));
                     },
                     child: Card(

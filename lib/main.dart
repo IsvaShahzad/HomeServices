@@ -1,44 +1,35 @@
-
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:home_services_flutter/Detail_Screens/Baking_DetailScreen/Pizza_Detail.dart';
 import 'package:home_services_flutter/initialScreens/splash_screen.dart';
+import 'package:home_services_flutter/subcategories_addedproducts/Baking_addedproducts/pizza_screen.dart';
 import 'Consumer_Screens/add_requirements_consumer.dart';
+import 'Consumer_Screens/favourites.dart';
 import 'provider/Services.dart';
 import 'allServices/services_detail.dart';
 import 'package:provider/provider.dart';
 import 'provider/service_providerr.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
-
-void main()
-async
-{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
 }
+late final Product product;
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(360, 804),
       minTextAdapt: true,
       builder: (BuildContext context, Widget? child) {
-        final requirementModel = RequirementModel(id: '',
-            productname: '',
-            productprice: '',
-            ImageURl: '',
-            productdescription: '',
-            productquantity: '',
-            email: '',
-            mobile: '',
-            deliverydate: ''
-        );
-        return ChangeNotifierProvider.value(
-          value: requirementModel,
+        return MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => FavouriteProductPage()),
+          ],
           child: MaterialApp(
             theme: ThemeData(
               scaffoldBackgroundColor: const Color(0xFFFFFFFF),
@@ -55,11 +46,8 @@ class MyApp extends StatelessWidget {
                 ),
               ),
             ),
-            //theme: new ThemeData(scaffoldBackgroundColor: const Color()),
-
-            home:SplashScreen(),
+            home: SplashScreen(),
             routes: {
-
               // ServiceDetail.routeName: (context) => ServiceDetail(),
             },
             debugShowCheckedModeBanner: false,
@@ -69,5 +57,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
