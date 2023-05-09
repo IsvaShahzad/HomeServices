@@ -26,7 +26,9 @@ class ConsumerMainPageScreen extends StatefulWidget {
 
 class _ConsumerMainPageScreenState extends State<ConsumerMainPageScreen> {
   int _selectedIndex = 0;
-   // late final  FavouriteProductPage model = add ;
+  bool _onFavoritePage = false;
+
+  // late final  FavouriteProductPage model = add ;
 
 
 
@@ -42,11 +44,14 @@ class _ConsumerMainPageScreenState extends State<ConsumerMainPageScreen> {
       _selectedIndex = index;
     });
     if (index == 1) {
+      _onFavoritePage = false;
+
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => Cart_Screen()),
       );
     } else if (index == 2) {
+      _onFavoritePage = true;
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => FavoriteProductsPage(model: Provider.of<FavouriteProductPage>(context),)));
     }
@@ -61,6 +66,11 @@ class _ConsumerMainPageScreenState extends State<ConsumerMainPageScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+
+    Consumer<FavouriteProductPage>(
+      builder: (context, model, _) => FavoriteProductsPage(model: model),
+    );
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(

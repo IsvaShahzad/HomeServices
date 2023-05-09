@@ -17,7 +17,14 @@ void main() async {
   await Firebase.initializeApp();
   runApp(MyApp());
 }
-late final Product product;
+
+ final PizzaDetailScreen product = PizzaDetailScreen(
+   productName: product.productName,
+   productDescription: product.productDescription,
+   ImageURL: product.ImageURL,
+   productPrice: product.productPrice,
+   product: product.product,
+ );
 
 class MyApp extends StatelessWidget {
   @override
@@ -29,6 +36,7 @@ class MyApp extends StatelessWidget {
         return MultiProvider(
           providers: [
             ChangeNotifierProvider(create: (_) => FavouriteProductPage()),
+
           ],
           child: MaterialApp(
             theme: ThemeData(

@@ -41,6 +41,8 @@ class _PizzaScreenState extends State<PizzaScreen> {
   // String getAppbarTitle() => "Add products ${widget.added['product price']}";
   String getAppbarTitle() => "Pizzas ";
 
+
+
   @override
   Widget build(BuildContext context) {
     print(widget.added);
@@ -50,7 +52,6 @@ class _PizzaScreenState extends State<PizzaScreen> {
     final productDescription = widget.added?["product description"];
     final ImageURL = widget.added?["Image URL"];
 
-    // Product product = Provider.of<Product>(context);
 
     return Container(
         decoration: BoxDecoration(

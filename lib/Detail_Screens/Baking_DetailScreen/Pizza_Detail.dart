@@ -6,20 +6,22 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PizzaDetailScreen extends StatefulWidget {
-  final String productName;
-  final String productPrice;
-  final String productDescription;
+
   final String ImageURL;
+  final String productName;
+  final String productDescription;
+  final String productPrice;
   final Product product;
 
   const PizzaDetailScreen({
     Key? key,
-    required this.productName,
-    required this.productPrice,
-    required this.productDescription,
     required this.ImageURL,
+    required this.productName,
+    required this.productDescription,
+    required this.productPrice,
     required this.product,
   }) : super(key: key);
+
 
   @override
   State<PizzaDetailScreen> createState() => _PizzaDetailScreenState();
@@ -36,7 +38,12 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
     SharedPreferences.getInstance().then((prefs) {
       setState(() {
         _prefs = prefs;
-        _isFavorite = _prefs.getBool(widget.product.toString()) ?? false;
+        // _isFavorite = _prefs.getBool(widget.productName) ?? false;
+
+        // _isFavorite = _prefs.getBool(widget.product.toString()) ?? false;
+        // if (_prefs.getBool(widget.product.toString()) == null) {
+        //   _prefs.setBool(widget.product.toString(), false);
+        // }
       });
     });
   }
@@ -176,7 +183,7 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
                 setState(() {
                   _isFavorite = !_isFavorite;
                 });
-                _prefs.setBool(widget.product.toString(), _isFavorite);
+                _prefs.setBool(widget.productName, _isFavorite);
 
                 // Add the product to favorites
                 if (_isFavorite) {
@@ -187,6 +194,8 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
                       duration: Duration(seconds: 2),
                     ),
                   );
+
+
                 } else {
                   favoriteProductsModel.removeFavoriteProduct(widget.product);
                   ScaffoldMessenger.of(context).showSnackBar(
