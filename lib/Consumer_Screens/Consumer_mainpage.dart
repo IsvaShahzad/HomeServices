@@ -7,7 +7,9 @@ import 'package:home_services_flutter/Consumer_Screens/added_postings.dart';
 import 'package:home_services_flutter/Consumer_Screens/cart_screen.dart';
 import 'package:home_services_flutter/Consumer_Screens/explore_consumer_screen.dart';
 import 'package:home_services_flutter/main.dart';
+import 'package:home_services_flutter/models/favpage_model.dart';
 import 'package:home_services_flutter/provider/provider.dart';
+import 'package:home_services_flutter/screens/favpage_screen.dart';
 import 'package:home_services_flutter/seller/SellerProfilePage.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
 import 'package:home_services_flutter/seller/seller_portfolio.dart';
@@ -20,6 +22,17 @@ import '../seller/addProduct.dart';
 import 'favourites.dart';
 
 class ConsumerMainPageScreen extends StatefulWidget {
+  //
+  // late final String ImageURL;
+  // late final String productName;
+  // late final String productPrice;
+  // late final String productDescription;
+  //
+  // ConsumerMainPageScreen({required this.ImageURL,
+  //   required this.productDescription,
+  //   required this.productPrice,
+  //   required this.productName
+  // }); // Up
   @override
   _ConsumerMainPageScreenState createState() => _ConsumerMainPageScreenState();
 }
@@ -53,7 +66,10 @@ class _ConsumerMainPageScreenState extends State<ConsumerMainPageScreen> {
     } else if (index == 2) {
       _onFavoritePage = true;
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => FavoriteProductsPage(model: Provider.of<FavouriteProductPage>(context),)));
+          context, MaterialPageRoute(builder: (context) => FavoriteProductsPage(
+        model: Provider.of<FavouriteProductPage>(context), ImageURL: '', productName: '', productPrice: '', productDescription: '',
+
+      )));
     }
   }
 
@@ -68,9 +84,14 @@ class _ConsumerMainPageScreenState extends State<ConsumerMainPageScreen> {
   Widget build(BuildContext context) {
 
 
-    Consumer<FavouriteProductPage>(
-      builder: (context, model, _) => FavoriteProductsPage(model: model),
-    );
+    final favouriteProductsModel = Provider.of<FavouriteProductPage>(context, listen: false);
+
+//
+
+
+    // Consumer<FavouriteProductPage>(
+    //   builder: (context, model, _) => FavoriteProductsPage(model: model),
+    // );
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(

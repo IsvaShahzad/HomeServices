@@ -26,6 +26,7 @@ import '../subcategories_addedproducts/Knitting_addedproducts/sweaters_screen.da
 // enum Categories { baking, cooking, knitting, tailoring, artAndCraft }
 
 class ProductModel {
+  final int id;
   final String productname;
   final String productprice;
   final String ImageURl;
@@ -33,6 +34,7 @@ class ProductModel {
   final String product;
 
   ProductModel({
+    required this.id,
     required this.productname,
     required this.productprice,
     required this.ImageURl,
@@ -47,6 +49,8 @@ class ProductModel {
       ImageURl: json['Image URl'],
       productdescription: json['product description'],
       product: json['product'],
+      id: json['id'],
+
 
     );
   }

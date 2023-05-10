@@ -54,7 +54,7 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final favoriteProductsModel =
-        Provider.of<FavouriteProductPage>(context, listen: false);
+    Provider.of<FavouriteProductPage>(context, listen: false);
 
     return Container(
       decoration: BoxDecoration(
@@ -95,8 +95,8 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
                           fontSize: 24.0,
                           fontWeight: FontWeight.bold,
                           color: Colors.black87
-                          // decoration: TextDecoration.underline,
-                          ),
+                        // decoration: TextDecoration.underline,
+                      ),
                     ),
                   ),
                   SizedBox(height: 25.0),
@@ -205,6 +205,21 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
                     ),
                   );
                 }
+
+
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FavoriteProductsPage(
+                      model: Provider.of<FavouriteProductPage>(context),
+                      ImageURL: widget.ImageURL,
+                      productName: widget.productName,
+                      productPrice: widget.productPrice,
+                      productDescription: widget.productDescription,
+                    ),
+                  ),
+                );
               },
               backgroundColor: Colors.white,
               foregroundColor: Colors.red,

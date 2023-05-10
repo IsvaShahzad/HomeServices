@@ -11,6 +11,7 @@ import 'allServices/services_detail.dart';
 import 'package:provider/provider.dart';
 import 'provider/service_providerr.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import'package:home_services_flutter/Consumer_Screens/Consumer_mainpage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,13 +19,13 @@ void main() async {
   runApp(MyApp());
 }
 
- final PizzaDetailScreen product = PizzaDetailScreen(
-   productName: product.productName,
-   productDescription: product.productDescription,
-   ImageURL: product.ImageURL,
-   productPrice: product.productPrice,
-   product: product.product,
- );
+final PizzaDetailScreen product = PizzaDetailScreen(
+  productName: product.productName,
+  productDescription: product.productDescription,
+  ImageURL: product.ImageURL,
+  productPrice: product.productPrice,
+  product: product.product,
+);
 
 class MyApp extends StatelessWidget {
   @override
@@ -35,8 +36,10 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext context, Widget? child) {
         return MultiProvider(
           providers: [
-            ChangeNotifierProvider(create: (_) => FavouriteProductPage()),
+            ChangeNotifierProvider(create: (_) => FavouriteProductPage(),
+            child: ConsumerMainPageScreen(),
 
+            ),
           ],
           child: MaterialApp(
             theme: ThemeData(

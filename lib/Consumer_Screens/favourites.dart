@@ -51,8 +51,20 @@ class FavouriteProductPage with ChangeNotifier {
 
 class FavoriteProductsPage extends StatefulWidget {
   final FavouriteProductPage model;
+  final String ImageURL;
+  final String productName;
+  final String productPrice;
+  final String productDescription;
 
-  const FavoriteProductsPage({required this.model});
+  const FavoriteProductsPage({
+    required this.model,
+
+    required this.ImageURL,
+    required this.productName,
+    required this.productPrice,
+    required this.productDescription
+
+  });
 
   @override
   _FavoriteProductsPageState createState() => _FavoriteProductsPageState();
@@ -62,6 +74,10 @@ class _FavoriteProductsPageState extends State<FavoriteProductsPage> {
   @override
   Widget build(BuildContext context) {
 
+    final ImageURL = widget.ImageURL;
+    final productName = widget.productName;
+    final productPrice = widget.productPrice;
+    final productDescription = widget.productDescription;
 
 
     return Container(
