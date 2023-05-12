@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         return MultiProvider(
           providers: [
             ChangeNotifierProvider(create: (_) => FavouriteProductPage(),
-            child: ConsumerMainPageScreen(),
+              child: ConsumerMainPageScreen(),
 
             ),
           ],

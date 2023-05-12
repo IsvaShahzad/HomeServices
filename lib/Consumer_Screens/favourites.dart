@@ -9,13 +9,12 @@ import 'package:provider/provider.dart';
 import '../initialScreens/loginScreen.dart';
 import '../main.dart';
 
+//
 class Product with ChangeNotifier {
-
   final String ImageURL;
   final String productName;
   final String productDescription;
   final String productPrice;
-  // bool isFavourite;
 
   Product({
     required this.ImageURL,
@@ -28,11 +27,9 @@ class Product with ChangeNotifier {
 class FavouriteProductPage with ChangeNotifier {
   List<Product> _favoriteProducts = [];
 
-
   List<Product> get favoriteProducts => _favoriteProducts;
 
   void addFavoriteProduct(Product product) {
-
     print('Adding product $product to favorites');
 
     _favoriteProducts.add(product);
@@ -53,17 +50,15 @@ class FavoriteProductsPage extends StatefulWidget {
   final FavouriteProductPage model;
   final String ImageURL;
   final String productName;
-  final String productPrice;
   final String productDescription;
+  final String productPrice;
 
   const FavoriteProductsPage({
     required this.model,
-
     required this.ImageURL,
     required this.productName,
+    required this.productDescription,
     required this.productPrice,
-    required this.productDescription
-
   });
 
   @override
@@ -73,13 +68,6 @@ class FavoriteProductsPage extends StatefulWidget {
 class _FavoriteProductsPageState extends State<FavoriteProductsPage> {
   @override
   Widget build(BuildContext context) {
-
-    final ImageURL = widget.ImageURL;
-    final productName = widget.productName;
-    final productPrice = widget.productPrice;
-    final productDescription = widget.productDescription;
-
-
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -87,6 +75,7 @@ class _FavoriteProductsPageState extends State<FavoriteProductsPage> {
           fit: BoxFit.cover,
         ),
       ),
+
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
@@ -140,7 +129,6 @@ class _FavoriteProductsPageState extends State<FavoriteProductsPage> {
                         )
                       : ListView.builder(
                           itemCount: widget.model.favoriteProducts.length,
-                          //not populated correctly
                           itemBuilder: (context, index) {
                             print(
                                 'favoriteProducts length: ${widget.model.favoriteProducts.length}');
@@ -148,49 +136,66 @@ class _FavoriteProductsPageState extends State<FavoriteProductsPage> {
                             final product =
                                 widget.model.favoriteProducts[index];
                             return Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 60),
-                              child: Card(
-                                elevation: 5,
-                                color: Colors
-                                    .white70, // add some elevation to create a shadow effect
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                      10.0), // round the edges of the card
-                                  side:
-                                      BorderSide(width: 1, color: Colors.grey),
-                                ),
-                                child: Column(
+                                padding: EdgeInsets.symmetric(horizontal: 60),
+                                child: Card(
+                                  elevation: 5,
+                                  color: Colors
+                                      .white70, // add some elevation to create a shadow effect
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        10.0), // round the edges of the card
+                                    side: BorderSide(
+                                        width: 1, color: Colors.grey),
+                                  ),
+                                  child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Container(
-                                        height: 60,
                                         width: double.infinity,
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(10),
-                                            topRight: Radius.circular(10),
+                                            topLeft: Radius.circular(0),
+                                            topRight: Radius.circular(0),
                                           ),
+                                        ),
+                                      ),
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image.network(
+                                          widget?.ImageURL ?? '',
+                                          width: double.infinity,
+                                          fit: BoxFit.cover,
                                         ),
                                       ),
                                       ListTile(
-                                        leading: product?.ImageURL != null
-                                            ? Image.network(
-                                                product?.ImageURL ?? '')
-                                            : SizedBox.shrink(),
-                                        title: Text(product?.productName ?? ''),
+                                        contentPadding: EdgeInsets.symmetric(
+                                            horizontal: 12, vertical: 5),
+                                        title: Row(
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                widget?.productName ?? '',
+                                                style: TextStyle(fontSize: 16),
+                                              ),
+                                            ),
+                                            Text(
+                                              '\Rs.${widget?.productPrice ?? ''}',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                         subtitle: Text(
-                                            product?.productDescription ?? ''),
-                                        trailing: Text(
-                                          '\$${product?.productPrice ?? ''}',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                          widget?.productDescription ?? '',
+                                          style: TextStyle(fontSize: 14),
                                         ),
                                       ),
-                                    ]),
-                              ),
-                            );
+                                    ],
+                                  ),
+                                ));
                           },
                         ),
                 ),

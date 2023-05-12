@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 
 import '../../Consumer_Screens/favourites.dart';
 
-
 class PizzaScreen extends StatefulWidget {
   final Map<String, dynamic> added;
 
@@ -21,7 +20,7 @@ class _PizzaScreenState extends State<PizzaScreen> {
   int _selectedIndex = 0;
 
   CollectionReference _collectionRef =
-  FirebaseFirestore.instance.collection('addproducts');
+      FirebaseFirestore.instance.collection('addproducts');
 
   late Stream<QuerySnapshot> _streamCategory = _collectionRef.snapshots();
 
@@ -41,8 +40,6 @@ class _PizzaScreenState extends State<PizzaScreen> {
   // String getAppbarTitle() => "Add products ${widget.added['product price']}";
   String getAppbarTitle() => "Pizzas ";
 
-
-
   @override
   Widget build(BuildContext context) {
     print(widget.added);
@@ -52,13 +49,12 @@ class _PizzaScreenState extends State<PizzaScreen> {
     final productDescription = widget.added?["product description"];
     final ImageURL = widget.added?["Image URL"];
 
-
     return Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/images/pastel.png"),
-              fit: BoxFit.cover,
-            )),
+          image: AssetImage("assets/images/pastel.png"),
+          fit: BoxFit.cover,
+        )),
         child: Scaffold(
             backgroundColor: Colors.transparent,
             appBar: AppBar(
@@ -91,94 +87,92 @@ class _PizzaScreenState extends State<PizzaScreen> {
             body: Padding(
               padding: EdgeInsets.only(top: 30),
               child: widget.added != null &&
-                  widget.added['pizzalist'] != null &&
-                  widget.added['pizzalist'].isNotEmpty
+                      widget.added['pizzalist'] != null &&
+                      widget.added['pizzalist'].isNotEmpty
                   ? GridView.builder(
-                itemCount: widget.added['pizzalist'].length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 18.0,
-                  crossAxisSpacing: 10.0,
-                ),
-                itemBuilder: (context, index) {
-                  final addedproductss = widget.added['pizzalist'][index];
-
-                  final ImageURL = addedproductss.ImageURl;
-                  final productName = addedproductss.productname;
-                  final productPrice = addedproductss.productprice;
-                  final productDescription = addedproductss.productdescription;
-                  final product = addedproductss.product;
-
-
-                  return InkWell(
-                    onTap: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PizzaDetailScreen(
-                                productName: productName,
-                                productPrice: productPrice,
-                                productDescription:
-                                productDescription,
-                                ImageURL: ImageURL,
-                                product: product,
-                              )));
-                    },
-                    child: Card(
-                      elevation: 5,
-                      color: Colors.white70,// add some elevation to create a shadow effect
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0), // round the edges of the card
-                        side: BorderSide(width: 1, color: Colors.grey), // add a border around the card
+                      itemCount: widget.added['pizzalist'].length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 18.0,
+                        crossAxisSpacing: 10.0,
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            height: 100,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10),
-                              ),
-                              image: DecorationImage(
-                                image: NetworkImage(ImageURL),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
+                      itemBuilder: (context, index) {
+                        final addedproductss = widget.added['pizzalist'][index];
 
-                          Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Text(
-                              "Item: $productName\nRs. $productPrice\n$productDescription",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
+                        final ImageURL = addedproductss.ImageURl;
+                        final productName = addedproductss.productname;
+                        final productPrice = addedproductss.productprice;
+                        final productDescription =
+                            addedproductss.productdescription;
+                        final product = addedproductss.product;
+
+                        return InkWell(
+                            child: Card(
+                              elevation: 5,
+                              color: Colors
+                                  .white70, // add some elevation to create a shadow effect
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    10.0), // round the edges of the card
+                                side: BorderSide(
+                                    width: 1,
+                                    color: Colors
+                                        .grey), // add a border around the card
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Container(
+                                    height: 100,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                        topRight: Radius.circular(10),
+                                      ),
+                                      image: DecorationImage(
+                                        image: NetworkImage(ImageURL),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.all(10),
+                                    child: Text(
+                                      "Item: $productName\nRs. $productPrice\n$productDescription",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ),
-                        ],
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => PizzaDetailScreen(
+                                            productName: productName,
+                                            productPrice: productPrice,
+                                            productDescription:
+                                                productDescription,
+                                            ImageURL: ImageURL,
+                                            product: product,
+                                          )));
+                            });
+                      },
+                    )
+                  : Center(
+                      child: Text(
+                        'No products found',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.0,
+                        ),
                       ),
                     ),
-                  );
-
-
-                },
-              )
-                  : Center(
-                child: Text(
-                  'No products found',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20.0,
-                  ),
-                ),
-              ),
-            )
-
-
-        ));
+            )));
   }
 }

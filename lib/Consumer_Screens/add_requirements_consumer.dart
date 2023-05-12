@@ -221,10 +221,17 @@ class _AddRequirementsState extends State<AddRequirements> {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ConsumerMainPageScreen()));
+                  // Navigator.pushReplacement(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => ConsumerMainPageScreen(
+                  //           model: Provider.of<FavouriteProductPage>(context),
+                  //           ImageURL: widget.ImageURL,
+                  //           productName: widget.productName,
+                  //           productPrice: widget.productPrice,
+                  //           productDescription: widget.productDescription,
+                  //
+                  //         )));
                 },
               ),
               title: Align(

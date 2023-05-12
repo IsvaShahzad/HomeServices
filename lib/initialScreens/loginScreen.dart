@@ -2,9 +2,13 @@ import 'dart:ui';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
+import 'package:home_services_flutter/Categories/subcategory_screen.dart';
+import 'package:home_services_flutter/Consumer_Screens/Consumer_mainpage.dart';
 import 'package:home_services_flutter/initialScreens/ContinueAsConsumerOrSellerScreen.dart';
 import 'package:home_services_flutter/initialScreens/registration_screen.dart';
 import 'package:home_services_flutter/seller/SellerMainPage.dart';
+import 'package:provider/provider.dart';
+import '../Consumer_Screens/favourites.dart';
 import '../allServices/services_overview_screen.dart';
 
 import 'package:home_services_flutter/initialScreens/splash_screen.dart';
@@ -36,6 +40,9 @@ class _LoginScreenState extends State<LoginScreen> {
   late String email;
   late String password;
   late bool isLogin;
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     keyboardType: TextInputType.emailAddress,
                                     controller: emailController,
                                     style: TextStyle(
-                                      fontSize: 11,
+                                      fontSize: 13,
                                       color: Color(0xFF000000),
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -149,6 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 0),
                                   child: TextFormField(
+
                                     controller: passwordController,
                                     obscureText: _isObscure,
                                     decoration: InputDecoration(
@@ -161,7 +169,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                       hintText: ' Enter Password',
                                       hintStyle: TextStyle(
-                                          fontSize: 13, color: Colors.grey),
+                                          fontSize: 13,
+                                          color: Colors.grey
+                                      ),
                                       suffixIcon: IconButton(
                                         icon: Icon(
                                           _isObscure
@@ -238,7 +248,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                             Navigator.pushReplacement(
                                               context,
                                               MaterialPageRoute(
-                                                builder: (BuildContext context) => ContinueAsScreen(),
+                                                builder: (BuildContext context) => ContinueAsScreen(
+                                                )
+
+
+
                                               ),
                                             );
                                           }

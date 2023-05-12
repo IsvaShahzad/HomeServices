@@ -52,6 +52,22 @@ class _ConsumerMainPageScreenState extends State<ConsumerMainPageScreen> {
 
   late Stream<QuerySnapshot> _streamCategory = _collectionRef.snapshots();
 
+  void navigateToFavoriteProductsPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => FavoriteProductsPage(
+          model: Provider.of<FavouriteProductPage>(context),
+          ImageURL: product.ImageURL,
+          productName: product.productName,
+          productPrice: product.productPrice,
+          productDescription: product.productDescription,
+        ),
+      ),
+    );
+  }
+
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -65,11 +81,7 @@ class _ConsumerMainPageScreenState extends State<ConsumerMainPageScreen> {
       );
     } else if (index == 2) {
       _onFavoritePage = true;
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => FavoriteProductsPage(
-        model: Provider.of<FavouriteProductPage>(context), ImageURL: '', productName: '', productPrice: '', productDescription: '',
-
-      )));
+      navigateToFavoriteProductsPage();
     }
   }
 
@@ -370,9 +382,9 @@ class _ConsumerMainPageScreenState extends State<ConsumerMainPageScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => PostingDisplayedScreen(
-                                addedposting: {
-                                  'All Requirements': addedrequirements,
-                                }, id: 'id',)));
+                              addedposting: {
+                                'All Requirements': addedrequirements,
+                              }, id: 'id',)));
                   },
                 ),
                 Divider(),

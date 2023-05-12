@@ -164,6 +164,15 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
                   ? Icon(Icons.favorite)
                   : Icon(Icons.favorite_border),
               onPressed: () {
+
+                // final product = Product(
+                //   ImageURL: widget.ImageURL,
+                //   productName: widget.productName,
+                //   productDescription: widget.productDescription,
+                //   productPrice: widget.productPrice,
+                // );
+
+
                 try {
                   FirebaseFirestore.instance
                       .collection('favourite products')
@@ -208,18 +217,31 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
 
 
 
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => FavoriteProductsPage(
+                //       model: Provider.of<FavouriteProductPage>(context),
+
+                //     ),
+                //   ),
+                // );
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => FavoriteProductsPage(
-                      model: Provider.of<FavouriteProductPage>(context),
+                      model: Provider.of<FavouriteProductPage>(context, listen: false),
                       ImageURL: widget.ImageURL,
                       productName: widget.productName,
-                      productPrice: widget.productPrice,
                       productDescription: widget.productDescription,
+                      productPrice: widget.productPrice,
                     ),
                   ),
                 );
+
+
+
               },
               backgroundColor: Colors.white,
               foregroundColor: Colors.red,

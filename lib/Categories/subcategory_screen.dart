@@ -199,8 +199,7 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                           print('Description: ${product.productdescription}');
                         });
 
-                        print(
-                            addedProducts); // Add this line to print the list of added products
+                        print(addedProducts); // Add this line to print the list of added products
 
                         Navigator.push(
                             context,
