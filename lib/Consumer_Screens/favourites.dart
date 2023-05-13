@@ -29,6 +29,11 @@ class FavouriteProductPage with ChangeNotifier {
 
   List<Product> get favoriteProducts => _favoriteProducts;
 
+
+  bool isFavorite(Product product) {
+    return _favoriteProducts.contains(product);
+  }
+
   void addFavoriteProduct(Product product) {
     print('Adding product $product to favorites');
 
@@ -44,6 +49,8 @@ class FavouriteProductPage with ChangeNotifier {
 
     notifyListeners();
   }
+
+
 }
 
 class FavoriteProductsPage extends StatefulWidget {
@@ -135,6 +142,8 @@ class _FavoriteProductsPageState extends State<FavoriteProductsPage> {
 
                             final product =
                                 widget.model.favoriteProducts[index];
+                            
+
                             return Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 60),
                                 child: Card(

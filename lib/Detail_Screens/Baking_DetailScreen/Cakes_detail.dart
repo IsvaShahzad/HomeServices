@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/subcategories_addedproducts/Cooking_addedproducts/Homemade_screen.dart';
 
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../Consumer_Screens/favourites.dart';
 import '../../seller/seller_portfolio.dart';
 
 class CakesDetailScreen extends StatefulWidget {
@@ -11,6 +14,7 @@ class CakesDetailScreen extends StatefulWidget {
   final String productPrice;
   final String productDescription;
   final String ImageURL;
+  final Product product;
 
   const CakesDetailScreen({
     Key? key,
@@ -18,6 +22,7 @@ class CakesDetailScreen extends StatefulWidget {
     required this.productPrice,
     required this.productDescription,
     required this.ImageURL,
+    required this.product,
   }) : super(key: key);
 
   @override
@@ -25,13 +30,33 @@ class CakesDetailScreen extends StatefulWidget {
 }
 
 class _CakesDetailScreenState extends State<CakesDetailScreen> {
-
   int _quantity = 1;
   bool _isFavorite = false;
+  late SharedPreferences _prefs;
+  @override
+  void initState() {
+    super.initState();
+    SharedPreferences.getInstance().then((prefs) {
+      setState(() {
+        _prefs = prefs;
+        // _isFavorite = _prefs.getBool(widget.productName) ?? false;
 
-
+        // _isFavorite = _prefs.getBool(widget.product.toString()) ?? false;
+        // if (_prefs.getBool(widget.product.toString()) == null) {
+        //   _prefs.setBool(widget.product.toString(), false);
+        // }
+      });
+    });
+  }
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController priceController = TextEditingController();
+  final TextEditingController urlController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final favoriteProductsModel =
+    Provider.of<FavouriteProductPage>(context, listen: false);
+
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
@@ -47,7 +72,6 @@ class _CakesDetailScreenState extends State<CakesDetailScreen> {
                 background: Image.network(
                   widget.ImageURL,
                   fit: BoxFit.cover,
-
                 ),
               ),
               leading: IconButton(
@@ -141,10 +165,84 @@ class _CakesDetailScreenState extends State<CakesDetailScreen> {
                   ? Icon(Icons.favorite)
                   : Icon(Icons.favorite_border),
               onPressed: () {
+
+                // final product = Product(
+                //   ImageURL: widget.ImageURL,
+                //   productName: widget.productName,
+                //   productDescription: widget.productDescription,
+                //   productPrice: widget.productPrice,
+                // );
+
+
+                try {
+                  FirebaseFirestore.instance
+                      .collection('favourite products')
+                      .doc()
+                      .set({
+                    'name': nameController.text,
+                    'url': urlController.text,
+                    'price': priceController.text,
+                    'description': descriptionController.text,
+                  });
+                  print(nameController.text);
+                  print(urlController.text);
+                  print(priceController.text);
+                  print(descriptionController.text);
+                } catch (e) {}
+                ;
                 setState(() {
                   _isFavorite = !_isFavorite;
                 });
+                _prefs.setBool(widget.productName, _isFavorite);
+
                 // Add the product to favorites
+                if (_isFavorite) {
+                  favoriteProductsModel.addFavoriteProduct(widget.product);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Added to favorites'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+
+
+                } else {
+                  favoriteProductsModel.removeFavoriteProduct(widget.product);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Removed from favorites'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                }
+
+
+
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => FavoriteProductsPage(
+                //       model: Provider.of<FavouriteProductPage>(context),
+
+                //     ),
+                //   ),
+                // );
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FavoriteProductsPage(
+                      model: Provider.of<FavouriteProductPage>(context, listen: false),
+                      ImageURL: widget.ImageURL,
+                      productName: widget.productName,
+                      productDescription: widget.productDescription,
+                      productPrice: widget.productPrice,
+                    ),
+                  ),
+                );
+
+
+
               },
               backgroundColor: Colors.white,
               foregroundColor: Colors.red,
@@ -166,6 +264,5 @@ class _CakesDetailScreenState extends State<CakesDetailScreen> {
           ],
         ),
       ),
-    );
+    );}
   }
-}

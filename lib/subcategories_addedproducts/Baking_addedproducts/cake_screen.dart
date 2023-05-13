@@ -101,6 +101,8 @@ class _CakeScreenState extends State<CakeScreen> {
                   final productName = addedproductss.productname;
                   final productPrice = addedproductss.productprice;
                   final productDescription = addedproductss.productdescription;
+                  final product = addedproductss.product;
+
 
                   return InkWell(
                     onTap: () {
@@ -113,6 +115,7 @@ class _CakeScreenState extends State<CakeScreen> {
                                 productDescription:
                                 productDescription,
                                 ImageURL: ImageURL,
+                                product:product,
                               )));
                     },
 

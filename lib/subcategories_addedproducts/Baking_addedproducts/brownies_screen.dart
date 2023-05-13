@@ -102,6 +102,8 @@ class _BrowniesScreenState extends State<BrowniesScreen> {
                   final productName = addedproductss.productname;
                   final productPrice = addedproductss.productprice;
                   final productDescription = addedproductss.productdescription;
+                  final product = addedproductss.product;
+
 
                   return InkWell(
                     onTap: () {
@@ -114,6 +116,7 @@ class _BrowniesScreenState extends State<BrowniesScreen> {
                                 productDescription:
                                 productDescription,
                                 ImageURL: ImageURL,
+                                product: product,
                               )));
                     },
                     child: Card(

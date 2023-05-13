@@ -34,35 +34,35 @@ class MyApp extends StatelessWidget {
       designSize: const Size(360, 804),
       minTextAdapt: true,
       builder: (BuildContext context, Widget? child) {
-        return MultiProvider(
-          providers: [
-            ChangeNotifierProvider(create: (_) => FavouriteProductPage(),
-              child: ConsumerMainPageScreen(),
-
-            ),
-          ],
-          child: MaterialApp(
-            theme: ThemeData(
-              scaffoldBackgroundColor: const Color(0xFFFFFFFF),
-              primarySwatch: Colors.purple,
-              accentColor: Colors.pink,
-              inputDecorationTheme: const InputDecorationTheme(
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 1, color: Color(0xFFAB47BC)),
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 1, color: Color(0xFFAB47BC)),
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                ),
+        return MaterialApp(
+          theme: ThemeData(
+            scaffoldBackgroundColor: const Color(0xFFFFFFFF),
+            primarySwatch: Colors.purple,
+            accentColor: Colors.pink,
+            inputDecorationTheme: const InputDecorationTheme(
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(width: 1, color: Color(0xFFAB47BC)),
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(width: 1, color: Color(0xFFAB47BC)),
+                borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
             ),
-            home: SplashScreen(),
-            routes: {
-              // ServiceDetail.routeName: (context) => ServiceDetail(),
-            },
-            debugShowCheckedModeBanner: false,
           ),
+          home: SplashScreen(),
+          routes: {
+            // ServiceDetail.routeName: (context) => ServiceDetail(),
+          },
+          debugShowCheckedModeBanner: false,
+          builder: (context, child) {
+            return MultiProvider(
+              providers: [
+                ChangeNotifierProvider(create: (_) => FavouriteProductPage()),
+              ],
+              child: child,
+            );
+          },
         );
       },
     );

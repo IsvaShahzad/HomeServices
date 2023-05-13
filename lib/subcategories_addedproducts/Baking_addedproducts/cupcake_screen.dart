@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/Detail_Screens/Baking_DetailScreen/Cupcake_Detail.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
+import 'package:home_services_flutter/main.dart';
+import 'package:home_services_flutter/Detail_Screens/Baking_DetailScreen/Pizza_Detail.dart';
 
 
 class CupcakeScreen extends StatefulWidget {
@@ -101,6 +103,8 @@ class _CupcakeScreenState extends State<CupcakeScreen> {
                   final productName = addedproductss.productname;
                   final productPrice = addedproductss.productprice;
                   final productDescription = addedproductss.productdescription;
+                  final product = addedproductss.product;
+
 
                   return InkWell(
                     onTap: () {
@@ -113,6 +117,7 @@ class _CupcakeScreenState extends State<CupcakeScreen> {
                                 productDescription:
                                 productDescription,
                                 ImageURL: ImageURL,
+                                product: product,
                               )));
                     },
                     child: Card(
