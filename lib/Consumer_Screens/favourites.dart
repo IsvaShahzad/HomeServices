@@ -24,7 +24,7 @@ class Product with ChangeNotifier {
   });
 }
 
-class FavouriteProductPage with ChangeNotifier {
+class FavouriteProductPageProvider extends ChangeNotifier {
   List<Product> _favoriteProducts = [];
 
   List<Product> get favoriteProducts => _favoriteProducts;
@@ -54,14 +54,12 @@ class FavouriteProductPage with ChangeNotifier {
 }
 
 class FavoriteProductsPage extends StatefulWidget {
-  final FavouriteProductPage model;
   final String ImageURL;
   final String productName;
   final String productDescription;
   final String productPrice;
 
   const FavoriteProductsPage({
-    required this.model,
     required this.ImageURL,
     required this.productName,
     required this.productDescription,
@@ -75,6 +73,7 @@ class FavoriteProductsPage extends StatefulWidget {
 class _FavoriteProductsPageState extends State<FavoriteProductsPage> {
   @override
   Widget build(BuildContext context) {
+    final model = context.read<FavouriteProductPageProvider>();
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -124,7 +123,7 @@ class _FavoriteProductsPageState extends State<FavoriteProductsPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  child: widget.model.favoriteProducts.isEmpty
+                  child: model.favoriteProducts.isEmpty
                       ? Center(
                           child: Text(
                             "No products added",
@@ -135,13 +134,13 @@ class _FavoriteProductsPageState extends State<FavoriteProductsPage> {
                           ),
                         )
                       : ListView.builder(
-                          itemCount: widget.model.favoriteProducts.length,
+                          itemCount:model.favoriteProducts.length,
                           itemBuilder: (context, index) {
                             print(
-                                'favoriteProducts length: ${widget.model.favoriteProducts.length}');
+                                'favoriteProducts length: ${model.favoriteProducts.length}');
 
                             final product =
-                                widget.model.favoriteProducts[index];
+                                model.favoriteProducts[index];
                             
 
                             return Padding(

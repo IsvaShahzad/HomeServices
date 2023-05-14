@@ -54,7 +54,7 @@ class _BrowniesDetailScreenState extends State<BrowniesDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final favoriteProductsModel =
-    Provider.of<FavouriteProductPage>(context, listen: false);
+    Provider.of<FavouriteProductPageProvider>(context, listen: false);
 
     return Container(
       decoration: BoxDecoration(
@@ -231,7 +231,6 @@ class _BrowniesDetailScreenState extends State<BrowniesDetailScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => FavoriteProductsPage(
-                      model: Provider.of<FavouriteProductPage>(context, listen: false),
                       ImageURL: widget.ImageURL,
                       productName: widget.productName,
                       productDescription: widget.productDescription,

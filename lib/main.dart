@@ -19,18 +19,27 @@ void main() async {
   runApp(MyApp());
 }
 
-final PizzaDetailScreen product = PizzaDetailScreen(
-  productName: product.productName,
-  productDescription: product.productDescription,
-  ImageURL: product.ImageURL,
-  productPrice: product.productPrice,
-  product: product.product,
+final PizzaDetailScreen products = PizzaDetailScreen(
+  productName: 'products.productName',
+  productDescription: 'products.productDescription',
+  ImageURL: 'products.ImageURL',
+  productPrice: 'products.productPrice',
+  product: Product(
+    productName: 'products.productName',
+    productDescription: 'products.productDescription',
+    ImageURL: 'products.ImageURL',
+    productPrice: 'products.productPrice',
+  ),
 );
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
+
+    return Provider<FavouriteProductPageProvider>(
+      create: (_) =>FavouriteProductPageProvider() ,
+
+    child: ScreenUtilInit(
       designSize: const Size(360, 804),
       minTextAdapt: true,
       builder: (BuildContext context, Widget? child) {
@@ -50,21 +59,13 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
-          home: SplashScreen(),
-          routes: {
-            // ServiceDetail.routeName: (context) => ServiceDetail(),
-          },
+          home: ChangeNotifierProvider(create: (context) {
+            return FavouriteProductPageProvider();
+          },child: SplashScreen()),
+
           debugShowCheckedModeBanner: false,
-          builder: (context, child) {
-            return MultiProvider(
-              providers: [
-                ChangeNotifierProvider(create: (_) => FavouriteProductPage()),
-              ],
-              child: child,
-            );
-          },
         );
       },
-    );
+    ));
   }
 }

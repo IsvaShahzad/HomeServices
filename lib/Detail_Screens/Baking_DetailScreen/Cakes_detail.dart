@@ -55,7 +55,7 @@ class _CakesDetailScreenState extends State<CakesDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final favoriteProductsModel =
-    Provider.of<FavouriteProductPage>(context, listen: false);
+    Provider.of<FavouriteProductPageProvider>(context, listen: false);
 
     return Container(
       decoration: BoxDecoration(
@@ -232,7 +232,6 @@ class _CakesDetailScreenState extends State<CakesDetailScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => FavoriteProductsPage(
-                      model: Provider.of<FavouriteProductPage>(context, listen: false),
                       ImageURL: widget.ImageURL,
                       productName: widget.productName,
                       productDescription: widget.productDescription,
