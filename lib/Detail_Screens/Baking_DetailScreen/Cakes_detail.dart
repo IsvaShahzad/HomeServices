@@ -174,22 +174,22 @@ class _CakesDetailScreenState extends State<CakesDetailScreen> {
                 // );
 
 
-                try {
-                  FirebaseFirestore.instance
-                      .collection('favourite products')
-                      .doc()
-                      .set({
-                    'name': nameController.text,
-                    'url': urlController.text,
-                    'price': priceController.text,
-                    'description': descriptionController.text,
-                  });
-                  print(nameController.text);
-                  print(urlController.text);
-                  print(priceController.text);
-                  print(descriptionController.text);
-                } catch (e) {}
-                ;
+                // try {
+                //   FirebaseFirestore.instance
+                //       .collection('favourite products')
+                //       .doc()
+                //       .set({
+                //     'name': nameController.text,
+                //     'url': urlController.text,
+                //     'price': priceController.text,
+                //     'description': descriptionController.text,
+                //   });
+                //   print(nameController.text);
+                //   print(urlController.text);
+                //   print(priceController.text);
+                //   print(descriptionController.text);
+                // } catch (e) {}
+                // ;
                 setState(() {
                   _isFavorite = !_isFavorite;
                 });

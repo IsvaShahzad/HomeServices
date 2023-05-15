@@ -35,17 +35,17 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
   @override
   void initState() {
     super.initState();
-    SharedPreferences.getInstance().then((prefs) {
-      setState(() {
-        _prefs = prefs;
-        // _isFavorite = _prefs.getBool(widget.productName) ?? false;
-
-        // _isFavorite = _prefs.getBool(widget.product.toString()) ?? false;
-        // if (_prefs.getBool(widget.product.toString()) == null) {
-        //   _prefs.setBool(widget.product.toString(), false);
-        // }
-      });
-    });
+    // SharedPreferences.getInstance().then((prefs) {
+    //   setState(() {
+    //     _prefs = prefs;
+    //     // _isFavorite = _prefs.getBool(widget.productName) ?? false;
+    //
+    //     // _isFavorite = _prefs.getBool(widget.product.toString()) ?? false;
+    //     // if (_prefs.getBool(widget.product.toString()) == null) {
+    //     //   _prefs.setBool(widget.product.toString(), false);
+    //     // }
+    //   });
+    // });
   }
   final TextEditingController nameController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
@@ -173,22 +173,22 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
                 // );
 
 
-                try {
-                  FirebaseFirestore.instance
-                      .collection('favourite products')
-                      .doc()
-                      .set({
-                    'name': nameController.text,
-                    'url': urlController.text,
-                    'price': priceController.text,
-                    'description': descriptionController.text,
-                  });
-                  print(nameController.text);
-                  print(urlController.text);
-                  print(priceController.text);
-                  print(descriptionController.text);
-                } catch (e) {}
-                ;
+                // try {
+                //   FirebaseFirestore.instance
+                //       .collection('favourite products')
+                //       .doc()
+                //       .set({
+                //     'name': nameController.text,
+                //     'url': urlController.text,
+                //     'price': priceController.text,
+                //     'description': descriptionController.text,
+                //   });
+                //   print(nameController.text);
+                //   print(urlController.text);
+                //   print(priceController.text);
+                //   print(descriptionController.text);
+                // } catch (e) {}
+                // ;
                 setState(() {
                   _isFavorite = !_isFavorite;
                 });

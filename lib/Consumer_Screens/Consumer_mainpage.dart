@@ -78,15 +78,12 @@ class _ConsumerMainPageScreenState extends State<ConsumerMainPageScreen> {
         context,
         MaterialPageRoute(builder: (context) => Cart_Screen()),
       );
-    } else if (index == 2) {
+     }
+      else if (index == 2) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => FavoriteProductsPage(
+        MaterialPageRoute(builder: (context) => ConsumerProfile(
 
-          ImageURL: 'products.ImageURL',
-          productName: 'products.productName',
-          productPrice: 'products.productPrice',
-          productDescription: 'products.productDescription',
         )),
       );
     }
@@ -236,7 +233,7 @@ class _ConsumerMainPageScreenState extends State<ConsumerMainPageScreen> {
               label: 'Cart',
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.favorite_outlined), label: 'Favourites'),
+                icon: Icon(Icons.person), label: 'Profile'),
           ],
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
@@ -339,6 +336,39 @@ class _ConsumerMainPageScreenState extends State<ConsumerMainPageScreen> {
                             builder: (context) => ConsumerProfile()));
                   },
                 ),
+                Divider(),
+
+                ListTile(
+                  tileColor: Colors.white38,
+                  trailing: Icon(
+                    Icons.favorite,
+                    size: 18,
+                    color: Colors.purple,
+                  ),
+                  title: Text(
+                    "Favourites   ",
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold,),
+                  ),
+                  onTap: () async {
+
+
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FavoriteProductsPage(
+                              ImageURL: 'products.ImageURL',
+                              productName: 'products.productName',
+                              productPrice: 'products.productPrice',
+                              productDescription: 'products.productDescription',
+
+                            )));
+                  },
+                ),
+
+
+
+
                 Divider(),
                 ListTile(
                   tileColor: Colors.white38,

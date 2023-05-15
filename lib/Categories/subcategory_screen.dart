@@ -620,12 +620,12 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                         print(
                             addedProducts); // Add this line to print the list of added products
                         //
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => CupcakeScreen(added: {
-                        //           'cupcakelist': addedProducts
-                        //         })));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CupcakeScreen(added: {
+                                  'cupcakelist': addedProducts
+                                })));
                       }
                     }),
               );
