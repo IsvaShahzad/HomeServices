@@ -66,8 +66,8 @@ class _BrowniesDetailScreenState extends State<BrowniesDetailScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: Icon(Icons.favorite),
-                title: Text('Favorites'),
+                // leading: Icon(Icons.favorite),
+                title: Text('❤         Favourites '),
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.push(
@@ -92,6 +92,7 @@ class _BrowniesDetailScreenState extends State<BrowniesDetailScreen> {
                     MaterialPageRoute(builder: (context) => LoginScreen()),
                   );
                 },
+
               ),
             ],
           );
@@ -215,37 +216,23 @@ class _BrowniesDetailScreenState extends State<BrowniesDetailScreen> {
                   ? Icon(Icons.favorite)
                   : Icon(Icons.favorite_border),
               onPressed: () {
-                // final product = Product(
-                //   ImageURL: widget.ImageURL,
-                //   productName: widget.productName,
-                //   productDescription: widget.productDescription,
-                //   productPrice: widget.productPrice,
-                // );
 
-                // try {
-                //   FirebaseFirestore.instance
-                //       .collection('favourite products')
-                //       .doc()
-                //       .set({
-                //     'name': nameController.text,
-                //     'url': urlController.text,
-                //     'price': priceController.text,
-                //     'description': descriptionController.text,
-                //   });
-                //   print(nameController.text);
-                //   print(urlController.text);
-                //   print(priceController.text);
-                //   print(descriptionController.text);
-                // } catch (e) {}
-                // ;
                 setState(() {
                   _isFavorite = !_isFavorite;
                 });
-                _prefs.setBool(widget.productName, _isFavorite);
+                // _prefs.setBool(key, _isFavorite);
+
+
+                final product = Product(
+                  ImageURL: widget.ImageURL,
+                  productName: widget.productName,
+                  productDescription: widget.productDescription,
+                  productPrice: widget.productPrice,
+                );
 
                 // Add the product to favorites
                 if (_isFavorite) {
-                  favoriteProductsModel.addFavoriteProduct(widget.product);
+                  favoriteProductsModel.addFavoriteProduct(product);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('Added to favorites'),
@@ -253,7 +240,7 @@ class _BrowniesDetailScreenState extends State<BrowniesDetailScreen> {
                     ),
                   );
                 } else {
-                  favoriteProductsModel.removeFavoriteProduct(widget.product);
+                  favoriteProductsModel.removeFavoriteProduct(product);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('Removed from favorites'),
@@ -261,27 +248,15 @@ class _BrowniesDetailScreenState extends State<BrowniesDetailScreen> {
                     ),
                   );
                 }
-
                 // Navigator.push(
                 //   context,
                 //   MaterialPageRoute(
-                //     builder: (context) => FavoriteProductsPage(
-                //       model: Provider.of<FavouriteProductPage>(context),
-
-                //     ),
-                //   ),
-                // );
-
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => FavoriteProductsPage(
-                //       ImageURL: widget.ImageURL,
-                //       productName: widget.productName,
-                //       productDescription: widget.productDescription,
-                //       productPrice: widget.productPrice,
-                //     ),
-                //   ),
+                //       builder: (context) => FavoriteProductsPage(
+                //         ImageURL: widget.ImageURL,
+                //         productName: widget.productName,
+                //         productDescription: widget.productDescription,
+                //         productPrice: widget.productPrice,
+                //       )),
                 // );
               },
               backgroundColor: Colors.white,

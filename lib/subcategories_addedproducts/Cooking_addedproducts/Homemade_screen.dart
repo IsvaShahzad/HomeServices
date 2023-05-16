@@ -4,12 +4,29 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
 import 'package:home_services_flutter/seller/SellerMainPage.dart';
 
+import '../../Consumer_Screens/favourites.dart';
 import '../../Detail_Screens/Cooking_detail_screen/home_made_detail.dart';
 
 class HomemadeScreen extends StatefulWidget {
   final Map<String, dynamic> added;
 
-  HomemadeScreen({required this.added});
+  final String productName;
+  final String id;
+  final String productPrice;
+  final String productDescription;
+  final String ImageURL;
+  final Product product;
+
+  const HomemadeScreen({
+    Key? key,
+    required this.added,
+    required this.productName,
+    required this.id,
+    required this.productPrice,
+    required this.productDescription,
+    required this.ImageURL,
+    required this.product,
+  }) : super(key: key);
 
   @override
   _HomemadeScreenState createState() => _HomemadeScreenState();
@@ -48,12 +65,55 @@ class _HomemadeScreenState extends State<HomemadeScreen> {
     final productDescription = widget.added?["product description"];
     final ImageURL = widget.added?["Image URL"];
 
+
+    void _showFavoriteOptions(BuildContext context) {
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                // leading: Icon(Icons.favorite),
+                title: Text('❤         Favourites '),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => FavoriteProductsPage(
+                          ImageURL: widget.ImageURL,
+                          productName: widget.productName,
+                          productDescription: widget.productDescription,
+                          productPrice: widget.productPrice,
+                        )),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.logout),
+                title: Text('Logout'),
+                onTap: () {
+                  // Perform the logout action
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
+
     return Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-          image: AssetImage("assets/images/pastel.png"),
-          fit: BoxFit.cover,
-        )),
+              image: AssetImage("assets/images/pastel.png"),
+              fit: BoxFit.cover,
+            )),
         child: Scaffold(
             backgroundColor: Colors.transparent,
             appBar: AppBar(
@@ -70,17 +130,14 @@ class _HomemadeScreenState extends State<HomemadeScreen> {
                 ),
               ),
               actions: <Widget>[
+
+
                 IconButton(
-                    icon: Icon(
-                      Icons.logout,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginScreen()));
-                    }),
+                  icon: Icon(Icons.more_vert),
+                  onPressed: () {
+                    _showFavoriteOptions(context);
+                  },
+                ),
               ],
             ),
             body: Padding(

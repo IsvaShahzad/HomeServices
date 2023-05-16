@@ -4,11 +4,29 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/Detail_Screens/Knitting_DetailScreen/scarfs_detailscreen.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
 
+import '../../Consumer_Screens/favourites.dart';
+
 
 class ScarfScreen extends StatefulWidget {
   final Map<String, dynamic> added;
 
-  ScarfScreen({required this.added});
+  final String productName;
+  final String id;
+  final String productPrice;
+  final String productDescription;
+  final String ImageURL;
+  final Product product;
+
+  const ScarfScreen({
+    Key? key,
+    required this.added,
+    required this.productName,
+    required this.id,
+    required this.productPrice,
+    required this.productDescription,
+    required this.ImageURL,
+    required this.product,
+  }) : super(key: key);
 
   @override
   _ScarfScreenState createState() => _ScarfScreenState();
@@ -47,6 +65,49 @@ class _ScarfScreenState extends State<ScarfScreen> {
     final productDescription = widget.added?["product description"];
     final ImageURL = widget.added?["Image URL"];
 
+
+    void _showFavoriteOptions(BuildContext context) {
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                // leading: Icon(Icons.favorite),
+                title: Text('❤         Favourites '),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => FavoriteProductsPage(
+                          ImageURL: widget.ImageURL,
+                          productName: widget.productName,
+                          productDescription: widget.productDescription,
+                          productPrice: widget.productPrice,
+                        )),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.logout),
+                title: Text('Logout'),
+                onTap: () {
+                  // Perform the logout action
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
+
     return Container(
         decoration: BoxDecoration(
             image: DecorationImage(
@@ -69,17 +130,14 @@ class _ScarfScreenState extends State<ScarfScreen> {
                 ),
               ),
               actions: <Widget>[
+
+
                 IconButton(
-                    icon: Icon(
-                      Icons.logout,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginScreen()));
-                    }),
+                  icon: Icon(Icons.more_vert),
+                  onPressed: () {
+                    _showFavoriteOptions(context);
+                  },
+                ),
               ],
             ),
             body: Padding(

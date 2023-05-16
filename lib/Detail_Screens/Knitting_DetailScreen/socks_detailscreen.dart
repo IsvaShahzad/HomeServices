@@ -4,6 +4,9 @@ import 'package:home_services_flutter/subcategories_addedproducts/Cooking_addedp
 
 import 'package:provider/provider.dart';
 
+import '../../Consumer_Screens/favourites.dart';
+import '../../initialScreens/loginScreen.dart';
+
 class SocksDetailScreen extends StatefulWidget {
   final String productName;
   final String productPrice;
@@ -30,6 +33,50 @@ class _SocksDetailScreenState extends State<SocksDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final favoriteProductsModel =
+    Provider.of<FavouriteProductPageProvider>(context, listen: false);
+
+    void _showFavoriteOptions(BuildContext context) {
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                // leading: Icon(Icons.favorite),
+                title: Text('❤         Favourites '),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => FavoriteProductsPage(
+                          ImageURL: widget.ImageURL,
+                          productName: widget.productName,
+                          productDescription: widget.productDescription,
+                          productPrice: widget.productPrice,
+                        )),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.logout),
+                title: Text('Logout'),
+                onTap: () {
+                  // Perform the logout action
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
@@ -45,7 +92,6 @@ class _SocksDetailScreenState extends State<SocksDetailScreen> {
                 background: Image.network(
                   widget.ImageURL,
                   fit: BoxFit.cover,
-
                 ),
               ),
               leading: IconButton(
@@ -54,6 +100,14 @@ class _SocksDetailScreenState extends State<SocksDetailScreen> {
                   Navigator.pop(context);
                 },
               ),
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.more_vert),
+                  onPressed: () {
+                    _showFavoriteOptions(context);
+                  },
+                ),
+              ],
             ),
             SliverToBoxAdapter(
               child: Column(
@@ -139,28 +193,54 @@ class _SocksDetailScreenState extends State<SocksDetailScreen> {
                   ? Icon(Icons.favorite)
                   : Icon(Icons.favorite_border),
               onPressed: () {
+
                 setState(() {
                   _isFavorite = !_isFavorite;
                 });
+                // _prefs.setBool(key, _isFavorite);
+
+
+                final product = Product(
+                  ImageURL: widget.ImageURL,
+                  productName: widget.productName,
+                  productDescription: widget.productDescription,
+                  productPrice: widget.productPrice,
+                );
+
                 // Add the product to favorites
+                if (_isFavorite) {
+                  favoriteProductsModel.addFavoriteProduct(product);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Added to favorites'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                } else {
+                  favoriteProductsModel.removeFavoriteProduct(product);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Removed from favorites'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                }
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //       builder: (context) => FavoriteProductsPage(
+                //         ImageURL: widget.ImageURL,
+                //         productName: widget.productName,
+                //         productDescription: widget.productDescription,
+                //         productPrice: widget.productPrice,
+                //       )),
+                // );
               },
               backgroundColor: Colors.white,
               foregroundColor: Colors.red,
             ),
 
-            // SizedBox(width: 24.0),
-            // FloatingActionButton(
-            //   backgroundColor: Colors.purple,
-            //   child: Icon(Icons.add_shopping_cart),
-            //   onPressed: () {
-            //     setState(() {
-            //       if (_quantity > 1) {
-            //         _quantity--;
-            //       }
-            //     });
-            //   },
-            //   // child: Icon(Icons.remove),
-            // ),
+
           ],
         ),
       ),

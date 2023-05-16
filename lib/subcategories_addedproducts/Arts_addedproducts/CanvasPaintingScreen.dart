@@ -3,13 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
 
+import '../../Consumer_Screens/favourites.dart';
 import '../../Detail_Screens/ArtsnCrafts_DetailScreen/canvas_detailscreen.dart';
 
 
 class CanvasScreen extends StatefulWidget {
   final Map<String, dynamic> added;
 
-  CanvasScreen({required this.added});
+  final String productName;
+  final String id;
+  final String productPrice;
+  final String productDescription;
+  final String ImageURL;
+  final Product product;
+
+  const CanvasScreen({
+    Key? key,
+    required this.added,
+    required this.productName,
+    required this.id,
+    required this.productPrice,
+    required this.productDescription,
+    required this.ImageURL,
+    required this.product,
+  }) : super(key: key);
 
   @override
   _CanvasScreenState createState() => _CanvasScreenState();
@@ -48,6 +65,49 @@ class _CanvasScreenState extends State<CanvasScreen> {
     final productDescription = widget.added?["product description"];
     final ImageURL = widget.added?["Image URL"];
 
+
+    void _showFavoriteOptions(BuildContext context) {
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                // leading: Icon(Icons.favorite),
+                title: Text('❤         Favourites '),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => FavoriteProductsPage(
+                          ImageURL: widget.ImageURL,
+                          productName: widget.productName,
+                          productDescription: widget.productDescription,
+                          productPrice: widget.productPrice,
+                        )),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.logout),
+                title: Text('Logout'),
+                onTap: () {
+                  // Perform the logout action
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
+
     return Container(
         decoration: BoxDecoration(
             image: DecorationImage(
@@ -70,17 +130,14 @@ class _CanvasScreenState extends State<CanvasScreen> {
                 ),
               ),
               actions: <Widget>[
+
+
                 IconButton(
-                    icon: Icon(
-                      Icons.logout,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginScreen()));
-                    }),
+                  icon: Icon(Icons.more_vert),
+                  onPressed: () {
+                    _showFavoriteOptions(context);
+                  },
+                ),
               ],
             ),
             body: Padding(

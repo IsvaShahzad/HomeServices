@@ -3,20 +3,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
 
+import '../../Consumer_Screens/favourites.dart';
 import '../../Detail_Screens/Cooking_detail_screen/frozen_detail.dart';
 
 // enum Addedproducts { image, description, name, price, ImageURL }
 
-class ProductsAddedScreen extends StatefulWidget {
+class FrozenScreen extends StatefulWidget {
   final Map<String, dynamic> added;
 
-  ProductsAddedScreen({required this.added});
+  final String productName;
+  final String id;
+  final String productPrice;
+  final String productDescription;
+  final String ImageURL;
+  final Product product;
+
+  const FrozenScreen({
+    Key? key,
+    required this.added,
+    required this.productName,
+    required this.id,
+    required this.productPrice,
+    required this.productDescription,
+    required this.ImageURL,
+    required this.product,
+  }) : super(key: key);
 
   @override
-  _ProductsAddedScreenState createState() => _ProductsAddedScreenState();
+  _FrozenScreenState createState() => _FrozenScreenState();
 }
 
-class _ProductsAddedScreenState extends State<ProductsAddedScreen> {
+class _FrozenScreenState extends State<FrozenScreen> {
   int _selectedIndex = 0;
 
   CollectionReference _collectionRef =
@@ -50,12 +67,55 @@ class _ProductsAddedScreenState extends State<ProductsAddedScreen> {
     final ImageURL = widget.added?["Image URL"];
 
 
+
+    void _showFavoriteOptions(BuildContext context) {
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                // leading: Icon(Icons.favorite),
+                title: Text('❤         Favourites '),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => FavoriteProductsPage(
+                          ImageURL: widget.ImageURL,
+                          productName: widget.productName,
+                          productDescription: widget.productDescription,
+                          productPrice: widget.productPrice,
+                        )),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.logout),
+                title: Text('Logout'),
+                onTap: () {
+                  // Perform the logout action
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
+
     return Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-          image: AssetImage("assets/images/pastel.png"),
-          fit: BoxFit.cover,
-        )),
+              image: AssetImage("assets/images/pastel.png"),
+              fit: BoxFit.cover,
+            )),
         child: Scaffold(
             backgroundColor: Colors.transparent,
             appBar: AppBar(
@@ -72,17 +132,14 @@ class _ProductsAddedScreenState extends State<ProductsAddedScreen> {
                 ),
               ),
               actions: <Widget>[
+
+
                 IconButton(
-                    icon: Icon(
-                      Icons.logout,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginScreen()));
-                    }),
+                  icon: Icon(Icons.more_vert),
+                  onPressed: () {
+                    _showFavoriteOptions(context);
+                  },
+                ),
               ],
             ),
 

@@ -5,12 +5,10 @@ import 'package:home_services_flutter/Detail_Screens/Baking_DetailScreen/Cakes_d
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
 
 import '../../Consumer_Screens/favourites.dart';
+import '../../Detail_Screens/Baking_DetailScreen/Brownies_Detail.dart';
 
 
 class CakeScreen extends StatefulWidget {
-
-
-
   final Map<String, dynamic> added;
 
   final String productName;
@@ -30,7 +28,6 @@ class CakeScreen extends StatefulWidget {
     required this.ImageURL,
     required this.product,
   }) : super(key: key);
-
 
   @override
   _CakeScreenState createState() => _CakeScreenState();
@@ -64,10 +61,10 @@ class _CakeScreenState extends State<CakeScreen> {
   Widget build(BuildContext context) {
     print(widget.added);
 
-    // final productPrice = widget.added?["product price"];
-    // final productName = widget.added?["product name"];
-    // final productDescription = widget.added?["product description"];
-    // final ImageURL = widget.added?["Image URL"];
+    final productPrice = widget.added?["product price"];
+    final productName = widget.added?["product name"];
+    final productDescription = widget.added?["product description"];
+    final ImageURL = widget.added?["Image URL"];
 
 
 
@@ -137,6 +134,7 @@ class _CakeScreenState extends State<CakeScreen> {
               ),
               actions: <Widget>[
 
+
                 IconButton(
                   icon: Icon(Icons.more_vert),
                   onPressed: () {
@@ -165,8 +163,6 @@ class _CakeScreenState extends State<CakeScreen> {
                   final productPrice = addedproductss.productprice;
                   final productDescription = addedproductss.productdescription;
                   final product = addedproductss.product;
-                  final id = addedproductss.id;
-
 
 
                   return InkWell(
@@ -175,16 +171,15 @@ class _CakeScreenState extends State<CakeScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => CakesDetailScreen(
-                                id: id,
                                 productName: productName,
                                 productPrice: productPrice,
                                 productDescription:
                                 productDescription,
                                 ImageURL: ImageURL,
-                                product:product,
+                                product: product,
+                                id: '',
                               )));
                     },
-
                     child: Card(
                       elevation: 5,
                       color: Colors.white70,// add some elevation to create a shadow effect
