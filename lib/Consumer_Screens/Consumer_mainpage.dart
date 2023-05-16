@@ -316,8 +316,8 @@ class _ConsumerMainPageScreenState extends State<ConsumerMainPageScreen> {
                             builder: (context) => AddRequirements()));
                   },
                 ),
-
                 Divider(),
+
                 ListTile(
                   tileColor: Colors.white38,
                   trailing: Icon(

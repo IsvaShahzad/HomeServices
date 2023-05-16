@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:home_services_flutter/Consumer_Screens/favourites.dart';
 import 'package:home_services_flutter/subcategories_addedproducts/Baking_addedproducts/cake_screen.dart';
 import 'package:home_services_flutter/subcategories_addedproducts/Baking_addedproducts/cupcake_screen.dart';
 import 'package:home_services_flutter/subcategories_addedproducts/Tailoring_addedproducts/pants_screen.dart';
@@ -21,7 +22,6 @@ import '../subcategories_addedproducts/Knitting_addedproducts/scarf_screen.dart'
 import '../subcategories_addedproducts/Tailoring_addedproducts/shirt_screen.dart';
 import '../subcategories_addedproducts/Knitting_addedproducts/socks_screen.dart';
 import '../subcategories_addedproducts/Knitting_addedproducts/sweaters_screen.dart';
-
 
 // enum Categories { baking, cooking, knitting, tailoring, artAndCraft }
 
@@ -50,8 +50,6 @@ class ProductModel {
       productdescription: json['product description'],
       product: json['product'],
       id: json['id'],
-
-
     );
   }
 }
@@ -177,9 +175,7 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                             MaterialPageRoute(
                                 builder: (context) => ProductsAddedScreen(
                                     added: {'Frozenlist': addedProducts})));
-                      }
-
-                     else if (subcategoryName == 'Banner Making' &&
+                      } else if (subcategoryName == 'Banner Making' &&
                           _selectedsubcategory == subcategoryName) {
                         final addedProductsSnapshot = await FirebaseFirestore
                             .instance
@@ -199,7 +195,8 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                           print('Description: ${product.productdescription}');
                         });
 
-                        print(addedProducts); // Add this line to print the list of added products
+                        print(
+                            addedProducts); // Add this line to print the list of added products
 
                         Navigator.push(
                             context,
@@ -207,17 +204,13 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                 builder: (context) => BannerScreen(added: {
                                       'Bannermakinglist': addedProducts
                                     })));
-                      }
-
-                     else if (subcategoryName == 'sweaters' &&
+                      } else if (subcategoryName == 'sweaters' &&
                           _selectedsubcategory == subcategoryName) {
                         final addedProductsSnapshot = await FirebaseFirestore
                             .instance
                             .collection('addproducts')
-                            .where('product category',
-                            isEqualTo: 'Knitting')
-                            .where('product subcategory',
-                            isEqualTo: 'sweaters')
+                            .where('product category', isEqualTo: 'Knitting')
+                            .where('product subcategory', isEqualTo: 'sweaters')
                             .get();
                         final addedProducts = addedProductsSnapshot.docs
                             .map((doc) => ProductModel.fromJson(doc.data()))
@@ -235,20 +228,15 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => SweaterScreen(added: {
-                                  'knittinglist': addedProducts
-                                })));
-                      }
-
-                       else if (subcategoryName == 'Coats' &&
+                                builder: (context) => SweaterScreen(
+                                    added: {'knittinglist': addedProducts})));
+                      } else if (subcategoryName == 'Coats' &&
                           _selectedsubcategory == subcategoryName) {
                         final addedProductsSnapshot = await FirebaseFirestore
                             .instance
                             .collection('addproducts')
-                            .where('product category',
-                            isEqualTo: 'Tailoring')
-                            .where('product subcategory',
-                            isEqualTo: 'Coats')
+                            .where('product category', isEqualTo: 'Tailoring')
+                            .where('product subcategory', isEqualTo: 'Coats')
                             .get();
                         final addedProducts = addedProductsSnapshot.docs
                             .map((doc) => ProductModel.fromJson(doc.data()))
@@ -266,20 +254,15 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => CoatsScreen(added: {
-                                  'coatslist': addedProducts
-                                })));
-                      }
-
-                      else if (subcategoryName == 'Cakes' &&
+                                builder: (context) => CoatsScreen(
+                                    added: {'coatslist': addedProducts})));
+                      } else if (subcategoryName == 'Cakes' &&
                           _selectedsubcategory == subcategoryName) {
                         final addedProductsSnapshot = await FirebaseFirestore
                             .instance
                             .collection('addproducts')
-                            .where('product category',
-                            isEqualTo: 'Baking')
-                            .where('product subcategory',
-                            isEqualTo: 'Cakes')
+                            .where('product category', isEqualTo: 'Baking')
+                            .where('product subcategory', isEqualTo: 'Cakes')
                             .get();
                         final addedProducts = addedProductsSnapshot.docs
                             .map((doc) => ProductModel.fromJson(doc.data()))
@@ -297,9 +280,21 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => CakeScreen(added: {
-                                  'cakelist': addedProducts
-                                })));
+                                builder: (context) => CakeScreen(
+                                      added: {
+                                        'cakelist': addedProducts,
+                                      },
+                                      productName: '',
+                                      id: '',
+                                      productPrice: '',
+                                      productDescription: '',
+                                      ImageURL: '',
+                                      product: Product(
+                                          ImageURL: '',
+                                          productName: '',
+                                          productDescription: '',
+                                          productPrice: ''),
+                                    )));
                       }
                       if (subcategoryName == 'Home made' &&
                           _selectedsubcategory == subcategoryName) {
@@ -355,17 +350,13 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                             MaterialPageRoute(
                                 builder: (context) => QuiltingScreen(
                                     added: {'Quiltinglist': addedProducts})));
-                      }
-
-                      else if (subcategoryName == 'Socks' &&
+                      } else if (subcategoryName == 'Socks' &&
                           _selectedsubcategory == subcategoryName) {
                         final addedProductsSnapshot = await FirebaseFirestore
                             .instance
                             .collection('addproducts')
-                            .where('product category',
-                            isEqualTo: 'Knitting')
-                            .where('product subcategory',
-                            isEqualTo: 'Socks')
+                            .where('product category', isEqualTo: 'Knitting')
+                            .where('product subcategory', isEqualTo: 'Socks')
                             .get();
                         final addedProducts = addedProductsSnapshot.docs
                             .map((doc) => ProductModel.fromJson(doc.data()))
@@ -383,9 +374,8 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => SocksScreen(added: {
-                                  'Sockslist': addedProducts
-                                })));
+                                builder: (context) => SocksScreen(
+                                    added: {'Sockslist': addedProducts})));
                       }
 
                       if (subcategoryName == 'Pants' &&
@@ -394,8 +384,7 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                             .instance
                             .collection('addproducts')
                             .where('product category', isEqualTo: 'Tailoring')
-                            .where('product subcategory',
-                            isEqualTo: 'Pants')
+                            .where('product subcategory', isEqualTo: 'Pants')
                             .get();
                         final addedProducts = addedProductsSnapshot.docs
                             .map((doc) => ProductModel.fromJson(doc.data()))
@@ -415,17 +404,13 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                             MaterialPageRoute(
                                 builder: (context) => PantsScreen(
                                     added: {'pantslist': addedProducts})));
-                      }
-
-                      else if (subcategoryName == 'Brownies' &&
+                      } else if (subcategoryName == 'Brownies' &&
                           _selectedsubcategory == subcategoryName) {
                         final addedProductsSnapshot = await FirebaseFirestore
                             .instance
                             .collection('addproducts')
-                            .where('product category',
-                            isEqualTo: 'Baking')
-                            .where('product subcategory',
-                            isEqualTo: 'Brownies')
+                            .where('product category', isEqualTo: 'Baking')
+                            .where('product subcategory', isEqualTo: 'Brownies')
                             .get();
                         final addedProducts = addedProductsSnapshot.docs
                             .map((doc) => ProductModel.fromJson(doc.data()))
@@ -443,9 +428,8 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => BrowniesScreen(added: {
-                                  'brownieslist': addedProducts
-                                })));
+                                builder: (context) => BrowniesScreen(
+                                    added: {'brownieslist': addedProducts})));
                       }
 
                       if (subcategoryName == 'Western' &&
@@ -504,17 +488,13 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                 builder: (context) => CanvasScreen(added: {
                                       'CanvasPaintinglist': addedProducts
                                     })));
-                      }
-
-                      else if (subcategoryName == 'scarfs' &&
+                      } else if (subcategoryName == 'scarfs' &&
                           _selectedsubcategory == subcategoryName) {
                         final addedProductsSnapshot = await FirebaseFirestore
                             .instance
                             .collection('addproducts')
-                            .where('product category',
-                            isEqualTo: 'Knitting')
-                            .where('product subcategory',
-                            isEqualTo: 'scarfs')
+                            .where('product category', isEqualTo: 'Knitting')
+                            .where('product subcategory', isEqualTo: 'scarfs')
                             .get();
                         final addedProducts = addedProductsSnapshot.docs
                             .map((doc) => ProductModel.fromJson(doc.data()))
@@ -532,19 +512,15 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ScarfScreen(added: {
-                                  'scarfslist': addedProducts
-                                })));
-                      }
-                      else if (subcategoryName == 'Shirt' &&
+                                builder: (context) => ScarfScreen(
+                                    added: {'scarfslist': addedProducts})));
+                      } else if (subcategoryName == 'Shirt' &&
                           _selectedsubcategory == subcategoryName) {
                         final addedProductsSnapshot = await FirebaseFirestore
                             .instance
                             .collection('addproducts')
-                            .where('product category',
-                            isEqualTo: 'Tailoring')
-                            .where('product subcategory',
-                            isEqualTo: 'Shirt')
+                            .where('product category', isEqualTo: 'Tailoring')
+                            .where('product subcategory', isEqualTo: 'Shirt')
                             .get();
                         final addedProducts = addedProductsSnapshot.docs
                             .map((doc) => ProductModel.fromJson(doc.data()))
@@ -562,20 +538,15 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ShirtScreen(added: {
-                                  'shirtlist': addedProducts
-                                })));
-                      }
-
-                      else if (subcategoryName == 'Pizza' &&
+                                builder: (context) => ShirtScreen(
+                                    added: {'shirtlist': addedProducts})));
+                      } else if (subcategoryName == 'Pizza' &&
                           _selectedsubcategory == subcategoryName) {
                         final addedProductsSnapshot = await FirebaseFirestore
                             .instance
                             .collection('addproducts')
-                            .where('product category',
-                            isEqualTo: 'Baking')
-                            .where('product subcategory',
-                            isEqualTo: 'Pizza')
+                            .where('product category', isEqualTo: 'Baking')
+                            .where('product subcategory', isEqualTo: 'Pizza')
                             .get();
                         final addedProducts = addedProductsSnapshot.docs
                             .map((doc) => ProductModel.fromJson(doc.data()))
@@ -593,19 +564,16 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => PizzaScreen(added: {
-                                  'pizzalist': addedProducts
-                                })));
+                                builder: (context) => PizzaScreen(
+                                    added: {'pizzalist': addedProducts})));
                       }
-                    if (subcategoryName == 'Cupcake' &&
+                      if (subcategoryName == 'Cupcake' &&
                           _selectedsubcategory == subcategoryName) {
                         final addedProductsSnapshot = await FirebaseFirestore
                             .instance
                             .collection('addproducts')
-                            .where('product category',
-                            isEqualTo: 'Baking')
-                            .where('product subcategory',
-                            isEqualTo: 'Cupcake')
+                            .where('product category', isEqualTo: 'Baking')
+                            .where('product subcategory', isEqualTo: 'Cupcake')
                             .get();
                         final addedProducts = addedProductsSnapshot.docs
                             .map((doc) => ProductModel.fromJson(doc.data()))
@@ -623,9 +591,8 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => CupcakeScreen(added: {
-                                  'cupcakelist': addedProducts
-                                })));
+                                builder: (context) => CupcakeScreen(
+                                    added: {'cupcakelist': addedProducts})));
                       }
                     }),
               );

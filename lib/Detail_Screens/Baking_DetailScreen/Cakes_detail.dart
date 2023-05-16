@@ -72,6 +72,7 @@ class _CakesDetailScreenState extends State<CakesDetailScreen> {
                 // leading: Icon(Icons.favorite),
                 title: Text('❤         Favourites '),
                 onTap: () {
+                  Navigator.pop(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -249,16 +250,16 @@ class _CakesDetailScreenState extends State<CakesDetailScreen> {
                     ),
                   );
                 }
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => FavoriteProductsPage(
-                        ImageURL: widget.ImageURL,
-                        productName: widget.productName,
-                        productDescription: widget.productDescription,
-                        productPrice: widget.productPrice,
-                      )),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //       builder: (context) => FavoriteProductsPage(
+                //         ImageURL: widget.ImageURL,
+                //         productName: widget.productName,
+                //         productDescription: widget.productDescription,
+                //         productPrice: widget.productPrice,
+                //       )),
+                // );
               },
               backgroundColor: Colors.white,
               foregroundColor: Colors.red,

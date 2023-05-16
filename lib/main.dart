@@ -18,19 +18,19 @@ void main() async {
   await Firebase.initializeApp();
   runApp(MyApp());
 }
-
-final PizzaDetailScreen products = PizzaDetailScreen(
-  productName: 'products.productName',
-  productDescription: 'products.productDescription',
-  ImageURL: 'products.ImageURL',
-  productPrice: 'products.productPrice',
-  product: Product(
-    productName: 'products.productName',
-    productDescription: 'products.productDescription',
-    ImageURL: 'products.ImageURL',
-    productPrice: 'products.productPrice',
-  ),
-);
+//
+// final PizzaDetailScreen products = PizzaDetailScreen(
+//   productName: 'products.productName',
+//   productDescription: products.productDescription,
+//   ImageURL: products.ImageURL,
+//   productPrice: products.productPrice,
+//   product: Product(
+//     productName: products.productName,
+//     productDescription: products.productDescription,
+//     ImageURL: products.ImageURL,
+//     productPrice: products.productPrice,
+//   ),
+// );
 
 class MyApp extends StatelessWidget {
   @override
