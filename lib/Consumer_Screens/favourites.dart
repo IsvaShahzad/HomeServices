@@ -139,9 +139,10 @@ class _FavoriteProductsPageState extends State<FavoriteProductsPage> {
                             print(
                                 'favoriteProducts length: ${model.favoriteProducts.length}');
 
-                            final product =
-                                model.favoriteProducts[index];
-                            
+
+
+                            final product = model.favoriteProducts[index];
+
 
                             return Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 60),
@@ -171,7 +172,7 @@ class _FavoriteProductsPageState extends State<FavoriteProductsPage> {
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(10),
                                         child: Image.network(
-                                          widget?.ImageURL ?? '',
+                                          product?.ImageURL ?? '',
                                           width: double.infinity,
                                           fit: BoxFit.cover,
                                         ),
@@ -183,12 +184,12 @@ class _FavoriteProductsPageState extends State<FavoriteProductsPage> {
                                           children: [
                                             Expanded(
                                               child: Text(
-                                                widget?.productName ?? '',
+                                                product.productName ?? '',
                                                 style: TextStyle(fontSize: 16),
                                               ),
                                             ),
                                             Text(
-                                              '\Rs.${widget?.productPrice ?? ''}',
+                                              '\Rs.${product?.productPrice ?? ''}',
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 16,
@@ -197,7 +198,7 @@ class _FavoriteProductsPageState extends State<FavoriteProductsPage> {
                                           ],
                                         ),
                                         subtitle: Text(
-                                          widget?.productDescription ?? '',
+                                          product?.productDescription ?? '',
                                           style: TextStyle(fontSize: 14),
                                         ),
                                       ),

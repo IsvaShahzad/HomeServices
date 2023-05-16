@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Consumer_Screens/favourites.dart';
+import '../../initialScreens/loginScreen.dart';
 
 class BrowniesDetailScreen extends StatefulWidget {
   final String productName;
@@ -47,6 +48,7 @@ class _BrowniesDetailScreenState extends State<BrowniesDetailScreen> {
       });
     });
   }
+
   final TextEditingController nameController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
   final TextEditingController urlController = TextEditingController();
@@ -55,6 +57,47 @@ class _BrowniesDetailScreenState extends State<BrowniesDetailScreen> {
   Widget build(BuildContext context) {
     final favoriteProductsModel =
     Provider.of<FavouriteProductPageProvider>(context, listen: false);
+
+    void _showFavoriteOptions(BuildContext context) {
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: Icon(Icons.favorite),
+                title: Text('Favorites'),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => FavoriteProductsPage(
+                          ImageURL: widget.ImageURL,
+                          productName: widget.productName,
+                          productDescription: widget.productDescription,
+                          productPrice: widget.productPrice,
+                        )),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.logout),
+                title: Text('Logout'),
+                onTap: () {
+                  // Perform the logout action
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
 
     return Container(
       decoration: BoxDecoration(
@@ -79,6 +122,14 @@ class _BrowniesDetailScreenState extends State<BrowniesDetailScreen> {
                   Navigator.pop(context);
                 },
               ),
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.more_vert),
+                  onPressed: () {
+                    _showFavoriteOptions(context);
+                  },
+                ),
+              ],
             ),
             SliverToBoxAdapter(
               child: Column(
@@ -164,14 +215,12 @@ class _BrowniesDetailScreenState extends State<BrowniesDetailScreen> {
                   ? Icon(Icons.favorite)
                   : Icon(Icons.favorite_border),
               onPressed: () {
-
                 // final product = Product(
                 //   ImageURL: widget.ImageURL,
                 //   productName: widget.productName,
                 //   productDescription: widget.productDescription,
                 //   productPrice: widget.productPrice,
                 // );
-
 
                 // try {
                 //   FirebaseFirestore.instance
@@ -203,8 +252,6 @@ class _BrowniesDetailScreenState extends State<BrowniesDetailScreen> {
                       duration: Duration(seconds: 2),
                     ),
                   );
-
-
                 } else {
                   favoriteProductsModel.removeFavoriteProduct(widget.product);
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -214,8 +261,6 @@ class _BrowniesDetailScreenState extends State<BrowniesDetailScreen> {
                     ),
                   );
                 }
-
-
 
                 // Navigator.push(
                 //   context,
@@ -227,40 +272,26 @@ class _BrowniesDetailScreenState extends State<BrowniesDetailScreen> {
                 //   ),
                 // );
 
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => FavoriteProductsPage(
-                      ImageURL: widget.ImageURL,
-                      productName: widget.productName,
-                      productDescription: widget.productDescription,
-                      productPrice: widget.productPrice,
-                    ),
-                  ),
-                );
-
-
-
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => FavoriteProductsPage(
+                //       ImageURL: widget.ImageURL,
+                //       productName: widget.productName,
+                //       productDescription: widget.productDescription,
+                //       productPrice: widget.productPrice,
+                //     ),
+                //   ),
+                // );
               },
               backgroundColor: Colors.white,
               foregroundColor: Colors.red,
             ),
 
-            // SizedBox(width: 24.0),
-            // FloatingActionButton(
-            //   backgroundColor: Colors.purple,
-            //   child: Icon(Icons.add_shopping_cart),
-            //   onPressed: () {
-            //     setState(() {
-            //       if (_quantity > 1) {
-            //         _quantity--;
-            //       }
-            //     });
-            //   },
-            //   // child: Icon(Icons.remove),
-            // ),
+
           ],
         ),
       ),
-    );}
+    );
   }
+}

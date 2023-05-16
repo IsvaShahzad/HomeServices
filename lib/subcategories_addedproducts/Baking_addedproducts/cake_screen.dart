@@ -102,6 +102,8 @@ class _CakeScreenState extends State<CakeScreen> {
                   final productPrice = addedproductss.productprice;
                   final productDescription = addedproductss.productdescription;
                   final product = addedproductss.product;
+                  final id = addedproductss.id;
+
 
 
                   return InkWell(
@@ -110,6 +112,7 @@ class _CakeScreenState extends State<CakeScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => CakesDetailScreen(
+                                id: id,
                                 productName: productName,
                                 productPrice: productPrice,
                                 productDescription:

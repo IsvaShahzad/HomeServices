@@ -7,10 +7,12 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Consumer_Screens/favourites.dart';
+import '../../initialScreens/loginScreen.dart';
 import '../../seller/seller_portfolio.dart';
 
 class CakesDetailScreen extends StatefulWidget {
   final String productName;
+  final String id;
   final String productPrice;
   final String productDescription;
   final String ImageURL;
@@ -19,6 +21,7 @@ class CakesDetailScreen extends StatefulWidget {
   const CakesDetailScreen({
     Key? key,
     required this.productName,
+    required this.id,
     required this.productPrice,
     required this.productDescription,
     required this.ImageURL,
@@ -30,24 +33,25 @@ class CakesDetailScreen extends StatefulWidget {
 }
 
 class _CakesDetailScreenState extends State<CakesDetailScreen> {
-  int _quantity = 1;
   bool _isFavorite = false;
   late SharedPreferences _prefs;
   @override
+
+
   void initState() {
     super.initState();
     SharedPreferences.getInstance().then((prefs) {
       setState(() {
         _prefs = prefs;
-        // _isFavorite = _prefs.getBool(widget.productName) ?? false;
+        String key = '${widget.productName}_${widget.productPrice}';
 
-        // _isFavorite = _prefs.getBool(widget.product.toString()) ?? false;
-        // if (_prefs.getBool(widget.product.toString()) == null) {
-        //   _prefs.setBool(widget.product.toString(), false);
-        // }
+        _isFavorite = _prefs.getBool(key) ?? false;
+
       });
     });
   }
+
+
   final TextEditingController nameController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
   final TextEditingController urlController = TextEditingController();
@@ -56,6 +60,46 @@ class _CakesDetailScreenState extends State<CakesDetailScreen> {
   Widget build(BuildContext context) {
     final favoriteProductsModel =
     Provider.of<FavouriteProductPageProvider>(context, listen: false);
+
+    void _showFavoriteOptions(BuildContext context) {
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                // leading: Icon(Icons.favorite),
+                title: Text('❤         Favourites '),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => FavoriteProductsPage(
+                          ImageURL: widget.ImageURL,
+                          productName: widget.productName,
+                          productDescription: widget.productDescription,
+                          productPrice: widget.productPrice,
+                        )),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.logout),
+                title: Text('Logout'),
+                onTap: () {
+                  // Perform the logout action
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
 
     return Container(
       decoration: BoxDecoration(
@@ -80,6 +124,14 @@ class _CakesDetailScreenState extends State<CakesDetailScreen> {
                   Navigator.pop(context);
                 },
               ),
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.more_vert),
+                  onPressed: () {
+                    _showFavoriteOptions(context);
+                  },
+                ),
+              ],
             ),
             SliverToBoxAdapter(
               child: Column(
@@ -166,48 +218,30 @@ class _CakesDetailScreenState extends State<CakesDetailScreen> {
                   : Icon(Icons.favorite_border),
               onPressed: () {
 
-                // final product = Product(
-                //   ImageURL: widget.ImageURL,
-                //   productName: widget.productName,
-                //   productDescription: widget.productDescription,
-                //   productPrice: widget.productPrice,
-                // );
-
-
-                // try {
-                //   FirebaseFirestore.instance
-                //       .collection('favourite products')
-                //       .doc()
-                //       .set({
-                //     'name': nameController.text,
-                //     'url': urlController.text,
-                //     'price': priceController.text,
-                //     'description': descriptionController.text,
-                //   });
-                //   print(nameController.text);
-                //   print(urlController.text);
-                //   print(priceController.text);
-                //   print(descriptionController.text);
-                // } catch (e) {}
-                // ;
                 setState(() {
                   _isFavorite = !_isFavorite;
                 });
-                _prefs.setBool(widget.productName, _isFavorite);
+                // _prefs.setBool(key, _isFavorite);
+
+
+                final product = Product(
+                  ImageURL: widget.ImageURL,
+                  productName: widget.productName,
+                  productDescription: widget.productDescription,
+                  productPrice: widget.productPrice,
+                );
 
                 // Add the product to favorites
                 if (_isFavorite) {
-                  favoriteProductsModel.addFavoriteProduct(widget.product);
+                  favoriteProductsModel.addFavoriteProduct(product);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('Added to favorites'),
                       duration: Duration(seconds: 2),
                     ),
                   );
-
-
                 } else {
-                  favoriteProductsModel.removeFavoriteProduct(widget.product);
+                  favoriteProductsModel.removeFavoriteProduct(product);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('Removed from favorites'),
@@ -215,53 +249,25 @@ class _CakesDetailScreenState extends State<CakesDetailScreen> {
                     ),
                   );
                 }
-
-
-
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => FavoriteProductsPage(
-                //       model: Provider.of<FavouriteProductPage>(context),
-
-                //     ),
-                //   ),
-                // );
-
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => FavoriteProductsPage(
-                      ImageURL: widget.ImageURL,
-                      productName: widget.productName,
-                      productDescription: widget.productDescription,
-                      productPrice: widget.productPrice,
-                    ),
-                  ),
+                      builder: (context) => FavoriteProductsPage(
+                        ImageURL: widget.ImageURL,
+                        productName: widget.productName,
+                        productDescription: widget.productDescription,
+                        productPrice: widget.productPrice,
+                      )),
                 );
-
-
-
               },
               backgroundColor: Colors.white,
               foregroundColor: Colors.red,
             ),
 
-            // SizedBox(width: 24.0),
-            // FloatingActionButton(
-            //   backgroundColor: Colors.purple,
-            //   child: Icon(Icons.add_shopping_cart),
-            //   onPressed: () {
-            //     setState(() {
-            //       if (_quantity > 1) {
-            //         _quantity--;
-            //       }
-            //     });
-            //   },
-            //   // child: Icon(Icons.remove),
-            // ),
+
           ],
         ),
       ),
-    );}
+    );
   }
+}

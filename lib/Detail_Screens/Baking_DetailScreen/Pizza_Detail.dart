@@ -5,8 +5,9 @@ import 'package:home_services_flutter/Consumer_Screens/favourites.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class PizzaDetailScreen extends StatefulWidget {
+import '../../initialScreens/loginScreen.dart';
 
+class PizzaDetailScreen extends StatefulWidget {
   final String ImageURL;
   final String productName;
   final String productDescription;
@@ -22,10 +23,8 @@ class PizzaDetailScreen extends StatefulWidget {
     required this.product,
   }) : super(key: key);
 
-
   @override
   State<PizzaDetailScreen> createState() => _PizzaDetailScreenState();
-
 }
 
 class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
@@ -35,18 +34,19 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
   @override
   void initState() {
     super.initState();
-    // SharedPreferences.getInstance().then((prefs) {
-    //   setState(() {
-    //     _prefs = prefs;
-    //     // _isFavorite = _prefs.getBool(widget.productName) ?? false;
-    //
-    //     // _isFavorite = _prefs.getBool(widget.product.toString()) ?? false;
-    //     // if (_prefs.getBool(widget.product.toString()) == null) {
-    //     //   _prefs.setBool(widget.product.toString(), false);
-    //     // }
-    //   });
-    // });
+    SharedPreferences.getInstance().then((prefs) {
+      setState(() {
+        _prefs = prefs;
+        // _isFavorite = _prefs.getBool(widget.productName) ?? false;
+
+        // _isFavorite = _prefs.getBool(widget.product.toString()) ?? false;
+        // if (_prefs.getBool(widget.product.toString()) == null) {
+        //   _prefs.setBool(widget.product.toString(), false);
+        // }
+      });
+    });
   }
+
   final TextEditingController nameController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
   final TextEditingController urlController = TextEditingController();
@@ -54,7 +54,48 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final favoriteProductsModel =
-    Provider.of<FavouriteProductPageProvider>(context, listen: false);
+        Provider.of<FavouriteProductPageProvider>(context, listen: false);
+
+    void _showFavoriteOptions(BuildContext context) {
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: Icon(Icons.favorite),
+                title: Text('Favorites'),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => FavoriteProductsPage(
+                              ImageURL: widget.ImageURL,
+                              productName: widget.productName,
+                              productDescription: widget.productDescription,
+                              productPrice: widget.productPrice,
+                            )),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.logout),
+                title: Text('Logout'),
+                onTap: () {
+                  // Perform the logout action
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
 
     return Container(
       decoration: BoxDecoration(
@@ -79,6 +120,14 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
                   Navigator.pop(context);
                 },
               ),
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.more_vert),
+                  onPressed: () {
+                    _showFavoriteOptions(context);
+                  },
+                ),
+              ],
             ),
             SliverToBoxAdapter(
               child: Column(
@@ -95,8 +144,8 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
                           fontSize: 24.0,
                           fontWeight: FontWeight.bold,
                           color: Colors.black87
-                        // decoration: TextDecoration.underline,
-                      ),
+                          // decoration: TextDecoration.underline,
+                          ),
                     ),
                   ),
                   SizedBox(height: 25.0),
@@ -164,14 +213,12 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
                   ? Icon(Icons.favorite)
                   : Icon(Icons.favorite_border),
               onPressed: () {
-
                 // final product = Product(
                 //   ImageURL: widget.ImageURL,
                 //   productName: widget.productName,
                 //   productDescription: widget.productDescription,
                 //   productPrice: widget.productPrice,
                 // );
-
 
                 // try {
                 //   FirebaseFirestore.instance
@@ -203,8 +250,6 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
                       duration: Duration(seconds: 2),
                     ),
                   );
-
-
                 } else {
                   favoriteProductsModel.removeFavoriteProduct(widget.product);
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -214,8 +259,6 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
                     ),
                   );
                 }
-
-
 
                 // Navigator.push(
                 //   context,
@@ -227,38 +270,23 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
                 //   ),
                 // );
 
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => FavoriteProductsPage(
-                      ImageURL: widget.ImageURL,
-                      productName: widget.productName,
-                      productDescription: widget.productDescription,
-                      productPrice: widget.productPrice,
-                    ),
-                  ),
-                );
-
-
-
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => FavoriteProductsPage(
+                //       ImageURL: widget.ImageURL,
+                //       productName: widget.productName,
+                //       productDescription: widget.productDescription,
+                //       productPrice: widget.productPrice,
+                //     ),
+                //   ),
+                // );
               },
               backgroundColor: Colors.white,
               foregroundColor: Colors.red,
             ),
 
-            // SizedBox(width: 24.0),
-            // FloatingActionButton(
-            //   backgroundColor: Colors.purple,
-            //   child: Icon(Icons.add_shopping_cart),
-            //   onPressed: () {
-            //     setState(() {
-            //       if (_quantity > 1) {
-            //         _quantity--;
-            //       }
-            //     });
-            //   },
-            //   // child: Icon(Icons.remove),
-            // ),
+
           ],
         ),
       ),

@@ -20,7 +20,7 @@ void main() async {
 }
 
 final PizzaDetailScreen products = PizzaDetailScreen(
-  productName: products.productName,
+  productName: 'products.productName',
   productDescription: 'products.productDescription',
   ImageURL: 'products.ImageURL',
   productPrice: 'products.productPrice',

@@ -316,58 +316,6 @@ class _ConsumerMainPageScreenState extends State<ConsumerMainPageScreen> {
                             builder: (context) => AddRequirements()));
                   },
                 ),
-                Divider(),
-                ListTile(
-                  tileColor: Colors.white38,
-                  trailing: Icon(
-                    Icons.person,
-                    size: 18,
-                    color: Colors.purple,
-                  ),
-                  title: Text(
-                    "Profile",
-                    style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold),
-                  ),
-                  onTap: () {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ConsumerProfile()));
-                  },
-                ),
-                Divider(),
-
-                ListTile(
-                  tileColor: Colors.white38,
-                  trailing: Icon(
-                    Icons.favorite,
-                    size: 18,
-                    color: Colors.purple,
-                  ),
-                  title: Text(
-                    "Favourites   ",
-                    style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold,),
-                  ),
-                  onTap: () async {
-
-
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => FavoriteProductsPage(
-                              ImageURL: 'products.ImageURL',
-                              productName: 'products.productName',
-                              productPrice: 'products.productPrice',
-                              productDescription: 'products.productDescription',
-
-                            )));
-                  },
-                ),
-
-
-
 
                 Divider(),
                 ListTile(
