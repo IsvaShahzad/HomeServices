@@ -9,6 +9,7 @@ import 'package:home_services_flutter/seller/show_postings_seller.dart';
 import '../Categories/subcategory_screen.dart';
 import '../Consumer_Screens/add_requirements_consumer.dart';
 import '../Consumer_Screens/consumerSignup.dart';
+import 'Packaging_Screen.dart';
 import 'addProduct.dart';
 
 class SellerHomePage extends StatefulWidget {
@@ -297,6 +298,30 @@ class _SellerHomePageState extends State<SellerHomePage> {
                   },
                 ),
                 Divider(),
+
+                ListTile(
+                  tileColor: Colors.white38,
+                  trailing: Icon(
+                    Icons.backpack_rounded,
+                    size: 18,
+                    color: Colors.purple,
+                  ),
+                  title: Text(
+                    "Select Packaging",
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold),
+                  ),
+                  onTap: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PackagingScreen()));
+                  },
+                ),
+
+
+                Divider(),
+
                 ListTile(
                   tileColor: Colors.white38,
                   trailing: Icon(

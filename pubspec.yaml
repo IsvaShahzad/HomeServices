@@ -57,6 +57,8 @@ dependencies:
   shared_preferences: ^2.1.0
   flutter_tts: ^3.6.3
   translator: ^0.1.7
+  flutter_riverpod: ^2.3.6
+
 
 
 
