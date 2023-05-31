@@ -145,10 +145,12 @@ class CardWidget extends StatelessWidget {
               packagePrice: price,
               packageDescription: description,
               packageImageURL: imageUrl,
+
             ),
           ),
         );
       },
+
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 8),
         child: Card(

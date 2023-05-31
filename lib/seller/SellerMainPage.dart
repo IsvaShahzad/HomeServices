@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:home_services_flutter/Detail_Screens/Packages_DetailScreen/box_detailscreen.dart';
 import 'package:home_services_flutter/seller/SellerProfilePage.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
+import 'package:home_services_flutter/seller/seller_checkout/seller_cartscreen.dart';
 import 'package:home_services_flutter/seller/seller_portfolio.dart';
 import 'package:home_services_flutter/seller/sellerwelcome.dart';
 import 'package:home_services_flutter/seller/show_postings_seller.dart';
@@ -49,6 +51,8 @@ class _SellerHomePageState extends State<SellerHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Cart cart = Cart(); // Replace this with your actual Cart instance
+
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
@@ -72,12 +76,12 @@ class _SellerHomePageState extends State<SellerHomePage> {
           actions: <Widget>[
             IconButton(
                 icon: Icon(
-                  Icons.logout,
+                  Icons.shopping_cart,
                   color: Colors.white,
                 ),
                 onPressed: () {
                   Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()));
+                      MaterialPageRoute(builder: (context) => CartScreen(cart: cart)));
                 }),
           ],
         ),

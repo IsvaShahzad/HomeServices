@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../seller/Cart_Screen.dart';
+import '../../seller/seller_checkout/seller_cartscreen.dart';
 
 class CartItem {
   String name;
   double price;
   String imageUrl;
+  int quantity= 1;
+
 
   CartItem({
     required this.name,
@@ -16,20 +18,25 @@ class CartItem {
   });
 }
 
-class Cart {
+ class Cart extends ChangeNotifier {
+
   List<CartItem> items = [];
 
   void addToCart(CartItem item) {
     items.add(item);
   }
+  void removeFromCart(CartItem item) {
+    items.remove(item);
+  }
 
   double calculateTotal() {
     double total = 0.0;
     for (var item in items) {
-      total += item.price;
+      total += item.price * item.quantity; // Multiply price by quantity
     }
     return total;
   }
+
 }
 
 class Box_DetailScreen extends StatefulWidget {
@@ -55,6 +62,7 @@ class _Box_DetailScreenState extends State<Box_DetailScreen> {
   bool _isFavorite = false;
 
   Cart cart = Cart();
+
 
   void showCartMessage(BuildContext context) {
     final snackBar = SnackBar(
