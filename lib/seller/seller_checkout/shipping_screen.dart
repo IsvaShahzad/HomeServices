@@ -515,7 +515,7 @@ class _ShippingScreenState extends State<ShippingScreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (BuildContext context) =>
-                                              ShipmentPage()));
+                                              PaymentScreen()));
                                 },
                               ),
                             ),

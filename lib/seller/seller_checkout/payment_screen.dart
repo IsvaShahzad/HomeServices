@@ -1,34 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:home_services_flutter/seller/seller_checkout/delivered_screen.dart';
 
-class ShipmentPage extends StatefulWidget {
+class PaymentScreen extends StatefulWidget {
   @override
-  _ShipmentPageState createState() => _ShipmentPageState();
+  _PaymentScreenState createState() => _PaymentScreenState();
 }
 
-class _ShipmentPageState extends State<ShipmentPage> {
+class _PaymentScreenState extends State<PaymentScreen> {
   bool isCheckboxChecked = false;
 
   void placeOrder() {
-    if (isCheckboxChecked) {
-      // Place the order
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Order Placed'),
-            content: Text('Your order has been placed successfully.'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
-    } else {
+    // if (isCheckboxChecked) {
+    //   // Place the order
+    //   showDialog(
+    //     context: context,
+    //     builder: (BuildContext context) {
+    //       return AlertDialog(
+    //         title: Text('Order Placed'),
+    //         content: Text('Your order has been placed successfully.'),
+    //         actions: [
+    //           TextButton(
+    //             onPressed: () {
+    //               Navigator.pop(context);
+    //             },
+    //             child: Text('OK'),
+    //           ),
+    //         ],
+    //       );
+    //     },
+    //   );
+    // }
+    if (isCheckboxChecked != true) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -116,7 +118,12 @@ class _ShipmentPageState extends State<ShipmentPage> {
                 child: ElevatedButton(
                   onPressed: () {
                     placeOrder();
-                  },
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                DeliveredScreen()));
+                    },
                   style: ElevatedButton.styleFrom(
                     primary: Color(0xFFAB47BC),
                     padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),

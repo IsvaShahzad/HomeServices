@@ -58,6 +58,8 @@ dependencies:
   flutter_tts: ^3.6.3
   translator: ^0.1.7
   flutter_riverpod: ^2.3.6
+  confetti: ^0.7.0
+
 
 
 
