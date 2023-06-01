@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../../Consumer_Screens/favourites.dart';
 import '../../initialScreens/loginScreen.dart';
+import '../../seller/seller_portfolio.dart';
 
 class CoatsDetailScreen extends StatefulWidget {
   final String productName;
@@ -35,6 +36,19 @@ class _CoatsDetailScreenState extends State<CoatsDetailScreen> {
     // TODO: Add the product to favorites here
   }
 
+  void navigateToSellerPortfolio(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SellerPortfolio()),
+    );
+  }
+
+
+
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController priceController = TextEditingController();
+  final TextEditingController urlController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final favoriteProductsModel =
@@ -192,17 +206,28 @@ class _CoatsDetailScreenState extends State<CoatsDetailScreen> {
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            FloatingActionButton(
-              child: _isFavorite
-                  ? Icon(Icons.favorite)
-                  : Icon(Icons.favorite_border),
+            // Add some spacing between the icons
+            FloatingActionButton.extended(
               onPressed: () {
+                navigateToSellerPortfolio(context);
+              },
+              icon: Icon(Icons.person),
+              label: Text('Seller Portfolio'),
+              backgroundColor: Colors.white,
+              foregroundColor:Color(0xFFAB47BC),
 
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+            ),
+            SizedBox(width: 75.0),
+
+            FloatingActionButton(
+              child: _isFavorite ? Icon(Icons.favorite) : Icon(Icons.favorite_border),
+              onPressed: () {
                 setState(() {
                   _isFavorite = !_isFavorite;
                 });
-                // _prefs.setBool(key, _isFavorite);
-
 
                 final product = Product(
                   ImageURL: widget.ImageURL,
@@ -229,26 +254,15 @@ class _CoatsDetailScreenState extends State<CoatsDetailScreen> {
                     ),
                   );
                 }
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (context) => FavoriteProductsPage(
-                //         ImageURL: widget.ImageURL,
-                //         productName: widget.productName,
-                //         productDescription: widget.productDescription,
-                //         productPrice: widget.productPrice,
-                //       )),
-                // );
               },
               backgroundColor: Colors.white,
               foregroundColor: Colors.red,
             ),
-
-
+            SizedBox(width: 10.0),
           ],
         ),
+
       ),
     );
   }
 }
-

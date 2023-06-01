@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Consumer_Screens/favourites.dart';
 import '../../initialScreens/loginScreen.dart';
+import '../../seller/seller_portfolio.dart';
 
 class CupcakeDetailScreen extends StatefulWidget {
   final String productName;
@@ -50,6 +51,16 @@ class _CupcakeDetailScreenState extends State<CupcakeDetailScreen> {
       });
     });
   }
+
+
+  void navigateToSellerPortfolio(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SellerPortfolio()),
+    );
+  }
+
+
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
@@ -212,17 +223,28 @@ class _CupcakeDetailScreenState extends State<CupcakeDetailScreen> {
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            FloatingActionButton(
-              child: _isFavorite
-                  ? Icon(Icons.favorite)
-                  : Icon(Icons.favorite_border),
+            // Add some spacing between the icons
+            FloatingActionButton.extended(
               onPressed: () {
+                navigateToSellerPortfolio(context);
+              },
+              icon: Icon(Icons.person),
+              label: Text('Seller Portfolio'),
+              backgroundColor: Colors.white,
+              foregroundColor:Color(0xFFAB47BC),
 
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+            ),
+            SizedBox(width: 75.0),
+
+            FloatingActionButton(
+              child: _isFavorite ? Icon(Icons.favorite) : Icon(Icons.favorite_border),
+              onPressed: () {
                 setState(() {
                   _isFavorite = !_isFavorite;
                 });
-                // _prefs.setBool(key, _isFavorite);
-
 
                 final product = Product(
                   ImageURL: widget.ImageURL,
@@ -249,25 +271,16 @@ class _CupcakeDetailScreenState extends State<CupcakeDetailScreen> {
                     ),
                   );
                 }
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (context) => FavoriteProductsPage(
-                //         ImageURL: widget.ImageURL,
-                //         productName: widget.productName,
-                //         productDescription: widget.productDescription,
-                //         productPrice: widget.productPrice,
-                //       )),
-                // );
               },
               backgroundColor: Colors.white,
               foregroundColor: Colors.red,
             ),
-
-
+            SizedBox(width: 10.0),
           ],
         ),
+
       ),
     );
   }
 }
+
