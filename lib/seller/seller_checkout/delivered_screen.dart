@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:confetti/confetti.dart';
 import 'package:home_services_flutter/seller/Packaging_Screen.dart';
 import 'package:home_services_flutter/seller/SellerMainPage.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:home_services_flutter/seller/seller_checkout/payment_screen.dart';
 
 class DeliveredScreen extends StatefulWidget {
   @override
@@ -13,7 +15,8 @@ class _DeliveredScreenState extends State<DeliveredScreen> {
   @override
   void initState() {
     super.initState();
-    _confettiController = ConfettiController(duration: const Duration(milliseconds: 800));
+    _confettiController =
+        ConfettiController(duration: const Duration(milliseconds: 800));
     _confettiController.play();
   }
 
@@ -26,6 +29,8 @@ class _DeliveredScreenState extends State<DeliveredScreen> {
   void triggerConfetti() {
     _confettiController.play();
   }
+
+  double _rating = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +96,8 @@ class _DeliveredScreenState extends State<DeliveredScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                        SellerHomePage()));                           },
+                                        SellerHomePage()));
+                          },
                           child: Text('Go to Homepage'),
                         ),
                         ElevatedButton(
@@ -108,10 +114,106 @@ class _DeliveredScreenState extends State<DeliveredScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                        PackagingScreen()));                          },
+                                        PackagingScreen()));
+                          },
                           child: Text('Continue Browsing'),
                         ),
                       ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 70),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Card(
+                          elevation: 14,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Container(
+                            padding: EdgeInsets.all(16.0),
+                            width: 220.0, // Update the desired width
+                            height: 170.0, // Update the desired height
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Rate Us',
+                                  style: TextStyle(
+                                    fontSize: 24.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                                SizedBox(height: 16.0),
+                                RatingBar.builder(
+                                  initialRating: _rating,
+                                  minRating: 1,
+                                  direction: Axis.horizontal,
+                                  allowHalfRating: true,
+                                  itemCount: 5,
+                                  itemSize: 30.0,
+                                  unratedColor: Colors.grey,
+                                  itemBuilder: (context, _) => Icon(
+                                    Icons.star,
+                                    color: Colors.orangeAccent,
+                                  ),
+                                  onRatingUpdate: (rating) {
+                                    setState(() {
+                                      _rating = rating;
+                                    });
+                                  },
+                                ),
+                                SizedBox(height: 16.0),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    elevation: 10,
+                                    minimumSize: const Size(120, 40),
+                                    primary: Color(0xFFAB47BC),
+                                    onPrimary: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title:
+                                              Text("Thank you for rating! ⭐"),
+                                          actions: [
+                                            Align(
+                                              alignment: Alignment.center,
+                                              child: ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  primary: Color(0xFFAB47BC),
+                                                  onPrimary: Colors.white,
+                                                  elevation: 6,
+                                                  minimumSize: const Size(140, 45),
+                                                  maximumSize: const Size(140, 45),
+                                                  shape: StadiumBorder(),
+                                                ),
+                                                child: Text('OK',
+                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: const Text(
+                                    'Submit',
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),

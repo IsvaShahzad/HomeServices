@@ -309,21 +309,40 @@ class _SellerPortfolioState extends State<SellerPortfolio> {
                                   color: Colors.deepOrange,
                                 ),
                               ),
-                              // Icon(
-                              //   Icons.phone,
-                              //   color: Colors.black,
-                              //   size: 16,
-                              // ),
-                              // SizedBox(width: 8),
-                              // Text(
-                              //   "033215469821",
-                              //   style: TextStyle(
-                              //     fontWeight: FontWeight.bold,
-                              //     fontSize: 13,
-                              //     color: Colors.blue,
-                              //     decoration: TextDecoration.underline,
-                              //   ),
-                              // ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    final url = 'tel:033215467821';
+                                    if (await canLaunch(url)) {
+                                      await launch(url);
+                                    } else {
+                                      throw 'Could not launch $url';
+                                    }
+                                  },
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 100),
+                                    child: Row(children: [
+                                      Icon(
+                                        Icons.phone,
+                                        color: Colors.black,
+                                        size: 16,
+                                      ),
+                                      SizedBox(width: 8),
+                                      Text(
+                                        "033215467821",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 13,
+                                          color: Colors.blue,
+                                          decoration: TextDecoration.underline,
+                                        ),
+                                      ),
+                                    ]),
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
