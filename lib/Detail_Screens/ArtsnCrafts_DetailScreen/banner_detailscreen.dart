@@ -10,6 +10,7 @@ import '../../seller/seller_portfolio.dart';
 
 class BannerDetailScreen extends StatefulWidget {
   final String productName;
+  final String companyName;
   final String productPrice;
   final String productDescription;
   final String ImageURL;
@@ -17,6 +18,7 @@ class BannerDetailScreen extends StatefulWidget {
   const BannerDetailScreen({
     Key? key,
     required this.productName,
+    required this.companyName,
     required this.productPrice,
     required this.productDescription,
     required this.ImageURL,

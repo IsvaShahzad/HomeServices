@@ -3,6 +3,7 @@ import 'package:home_services_flutter/Consumer_Screens/Consumer_mainpage.dart';
 import 'package:home_services_flutter/seller/SellerMainPage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ConsumerProfile extends StatefulWidget {
   @override
@@ -23,11 +24,11 @@ class MapScreenState extends State<ConsumerProfile>
   String email = "";
 
   // final FocusNode myFocusNode = FocusNode();
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController mobileController = TextEditingController();
-  final TextEditingController pincodeController = TextEditingController();
-  final TextEditingController stateController = TextEditingController();
+  final TextEditingController NameController = TextEditingController();
+  final TextEditingController EmailController = TextEditingController();
+  final TextEditingController MobileController = TextEditingController();
+  final TextEditingController PincodeController = TextEditingController();
+  final TextEditingController StateController = TextEditingController();
 
   late XFile file;
   var _isLoading = false;
@@ -64,12 +65,20 @@ class MapScreenState extends State<ConsumerProfile>
   @override
   void initState() {
     super.initState();
-    nameController.text = 'Isva Shahzad';
-    emailController.text = 'isvashahzad3356@gmail.com';
-    mobileController.text = '03125643211';
-    pincodeController.text = '44000';
-    stateController.text = 'Federal State';
+    loadSavedConsumerProfile();
   }
+
+  void loadSavedConsumerProfile() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      NameController.text = prefs.getString('name') ?? '';
+      EmailController.text = prefs.getString('email') ?? '';
+      MobileController.text = prefs.getString('mobile') ?? '';
+      PincodeController.text = prefs.getString('pincode') ?? '';
+      StateController.text = prefs.getString('state') ?? '';
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -215,7 +224,7 @@ class MapScreenState extends State<ConsumerProfile>
                                     children: <Widget>[
                                       new Flexible(
                                         child: new TextFormField(
-                                          controller: nameController,
+                                          controller: NameController,
                                           decoration: const InputDecoration(
                                             hintText: "Enter Your Name",
                                           ),
@@ -264,7 +273,7 @@ class MapScreenState extends State<ConsumerProfile>
                                     children: <Widget>[
                                       new Flexible(
                                         child: new TextFormField(
-                                          controller: emailController,
+                                          controller: EmailController,
                                           decoration: const InputDecoration(
                                               hintText: "Enter Email ID"),
                                           textInputAction: TextInputAction.next,
@@ -311,7 +320,7 @@ class MapScreenState extends State<ConsumerProfile>
                                     children: <Widget>[
                                       new Flexible(
                                         child: new TextFormField(
-                                          controller: mobileController,
+                                          controller: MobileController,
                                           keyboardType: TextInputType.number,
                                           decoration: const InputDecoration(
                                               hintText: "Enter Mobile Number"),
@@ -374,7 +383,7 @@ class MapScreenState extends State<ConsumerProfile>
                                         child: Padding(
                                           padding: EdgeInsets.only(right: 10.0),
                                           child: new TextFormField(
-                                            controller: pincodeController,
+                                            controller: PincodeController,
                                             keyboardType: TextInputType.number,
                                             decoration: const InputDecoration(
                                                 hintText: "Enter Pin Code"),
@@ -395,7 +404,7 @@ class MapScreenState extends State<ConsumerProfile>
                                       ),
                                       Flexible(
                                         child: new TextFormField(
-                                          controller: stateController,
+                                          controller: StateController,
                                           decoration: const InputDecoration(
                                             hintText: "Enter State",
                                           ),
@@ -459,33 +468,9 @@ class MapScreenState extends State<ConsumerProfile>
                       // textColor: Colors.white,
                       // color: Colors.green,is
 
-                      onPressed: () {
-                        try {
-                          FirebaseFirestore.instance
-                              .collection('consumer profile')
-                              .doc()
-                              .set({
-                            'consumername': nameController.text,
-                            'emailid': emailController.text,
-                            'mobile': mobileController.text,
-                            'pincode': pincodeController.text,
-                            'state': stateController.text,
-                          });
-                          print(nameController.text);
-                          print(emailController.text);
-                          print(stateController.text);
-                          print(pincodeController.text);
-                        } catch (e) {}
-                        ;
+                    onPressed: saveConsumerProfile,
 
-                        setState(() {
-                          _status = true;
-
-                          FocusScope.of(context).requestFocus(new FocusNode());
-                          ShowAlert();
-                        });
-                        ;
-                      })),
+                  )),
             ),
             flex: 2,
           ),
@@ -537,5 +522,34 @@ class MapScreenState extends State<ConsumerProfile>
         });
       },
     );
+  }
+
+  void saveConsumerProfile() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('name', NameController.text);
+      await prefs.setString('email', EmailController.text);
+      await prefs.setString('pincode', PincodeController.text);
+      await prefs.setString('state', StateController.text);
+      await prefs.setString('mobile', MobileController.text);
+
+      // Get a reference to the Firestore collection
+      CollectionReference portfolioCollection =
+      FirebaseFirestore.instance.collection('consumer profile ');
+
+      // Create a document with an auto-generated ID
+      await portfolioCollection.add({
+        'sellername': NameController.text,
+        'email': EmailController.text,
+        'pincode': PincodeController.text,
+        'state': StateController.text,
+        'mobile': MobileController.text,
+      });
+
+      print('Consumer Profile data saved to Firestore');
+      ShowAlert();
+    } catch (e) {
+      print('Error saving portfolio data: $e');
+    }
   }
 }

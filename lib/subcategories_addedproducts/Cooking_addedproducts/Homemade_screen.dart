@@ -159,8 +159,7 @@ class _HomemadeScreenState extends State<HomemadeScreen> {
                         final ImageURL = addedproductss.ImageURl;
                         final productName = addedproductss.productname;
                         final productPrice = addedproductss.productprice;
-                        final productDescription =
-                            addedproductss.productdescription;
+                        final productDescription = addedproductss.productdescription;
 
                         return InkWell(
                           onTap: () {
@@ -170,8 +169,7 @@ class _HomemadeScreenState extends State<HomemadeScreen> {
                                     builder: (context) => HomemadeDetailScreen(
                                           productName: productName,
                                           productPrice: productPrice,
-                                          productDescription:
-                                              productDescription,
+                                          productDescription: productDescription,
                                           ImageURL: ImageURL,
                                         )));
                           },

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
+import 'package:provider/provider.dart';
 
-class CartItem {
+class CartItem with ChangeNotifier {
   final String name;
   final String imageUrl;
   final double price;
@@ -29,5 +30,6 @@ class Cart extends ChangeNotifier {
     _items.add(item);
     notifyListeners();
   }
+
 }
 

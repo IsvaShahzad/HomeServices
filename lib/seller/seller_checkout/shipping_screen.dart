@@ -25,7 +25,6 @@ class _ShippingScreenState extends State<ShippingScreen> {
   String _selectedProvince = 'Punjab';
   bool _expressDelivery = false;
 
-
   final loginFormKey = GlobalKey<FormState>();
 
   final TextEditingController firstNameController = TextEditingController();
@@ -34,7 +33,6 @@ class _ShippingScreenState extends State<ShippingScreen> {
   final TextEditingController mobileController = TextEditingController();
   final TextEditingController postalCodeController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
-
 
   final _auth = FirebaseAuth.instance;
 
@@ -49,12 +47,10 @@ class _ShippingScreenState extends State<ShippingScreen> {
             fit: BoxFit.cover,
           ),
         ),
-
         child: Scaffold(
-          backgroundColor: Colors.transparent,
+            backgroundColor: Colors.transparent,
             body: Container(
                 key: loginFormKey,
-
                 padding: EdgeInsets.only(top: 25.0),
                 child: SingleChildScrollView(
                   child: Column(
@@ -78,7 +74,11 @@ class _ShippingScreenState extends State<ShippingScreen> {
                                   color: Colors.white,
                                 ),
                                 onPressed: () {
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CartScreen(cart: cart)));
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              CartScreen(cart: cart)));
                                 },
                               ),
                               SizedBox(width: 15), // Adjust the width as needed
@@ -96,435 +96,500 @@ class _ShippingScreenState extends State<ShippingScreen> {
                             ],
                           ),
                         ),
-              SizedBox(height: 20.h),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8),
-                child: Container(
-                  height: 620,
-                  width: 370,
-                  decoration: BoxDecoration(
-                      color: Colors.white30,
-                      border: Border.all(
-                        color: Color(0xFFAB47BC),
-                        width: 1.5,
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 22.0),
-                              child: Text('First Name',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      color: Color(0xFF000000),
-                                      fontWeight: FontWeight.bold)),
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            Container(
-                              child: TextFormField(
-                                // keyboardType: TextInputType.emailAddress,
-                                controller: firstNameController,
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  color: Color(0xFF000000),
-                                  fontWeight: FontWeight.w600,
+                        SizedBox(height: 20.h),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8),
+                          child: Container(
+                            height: 620,
+                            width: 370,
+                            decoration: BoxDecoration(
+                                color: Colors.white30,
+                                border: Border.all(
+                                  color: Color(0xFFAB47BC),
+                                  width: 1.5,
                                 ),
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.white.withOpacity(0.1),
-                                  hintText: 'Enter Your First name',
-                                  hintStyle:
-                                      TextStyle(fontSize: 13, color: Colors.grey),
-                                  border: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    borderSide: BorderSide(
-                                        width: 3, color: Colors.purple),
-                                  ),
-                                ),
-                                validator: (value) {
-                                  RegExp regex = RegExp(
-                                      r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$');
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please Enter Some Text ';
-                                  } else if (value.length > 20) {
-                                    return 'Enter less than 20 numbers';
-                                  } else if (!regex.hasMatch(value)) {
-                                    return 'Enter according to format';
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 15.0),
-                              child: Text('Last Name',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      color: Color(0xFF000000),
-                                      fontWeight: FontWeight.bold)),
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            Container(
-                              child: TextFormField(
-                                // keyboardType: TextInputType.emailAddress,
-                                controller: lastNameController,
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  color: Color(0xFF000000),
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.white.withOpacity(0.1),
-                                  hintText: 'Enter Your Last name',
-                                  hintStyle:
-                                      TextStyle(fontSize: 13, color: Colors.grey),
-                                  border: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    borderSide: BorderSide(
-                                        width: 3, color: Colors.purple),
-                                  ),
-                                ),
-                                validator: (value) {
-                                  RegExp regex = RegExp(
-                                      r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$');
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please Enter Some Text ';
-                                  } else if (value.length > 20) {
-                                    return 'Enter less than 20 numbers';
-                                  } else if (!regex.hasMatch(value)) {
-                                    return 'Enter according to format';
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 10.0),
-                              child: Text('Email',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      color: Color(0xFF000000),
-                                      fontWeight: FontWeight.bold)),
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            Container(
-                              child: TextFormField(
-                                keyboardType: TextInputType.emailAddress,
-                                controller: emailController,
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  color: Color(0xFF000000),
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.white.withOpacity(0.1),
-                                  hintText: 'Enter Email',
-                                  hintStyle:
-                                      TextStyle(fontSize: 13, color: Colors.grey),
-                                  border: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    borderSide: BorderSide(
-                                        width: 3, color: Colors.purple),
-                                  ),
-                                ),
-                                validator: (value) {
-                                  RegExp regex = RegExp(
-                                      r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$');
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please Enter Some Text ';
-                                  } else if (value.length > 20) {
-                                    return 'Enter less than 20 numbers';
-                                  } else if (!regex.hasMatch(value)) {
-                                    return 'Enter according to format';
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 10.0),
-                              child: Text('Postal Code',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      color: Color(0xFF000000),
-                                      fontWeight: FontWeight.bold)),
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            Container(
-                              child: TextFormField(
-                                controller: postalCodeController,
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  color: Color(0xFF000000),
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.white.withOpacity(0.1),
-                                  hintText: 'Enter Postal Code',
-                                  hintStyle:
-                                      TextStyle(fontSize: 13, color: Colors.grey),
-                                  border: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    borderSide: BorderSide(
-                                        width: 3, color: Colors.purple),
-                                  ),
-                                ),
-                                validator: (value) {
-                                  RegExp regex = RegExp(
-                                      r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$');
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please Enter Some Text ';
-                                  } else if (value.length > 20) {
-                                    return 'Enter less than 20 numbers';
-                                  } else if (!regex.hasMatch(value)) {
-                                    return 'Enter according to format';
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 10.0),
-                              child: Text('Mobile Number',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      color: Color(0xFF000000),
-                                      fontWeight: FontWeight.bold)),
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            Container(
-                              child: TextFormField(
-                                keyboardType: TextInputType.number,
-                                controller: mobileController,
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  color: Color(0xFF000000),
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.white.withOpacity(0.1),
-                                  hintText: 'Enter Your Mobile number',
-                                  hintStyle:
-                                      TextStyle(fontSize: 13, color: Colors.grey),
-                                  border: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    borderSide: BorderSide(
-                                        width: 3, color: Colors.purple),
-                                  ),
-                                ),
-                                validator: (value) {
-                                  RegExp regex = RegExp(
-                                      r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$');
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please Enter Some Text ';
-                                  } else if (value.length > 20) {
-                                    return 'Enter less than 20 numbers';
-                                  } else if (!regex.hasMatch(value)) {
-                                    return 'Enter according to format';
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-
-                            Padding(
-                              padding: const EdgeInsets.only(top: 10.0),
-                              child: Text('Address',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      color: Color(0xFF000000),
-                                      fontWeight: FontWeight.bold)),
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            Container(
-                              child: TextFormField(
-                                controller: addressController,
-                                maxLines: 2,
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  color: Color(0xFF000000),
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.white.withOpacity(0.1),
-                                  hintText: 'Enter Adress',
-                                  hintStyle:
-                                      TextStyle(fontSize: 13, color: Colors.grey),
-                                  border: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    borderSide: BorderSide(
-                                        width: 3, color: Colors.purple),
-                                  ),
-                                ),
-                                validator: (value) {
-                                  RegExp regex = RegExp(
-                                      r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$');
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please Enter Some Text ';
-                                  } else if (value.length > 20) {
-                                    return 'Enter less than 20 numbers';
-                                  } else if (!regex.hasMatch(value)) {
-                                    return 'Enter according to format';
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-                            SizedBox(
-                              height: 20.h,
-                            ),
-
-                            Text(
-                              'Province',
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: Color(0xFF000000),
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-
-                            // provinceOptions =
-                            //     provinceOptions.toList();
-
-                            // if (_selectedCategory == null &&
-                            // categoryOptions.isNotEmpty) {
-                            // _selectedCategory = categoryOptions[0];
-                            // }
-
-                            DropdownButtonFormField(
-                              value: _selectedProvince,
-                              items: provinceOptions.map((category) {
-                                return DropdownMenuItem(
-                                  value: category,
-                                  child: Text(category),
-                                );
-                              }).toList(),
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.white.withOpacity(0.1),
-                                contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 15,
-                                  horizontal: 10.0,
-                                ),
-                                hintStyle:
-                                    TextStyle(fontSize: 13, color: Colors.grey),
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(4)),
-                                  borderSide:
-                                      BorderSide(width: 1, color: Colors.orange),
-                                ),
-                              ),
-                              onChanged: (selectedCategory) {
-                                setState(() {
-                                  _selectedProvince = selectedCategory.toString();
-                                });
-                              },
-                            ),
-                            SizedBox(
-                              height: 20.h,
-                            ),
-
-                            Row(
-                              children: [
-                                Checkbox(
-                                  value: _expressDelivery,
-                                  onChanged: (bool? value) {
-                                    setState(() {
-                                      _expressDelivery = value!;
-                                    });
-                                  },
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Express Delivery',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        color: Color(0xFF000000),
-                                        fontWeight: FontWeight.bold,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20))),
+                            child: SingleChildScrollView(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 22.0),
+                                        child: Text('First Name',
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                color: Color(0xFF000000),
+                                                fontWeight: FontWeight.bold)),
                                       ),
-                                    ),
-                                    SizedBox(height: 10.h,),
-
-                                    Text(
-                                      '* 5% additional charges are applicable *',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.grey,
+                                      SizedBox(
+                                        height: 5.h,
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                                      Container(
+                                        child: TextFormField(
+                                          // keyboardType: TextInputType.emailAddress,
+                                          controller: firstNameController,
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            color: Color(0xFF000000),
+                                          ),
+                                          decoration: InputDecoration(
+                                            filled: true,
+                                            fillColor:
+                                                Colors.white.withOpacity(0.1),
+                                            hintText: 'Enter Your First name',
+                                            hintStyle: TextStyle(
+                                                fontSize: 15,
+                                                color: Colors.grey),
+                                            border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20)),
+                                              borderSide: BorderSide(
+                                                  width: 3,
+                                                  color: Colors.purple),
+                                            ),
+                                          ),
+                                          validator: (value) {
+                                            RegExp regex = RegExp(
+                                                r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$');
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return 'Please Enter Some Text ';
+                                            } else if (value.length > 20) {
+                                              return 'Enter less than 20 numbers';
+                                            } else if (!regex.hasMatch(value)) {
+                                              return 'Enter according to format';
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 15.0),
+                                        child: Text('Last Name',
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                color: Color(0xFF000000),
+                                                fontWeight: FontWeight.bold)),
+                                      ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      Container(
+                                        child: TextFormField(
+                                          // keyboardType: TextInputType.emailAddress,
+                                          controller: lastNameController,
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            color: Color(0xFF000000),
+                                            // fontWeight: FontWeight.w600,
+                                          ),
+                                          decoration: InputDecoration(
+                                            filled: true,
+                                            fillColor:
+                                                Colors.white.withOpacity(0.1),
+                                            hintText: 'Enter Your Last name',
+                                            hintStyle: TextStyle(
+                                                fontSize: 15,
+                                                color: Colors.grey),
+                                            border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20)),
+                                              borderSide: BorderSide(
+                                                  width: 3,
+                                                  color: Colors.purple),
+                                            ),
+                                          ),
+                                          validator: (value) {
+                                            RegExp regex = RegExp(
+                                                r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$');
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return 'Please Enter Some Text ';
+                                            } else if (value.length > 20) {
+                                              return 'Enter less than 20 numbers';
+                                            } else if (!regex.hasMatch(value)) {
+                                              return 'Enter according to format';
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 10.0),
+                                        child: Text('Email',
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                color: Color(0xFF000000),
+                                                fontWeight: FontWeight.bold)),
+                                      ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      Container(
+                                        child: TextFormField(
+                                          keyboardType:
+                                              TextInputType.emailAddress,
+                                          controller: emailController,
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            color: Color(0xFF000000),
+                                          ),
+                                          decoration: InputDecoration(
+                                            filled: true,
+                                            fillColor:
+                                                Colors.white.withOpacity(0.1),
+                                            hintText: 'Enter Email',
+                                            hintStyle: TextStyle(
+                                                fontSize: 15,
+                                                color: Colors.grey),
+                                            border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20)),
+                                              borderSide: BorderSide(
+                                                  width: 3,
+                                                  color: Colors.purple),
+                                            ),
+                                          ),
+                                          validator: (value) {
+                                            RegExp regex = RegExp(
+                                                r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$');
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return 'Please Enter Some Text ';
+                                            } else if (value.length > 20) {
+                                              return 'Enter less than 20 numbers';
+                                            } else if (!regex.hasMatch(value)) {
+                                              return 'Enter according to format';
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 10.0),
+                                        child: Text('Postal Code',
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                color: Color(0xFF000000),
+                                                fontWeight: FontWeight.bold)),
+                                      ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      Container(
+                                        child: TextFormField(
+                                          keyboardType: TextInputType.number,
 
-                            SizedBox(
-                              height: 20.h,
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary: Color(0xFFAB47BC),
-                                  onPrimary: Colors.white,
-                                  elevation: 3,
-                                  minimumSize: const Size(200, 50),
-                                  maximumSize: const Size(200, 50),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                ),
-                                child: Text('Proceed to Payment',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18)),
-                                onPressed: () async {
+                                          controller: postalCodeController,
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            color: Color(0xFF000000),
+                                          ),
+                                          decoration: InputDecoration(
+                                            filled: true,
+                                            fillColor:
+                                                Colors.white.withOpacity(0.1),
+                                            hintText: 'Enter Postal Code',
+                                            hintStyle: TextStyle(
+                                                fontSize: 15,
+                                                color: Colors.grey),
+                                            border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20)),
+                                              borderSide: BorderSide(
+                                                  width: 3,
+                                                  color: Colors.purple),
+                                            ),
+                                          ),
+                                          validator: (value) {
+                                            RegExp regex = RegExp(
+                                                r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$');
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return 'Please Enter Some Text ';
+                                            } else if (value.length > 20) {
+                                              return 'Enter less than 20 numbers';
+                                            } else if (!regex.hasMatch(value)) {
+                                              return 'Enter according to format';
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 10.0),
+                                        child: Text('Mobile Number',
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                color: Color(0xFF000000),
+                                                fontWeight: FontWeight.bold)),
+                                      ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      Container(
+                                        child: TextFormField(
+                                          keyboardType: TextInputType.number,
+                                          controller: mobileController,
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            color: Color(0xFF000000),
+                                          ),
+                                          decoration: InputDecoration(
+                                            filled: true,
+                                            fillColor:
+                                                Colors.white.withOpacity(0.1),
+                                            hintText:
+                                                'Enter Your Mobile number',
+                                            hintStyle: TextStyle(
+                                                fontSize: 15,
+                                                color: Colors.grey),
+                                            border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20)),
+                                              borderSide: BorderSide(
+                                                  width: 3,
+                                                  color: Colors.purple),
+                                            ),
+                                          ),
+                                          validator: (value) {
+                                            RegExp regex = RegExp(
+                                                r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$');
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return 'Please Enter Some Text ';
+                                            } else if (value.length > 20) {
+                                              return 'Enter less than 20 numbers';
+                                            } else if (!regex.hasMatch(value)) {
+                                              return 'Enter according to format';
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                      ),
 
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (BuildContext context) =>
-                                              PaymentScreen()));
-                                },
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 10.0),
+                                        child: Text('Address',
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                color: Color(0xFF000000),
+                                                fontWeight: FontWeight.bold)),
+                                      ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      Container(
+                                        child: TextFormField(
+                                          controller: addressController,
+                                          maxLines: 2,
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            color: Color(0xFF000000),
+                                          ),
+                                          decoration: InputDecoration(
+                                            filled: true,
+                                            fillColor:
+                                                Colors.white.withOpacity(0.1),
+                                            hintText: 'Enter Adress',
+                                            hintStyle: TextStyle(
+                                                fontSize: 15,
+                                                color: Colors.grey),
+                                            border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20)),
+                                              borderSide: BorderSide(
+                                                  width: 3,
+                                                  color: Colors.purple),
+                                            ),
+                                          ),
+                                          validator: (value) {
+                                            RegExp regex = RegExp(
+                                                r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$');
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return 'Please Enter Some Text ';
+                                            } else if (value.length > 20) {
+                                              return 'Enter less than 20 numbers';
+                                            } else if (!regex.hasMatch(value)) {
+                                              return 'Enter according to format';
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 20.h,
+                                      ),
+
+                                      Text(
+                                        'Province',
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            color: Color(0xFF000000),
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+
+                                      // provinceOptions =
+                                      //     provinceOptions.toList();
+
+                                      // if (_selectedCategory == null &&
+                                      // categoryOptions.isNotEmpty) {
+                                      // _selectedCategory = categoryOptions[0];
+                                      // }
+
+                                      DropdownButtonFormField(
+                                        value: _selectedProvince,
+                                        items: provinceOptions.map((category) {
+                                          return DropdownMenuItem(
+                                            value: category,
+                                            child: Text(category),
+                                          );
+                                        }).toList(),
+                                        decoration: InputDecoration(
+                                          filled: true,
+                                          fillColor:
+                                              Colors.white.withOpacity(0.1),
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                            vertical: 15,
+                                            horizontal: 10.0,
+                                          ),
+                                          hintStyle: TextStyle(
+                                              fontSize: 15, color: Colors.grey),
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(4)),
+                                            borderSide: BorderSide(
+                                                width: 1, color: Colors.orange),
+                                          ),
+                                        ),
+                                        onChanged: (selectedCategory) {
+                                          setState(() {
+                                            _selectedProvince =
+                                                selectedCategory.toString();
+                                          });
+                                        },
+                                      ),
+                                      SizedBox(
+                                        height: 20.h,
+                                      ),
+
+                                      Row(
+                                        children: [
+                                          Checkbox(
+                                            value: _expressDelivery,
+                                            onChanged: (bool? value) {
+                                              setState(() {
+                                                _expressDelivery = value!;
+                                              });
+                                            },
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Express Delivery',
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                  color: Color(0xFF000000),
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 10.h,
+                                              ),
+                                              Text(
+                                                '* 5% additional charges are applicable *',
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+
+                                      SizedBox(
+                                        height: 20.h,
+                                      ),
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            primary: Color(0xFFAB47BC),
+                                            onPrimary: Colors.white,
+                                            elevation: 3,
+                                            minimumSize: const Size(200, 50),
+                                            maximumSize: const Size(200, 50),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                            ),
+                                          ),
+                                          child: Text('Proceed to Payment',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18)),
+                                          onPressed: () async {
+                                            // if (loginFormKey.currentState!
+                                            //     .validate()) {
+                                            //   loginFormKey.currentState?.save();
+
+                                              try {
+                                                FirebaseFirestore.instance
+                                                    .collection(
+                                                        'ShippingDetails')
+                                                    .doc()
+                                                    .set({
+                                                  'First name':
+                                                      firstNameController.text,
+                                                  'Last name':
+                                                      lastNameController.text,
+                                                  'Email': emailController.text,
+                                                  'Postal Code':
+                                                      postalCodeController.text,
+                                                  'Mobile Number':
+                                                      mobileController.text,
+                                                  'Address':
+                                                      addressController.text,
+                                                  'Province':
+                                                  _selectedProvince,
+                                                });
+                                              } catch (e) {
+                                                print(e);
+                                              }
+
+                                              Navigator.pushReplacement(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (BuildContext context) =>
+                                                          PaymentScreen()));
+                                          },
+                                        ),
+                                      ),
+                                    ]),
                               ),
                             ),
-                          ]),
-                    ),
-                  ),
-                ),
-              ),
-            ]),
-          ))));
+                          ),
+                        ),
+                      ]),
+                ))));
   }
 }

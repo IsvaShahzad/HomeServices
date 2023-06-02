@@ -216,7 +216,7 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                           ImageURL: '',
                                           productName: '',
                                           productDescription: '',
-                                          productPrice: ''),
+                                          productPrice: ''), companyName: '',
                                     )));
                       } else if (subcategoryName == 'sweaters' &&
                           _selectedsubcategory == subcategoryName) {

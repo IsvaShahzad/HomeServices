@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/Detail_Screens/Baking_DetailScreen/Pizza_Detail.dart';
 import 'package:home_services_flutter/initialScreens/splash_screen.dart';
+import 'package:home_services_flutter/seller/seller_checkout/seller_cartscreen.dart';
 import 'package:home_services_flutter/subcategories_addedproducts/Baking_addedproducts/pizza_screen.dart';
 import 'Consumer_Screens/add_requirements_consumer.dart';
 import 'Consumer_Screens/favourites.dart';
@@ -21,6 +22,8 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  final Cart cart = Cart();
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -29,7 +32,7 @@ class MyApp extends StatelessWidget {
           create: (_) => FavouriteProductPageProvider(),
         ),
         ChangeNotifierProvider(
-          create: (_) => Cart(),
+          create: (context) => Cart(),
         ),
         // Add other providers here if needed
       ],

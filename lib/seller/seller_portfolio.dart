@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/seller/SellerMainPage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SellerPortfolio extends StatefulWidget {
@@ -23,16 +24,12 @@ class _SellerPortfolioState extends State<SellerPortfolio> {
   TextEditingController _experienceController = TextEditingController();
   TextEditingController _descriptionController = TextEditingController();
   TextEditingController _productsController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _phoneController = TextEditingController();
 
-  bool _isEditing = false;
+  bool _isSeller = false; // Flag to determine if the user is a seller
 
-  void _toggleEdit() {
-    setState(() {
-      _isEditing = !_isEditing;
-    });
-  }
-
-  ShowAlert() {
+  Future ShowAlert() {
     return showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -49,11 +46,14 @@ class _SellerPortfolioState extends State<SellerPortfolio> {
                 maximumSize: const Size(150, 50),
                 shape: StadiumBorder(),
               ),
-              child: Text('OK',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+              child: Text(
+                'OK',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+              ),
               onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => SellerPortfolio()));
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => SellerPortfolio(),
+                ));
               },
             ),
           )
@@ -65,13 +65,29 @@ class _SellerPortfolioState extends State<SellerPortfolio> {
   @override
   void initState() {
     super.initState();
-    _nameController.text = 'Isva Shahzad';
-    _occupationController.text = 'Baker';
-    _experienceController.text = '2 years';
-    _descriptionController.text =
-        'My name is Isva Shahzad and I am an expert in making baked products such as cakes, brownies and pizzas. I have an experience of two years which has given me a detailed insight on how baked goods and their making is done. I use all organic and homemade items for the baking of my products. I can guarantee you that the quality of my goods is up to your taste and likings!';
-    _productsController.text =
-        '• Chocolate Brownies\n• Confetti Cupcakes\n• Pumpkin Spice Cake\n• Margarita Pizza';
+    loadSavedData();
+    checkUserRole(); // Check the user role when the widget initializes
+  }
+
+  void loadSavedData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _nameController.text = prefs.getString('name') ?? '';
+      _occupationController.text = prefs.getString('occupation') ?? '';
+      _experienceController.text = prefs.getString('experience') ?? '';
+      _descriptionController.text = prefs.getString('description') ?? '';
+      _productsController.text = prefs.getString('products') ?? '';
+      _emailController.text = prefs.getString('email') ?? '';
+      _phoneController.text = prefs.getString('phone') ?? '';
+    });
+  }
+
+  void checkUserRole() {
+    // Logic to check if the user is a seller
+    // Replace this with your own logic to determine the user role
+    setState(() {
+      _isSeller = true; // Set to true if the user is a seller
+    });
   }
 
   @override
@@ -84,269 +100,324 @@ class _SellerPortfolioState extends State<SellerPortfolio> {
         ),
       ),
       child: Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            elevation: 13,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(12),
-                bottomLeft: Radius.circular(12),
-              ),
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          elevation: 13,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(12),
+              bottomLeft: Radius.circular(12),
             ),
-            leading: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                // Navigator.pushReplacement(context,
-                //     MaterialPageRoute(builder: (context) => SellerHomePage()));
-                Navigator.pop(context);
-              },
+          ),
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
             ),
-            title: Align(
-              alignment: Alignment.center,
-              child: Text(
-                'Seller Portfolio 💼',
-                style: TextStyle(color: Colors.white),
-              ),
+            onPressed: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => SellerHomePage()));
+            },
+          ),
+          title: Align(
+            alignment: Alignment.center,
+            child: Text(
+              'Seller Portfolio 💼',
+              style: TextStyle(color: Colors.white),
             ),
-            actions: [
+          ),
+          actions: [
+            if (_isSeller) // Only show edit button if the user is a seller
               IconButton(
                 icon: Icon(
                   Icons.edit,
                   color: Colors.white,
                 ),
-                onPressed: () => _toggleEdit(),
+                onPressed: () {
+                  setState(() {
+                    _status =
+                        false; // Enable editing when the edit button is pressed
+                  });
+                },
               ),
-            ],
+          ],
+        ),
+        body: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 18.0),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(padding: EdgeInsets.only(top: 50)),
+                  Text(
+                    'Details:',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Text(
+                    'Name:',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
+                  ),
+                  Container(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 13),
+                      child: TextFormField(
+                        controller: _nameController,
+                        enabled:
+                            !_status, // Disable editing if the status is true
+                        decoration: InputDecoration(
+                          hintText: 'Enter your name',
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter your name';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20.h),
+                  Text(
+                    'Occupation:',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
+                  ),
+                  Container(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 13),
+                      child: TextFormField(
+                        controller: _occupationController,
+                        enabled:
+                            !_status, // Disable editing if the status is true
+                        decoration: InputDecoration(
+                          hintText: 'Enter your occupation',
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter your occupation';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20.h),
+                  Text(
+                    'Experience:',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
+                  ),
+                  Container(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 13),
+                      child: TextFormField(
+                        controller: _experienceController,
+                        enabled:
+                            !_status, // Disable editing if the status is true
+                        decoration: InputDecoration(
+                          hintText: 'Enter your experience',
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter your experience';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20.h),
+                  Text(
+                    'Description:',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
+                  ),
+                  Container(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 13),
+                      child: TextFormField(
+                        controller: _descriptionController,
+                        enabled:
+                            !_status, // Disable editing if the status is true
+                        maxLines: 5,
+                        decoration: InputDecoration(
+                          hintText: 'Enter a description',
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter a description';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20.h),
+                  Text(
+                    'Products:',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
+                  ),
+                  Container(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 13),
+                      child: TextFormField(
+                        controller: _productsController,
+                        enabled:
+                            !_status, // Disable editing if the status is true
+                        maxLines: 5,
+                        decoration: InputDecoration(
+                          hintText: 'Enter your products',
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter your products';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20.h),
+                  Text(
+                    'Email:',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
+                  ),
+                  Container(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 13),
+                      child: TextFormField(
+                        controller: _emailController,
+                        enabled:
+                            !_status, // Disable editing if the status is true
+                        decoration: InputDecoration(
+                          hintText: 'Enter your email',
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter your email';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20.h),
+                  Text(
+                    'Phone number:',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
+                  ),
+                  Container(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 13),
+                      child: TextFormField(
+                        controller: _phoneController,
+                        enabled:
+                            !_status, // Disable editing if the status is true
+                        decoration: InputDecoration(
+                          hintText: 'Enter your number',
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter your number';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20.h),
+                  Align(
+                    alignment: Alignment.center,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.purple,
+                        onPrimary: Colors.white,
+                        elevation: 3,
+                        minimumSize: const Size(150, 50),
+                        maximumSize: const Size(150, 50),
+                        shape: StadiumBorder(),
+                      ),
+                      child: Text(
+                        'Save',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                      onPressed: _status
+                          ? null
+                          : savePortfolio, // Save only if the status is false
+                    ),
+                  ),
+                  SizedBox(height: 50.h),
+                ],
+              ),
+            ),
           ),
-          body: Form(
-              key: _formKey,
-              child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                  child: SingleChildScrollView(
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                        Padding(padding: EdgeInsets.only(top: 50)),
-                        Text(
-                          'Details:',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration.underline,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        Text(
-                          'Name:',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                          ),
-                        ),
-                        Container(
-                          child: Padding(
-                              padding: EdgeInsets.only(top: 13),
-                              child: TextFormField(
-                                controller: _nameController,
-                              )),
-                        ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        Text(
-                          'Occupation:',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                          ),
-                        ),
-                        Container(
-                          child: Padding(
-                              padding: EdgeInsets.only(top: 10),
-                              child: TextFormField(
-                                controller: _occupationController,
-                              )),
-                        ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        Text(
-                          'Experience:',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                          ),
-                        ),
-                        Container(
-                          child: Padding(
-                              padding: EdgeInsets.only(top: 15),
-                              child: TextFormField(
-                                controller: _experienceController,
-                              )),
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        Text(
-                          'Description:',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration.underline,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        Container(
-                          width: 300,
-                          height: 190,
-                          child: TextFormField(
-                            controller: _descriptionController,
-                            maxLines: 10,
-                            decoration: InputDecoration(
-                              hintText: 'Enter description...',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15.h,
-                        ),
-                        Text(
-                          'Products:',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration.underline,
-                          ),
-                        ),
-                        Container(
-                          width: 300,
-                          height: 200,
-                          child: Padding(
-                              padding: EdgeInsets.only(top: 15),
-                              child: TextFormField(
-                                controller: _productsController,
-                                maxLines: 4,
-                              )),
-                        ),
-                        Align(
-                          alignment: Alignment.center,
-                          child: Container(
-                              child: new ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    primary: Color(0xFF006400),
-                                    onPrimary: Colors.white,
-                                    shape: new RoundedRectangleBorder(
-                                      borderRadius:
-                                          new BorderRadius.circular(16.0),
-                                    ),
-                                    elevation: 5,
-                                    minimumSize: const Size(130, 50),
-                                    maximumSize: const Size(130, 50),
-                                  ),
-                                  child: new Text("Save"),
-                                  // textColor: Colors.white,
-                                  // color: Colors.green,is
-
-                                  onPressed: () {
-                                    try {
-                                      FirebaseFirestore.instance
-                                          .collection('portfolio seller')
-                                          .doc()
-                                          .set({
-                                        'sellername': _nameController.text,
-                                        'occupation':
-                                            _occupationController.text,
-                                        'experince': _experienceController.text,
-                                        'description':
-                                            _descriptionController.text,
-                                        'products': _productsController.text,
-                                      });
-                                      print(_nameController.text);
-                                      print(_occupationController.text);
-                                      print(_experienceController.text);
-                                    } catch (e) {}
-                                    ;
-
-                                    setState(() {
-                                      _status = true;
-
-                                      FocusScope.of(context)
-                                          .requestFocus(new FocusNode());
-                                      ShowAlert();
-                                    });
-                                    ;
-                                  })),
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        Align(
-                          alignment: Alignment.center,
-                          child: Column(
-                            children: <Widget>[
-                              Text("Contact me! ",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold)),
-                              IconButton(
-                                onPressed: () async {
-                                  var emailUrl =
-                                      'mailto:isvashaz2@gmail.com?subject=Example Subject&body=Example Body';
-                                  Uri emailUri = Uri.parse(emailUrl);
-                                  await launchUrl(emailUri);
-                                },
-                                icon: Icon(
-                                  Icons.email,
-                                  color: Colors.deepOrange,
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: GestureDetector(
-                                  onTap: () async {
-                                    final url = 'tel:033215467821';
-                                    if (await canLaunch(url)) {
-                                      await launch(url);
-                                    } else {
-                                      throw 'Could not launch $url';
-                                    }
-                                  },
-                                  child: Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 100),
-                                    child: Row(children: [
-                                      Icon(
-                                        Icons.phone,
-                                        color: Colors.black,
-                                        size: 16,
-                                      ),
-                                      SizedBox(width: 8),
-                                      Text(
-                                        "033215467821",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 13,
-                                          color: Colors.blue,
-                                          decoration: TextDecoration.underline,
-                                        ),
-                                      ),
-                                    ]),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ]))))),
+        ),
+      ),
     );
+  }
+
+  void savePortfolio() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('name', _nameController.text);
+        await prefs.setString('occupation', _occupationController.text);
+        await prefs.setString('experience', _experienceController.text);
+        await prefs.setString('description', _descriptionController.text);
+        await prefs.setString('products', _productsController.text);
+        await prefs.setString('email', _emailController.text);
+        await prefs.setString('phone', _phoneController.text);
+
+        // Get a reference to the Firestore collection
+        CollectionReference portfolioCollection =
+            FirebaseFirestore.instance.collection('portfolio seller');
+
+        // Create a document with an auto-generated ID
+        await portfolioCollection.add({
+          'sellername': _nameController.text,
+          'occupation': _occupationController.text,
+          'experience': _experienceController.text,
+          'description': _descriptionController.text,
+          'products': _productsController.text,
+          'email': _emailController.text,
+          'mobile': _phoneController.text,
+        });
+
+        print('Portfolio data saved to Firestore');
+        ShowAlert();
+      } catch (e) {
+        print('Error saving portfolio data: $e');
+      }
+    }
   }
 }

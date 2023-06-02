@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:home_services_flutter/seller/SellerMainPage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -63,11 +64,18 @@ class MapScreenState extends State<ProfilePage>
   @override
   void initState() {
     super.initState();
-    nameController.text= 'Isva Shahzad';
-    emailController.text='isvashahzad3356@gmail.com';
-    mobileController.text='03125643211';
-    pincodeController.text='44000';
-    stateController.text='Federal State';
+    loadSavedSellerProfile();
+  }
+
+  void loadSavedSellerProfile() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      nameController.text = prefs.getString('name') ?? '';
+      emailController.text = prefs.getString('email') ?? '';
+      mobileController.text = prefs.getString('mobile') ?? '';
+      pincodeController.text = prefs.getString('pincode') ?? '';
+      stateController.text = prefs.getString('state') ?? '';
+    });
   }
 
   @override
@@ -459,33 +467,9 @@ class MapScreenState extends State<ProfilePage>
                       // textColor: Colors.white,
                       // color: Colors.green,is
 
-                      onPressed: () {
-                        try {
-                          FirebaseFirestore.instance
-                              .collection('seller profile')
-                              .doc()
-                              .set({
-                            'sellername': nameController.text,
-                            'emailid': emailController.text,
-                            'mobile': mobileController.text,
-                            'pincode': pincodeController.text,
-                            'state': stateController.text,
-                          });
-                          print(nameController.text);
-                          print(emailController.text);
-                          print(stateController.text);
-                          print(pincodeController.text);
-                        } catch (e) {}
-                        ;
+                    onPressed: saveSellerProfile,
 
-                        setState(() {
-                          _status = true;
-
-                          FocusScope.of(context).requestFocus(new FocusNode());
-                          ShowAlert();
-                        });
-                        ;
-                      })),
+                  )),
             ),
             flex: 2,
           ),
@@ -538,5 +522,35 @@ class MapScreenState extends State<ProfilePage>
         });
       },
     );
+  }
+
+
+  void saveSellerProfile() async {
+      try {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('name', nameController.text);
+        await prefs.setString('email', emailController.text);
+        await prefs.setString('pincode', pincodeController.text);
+        await prefs.setString('state', stateController.text);
+        await prefs.setString('mobile', mobileController.text);
+
+        // Get a reference to the Firestore collection
+        CollectionReference portfolioCollection =
+        FirebaseFirestore.instance.collection('seller profile ');
+
+        // Create a document with an auto-generated ID
+        await portfolioCollection.add({
+          'sellername': nameController.text,
+          'email': emailController.text,
+          'pincode': pincodeController.text,
+          'state': stateController.text,
+          'mobile': mobileController.text,
+        });
+
+        print('Seller Profile data saved to Firestore');
+        ShowAlert();
+      } catch (e) {
+        print('Error saving portfolio data: $e');
+      }
   }
 }

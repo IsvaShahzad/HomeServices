@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:home_services_flutter/seller/Packaging_Screen.dart';
+import 'package:home_services_flutter/seller/SellerMainPage.dart';
 import 'package:home_services_flutter/seller/seller_checkout/shipping_screen.dart';
 import '../../Detail_Screens/Packages_DetailScreen/box_detailscreen.dart';
 
@@ -28,6 +31,7 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -41,6 +45,15 @@ class _CartScreenState extends State<CartScreen> {
             title: Padding(
               padding: EdgeInsets.symmetric(horizontal: 80),
               child: Text('Cart 🛒'),
+            ),
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ),
+              onPressed: () {
+              Navigator.pop(context);
+              },
             ),
           ),
           body: Padding(

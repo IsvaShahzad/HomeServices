@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:home_services_flutter/seller/seller_checkout/delivered_screen.dart';
+import 'package:home_services_flutter/seller/seller_checkout/shipping_screen.dart';
 
 class PaymentScreen extends StatefulWidget {
   @override
@@ -67,6 +68,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
           title: Padding(
             padding: EdgeInsets.symmetric(horizontal: 40),
             child: Text('Payment Method'),
+          ),
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => ShippingScreen()));
+            },
           ),
         ),
         body: Container(

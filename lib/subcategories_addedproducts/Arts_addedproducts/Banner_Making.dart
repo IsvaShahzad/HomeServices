@@ -11,6 +11,7 @@ class BannerScreen extends StatefulWidget {
   final Map<String, dynamic> added;
 
   final String productName;
+  final String companyName;
   final String id;
   final String productPrice;
   final String productDescription;
@@ -20,6 +21,7 @@ class BannerScreen extends StatefulWidget {
   const BannerScreen({
     Key? key,
     required this.added,
+    required this.companyName,
     required this.productName,
     required this.id,
     required this.productPrice,
@@ -155,6 +157,7 @@ class _BannerScreenState extends State<BannerScreen> {
                   final addedproductss = widget.added['Bannermakinglist'][index];
 
                   final ImageURL = addedproductss.ImageURl;
+                  final companyName = addedproductss.companyname;
                   final productName = addedproductss.productname;
                   final productPrice = addedproductss.productprice;
                   final productDescription = addedproductss.productdescription;
@@ -167,9 +170,9 @@ class _BannerScreenState extends State<BannerScreen> {
                           MaterialPageRoute(
                               builder: (context) => BannerDetailScreen(
                                 productName: productName,
+                                companyName:companyName,
                                 productPrice: productPrice,
-                                productDescription:
-                                productDescription,
+                                productDescription: productDescription,
                                 ImageURL: ImageURL,
                               )));
                     },

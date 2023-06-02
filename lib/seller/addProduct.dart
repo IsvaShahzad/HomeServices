@@ -106,6 +106,7 @@ class _AddProductState extends State<AddProduct> {
   late String? _selectedSubCategory = subcategoryOptions[0];
 
   final TextEditingController ProductnameController = TextEditingController();
+  final TextEditingController CompanyController = TextEditingController();
   final TextEditingController ProductDescriptionController =
       TextEditingController();
   final TextEditingController ProductpriceController = TextEditingController();
@@ -188,6 +189,43 @@ class _AddProductState extends State<AddProduct> {
                                         color: Colors.purple,
                                         fontWeight: FontWeight.bold)),
                                 Padding(padding: EdgeInsets.only(top: 18)),
+                                Text('Company/Business name',
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        color: Color(0xFF000000),
+                                        fontWeight: FontWeight.bold)),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                TextFormField(
+                                  controller: CompanyController,
+                                  decoration: InputDecoration(
+                                    hintText: 'Please enter your company name',
+                                    filled: true,
+                                    fillColor: Colors.white.withOpacity(0.1),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 15, horizontal: 10.0),
+                                    hintStyle: TextStyle(
+                                        fontSize: 13, color: Colors.grey),
+                                    border: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(4)),
+                                      borderSide: BorderSide(
+                                          width: 1, color: Colors.purple),
+                                    ),
+                                  ),
+                                  textInputAction: TextInputAction.next,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Please enter a name';
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (value) => _productName = value!,
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
                                 Text('Product name',
                                     style: TextStyle(
                                         fontSize: 15,

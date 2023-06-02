@@ -53,20 +53,7 @@ class _ConsumerMainPageScreenState extends State<ConsumerMainPageScreen> {
 
   late Stream<QuerySnapshot> _streamCategory = _collectionRef.snapshots();
 
-  // void navigateToFavoriteProductsPage() {
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) => FavoriteProductsPage(
-  //         model: Provider.of<FavouriteProductPage>(context),
-  //         ImageURL: product.ImageURL,
-  //         productName: product.productName,
-  //         productPrice: product.productPrice,
-  //         productDescription: product.productDescription,
-  //       ),
-  //     ),
-  //   );
-  // }
+
 
   void _onItemTapped(int index) {
     setState(() {
@@ -334,7 +321,7 @@ class _ConsumerMainPageScreenState extends State<ConsumerMainPageScreen> {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => signupSeller()));
+                            builder: (context) => LoginScreen()));
                   },
                 ),
                 Divider(),
