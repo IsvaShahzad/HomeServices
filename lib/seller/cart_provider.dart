@@ -1,17 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 
-class CartItem with ChangeNotifier {
-  final String name;
-  final String imageUrl;
-  final double price;
+import 'cart_items.dart';
 
-  CartItem({
-    required this.name,
-    required this.imageUrl,
-    required this.price,
-  });
-}
+
 
 class Cart extends ChangeNotifier {
   final List<CartItem> _items = [];

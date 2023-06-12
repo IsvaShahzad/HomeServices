@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:home_services_flutter/seller/Packaging_Screen.dart';
-import 'package:home_services_flutter/seller/SellerMainPage.dart';
 import 'package:home_services_flutter/seller/seller_checkout/shipping_screen.dart';
-import '../../Detail_Screens/Packages_DetailScreen/box_detailscreen.dart';
+import '../../Providers/seller_cart_provider.dart' as cartprovider;
+import '../cart.dart';
+import '../cart_items.dart';
 
 class CartScreen extends StatefulWidget {
+  final cartprovider.CartProvider cartProvider;
   final Cart cart;
 
-  const CartScreen({Key? key, required this.cart}) : super(key: key);
+  const CartScreen({Key? key, required this.cartProvider, required this.cart})
+      : super(key: key);
 
   @override
   _CartScreenState createState() => _CartScreenState();
@@ -20,222 +21,221 @@ class _CartScreenState extends State<CartScreen> {
   @override
   void initState() {
     super.initState();
-    total = widget.cart.calculateTotal();
+    updateTotal();
   }
 
   void updateTotal() {
     setState(() {
-      total = widget.cart.calculateTotal();
+      total = widget.cartProvider.cart.calculateTotal();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/pastel.png"),
-            fit: BoxFit.cover,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/images/pastel.png"),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 80),
+            child: Text('Cart 🛒'),
+          ),
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
         ),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            title: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 80),
-              child: Text('Cart 🛒'),
-            ),
-            leading: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              ),
-              onPressed: () {
-              Navigator.pop(context);
-              },
-            ),
-          ),
-          body: Padding(
-            padding: EdgeInsets.only(top: 30),
-            child: Column(
-              children: [
-                Expanded(
-                  child: ListView.separated(
-                    itemCount: widget.cart.items.length,
-                    itemBuilder: (context, index) {
-                      CartItem item = widget.cart.items[index];
+        body: Padding(
+          padding: EdgeInsets.only(top: 30),
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView.separated(
+                  itemCount: widget.cartProvider.cart.items.length,
+                  itemBuilder: (context, index) {
+                    CartItem item = widget.cartProvider.cart.items[index];
 
-                      return Card(
-                        elevation: 3.0, // Elevation of the Card
-                        child: ListTile(
-                          tileColor: Colors
-                              .white70, // Add a distinguishable background color
-                          contentPadding: EdgeInsets.all(
-                              8.0), // Adjust the tile padding as needed
-                          leading: ClipOval(
-                            child: Image.asset(
-                              item.imageUrl,
-                              width: 70,
-                              height: 70,
-                              fit: BoxFit.cover,
+                    return Card(
+                      elevation: 3.0,
+                      child: ListTile(
+                        tileColor: Colors.white70,
+                        contentPadding: EdgeInsets.all(8.0),
+                        leading: ClipOval(
+                          child: Image.asset(
+                            item.imageUrl,
+                            width: 70,
+                            height: 70,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        title: Text(
+                          item.name,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Row(
+                          children: [
+                            Text(
+                              'Price: ${item.price}',
+                              style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                          ),
-                          title: Text(
-                            item.name,
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          subtitle: Row(
-                            children: [
-                              Text('Price: ${item.price}',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              SizedBox(width: 75),
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Container(
-                                      width: 29,
-                                      height: 35,
-                                      child: IconButton(
-                                        icon: RichText(
-                                          text: TextSpan(
-                                            text: '-',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black87,
-                                            ),
+                            SizedBox(width: 75),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Container(
+                                    width: 29,
+                                    height: 35,
+                                    child: IconButton(
+                                      icon: RichText(
+                                        text: TextSpan(
+                                          text: '-',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black87,
                                           ),
                                         ),
-                                        onPressed: () {
-                                          setState(() {
-                                            if (item.quantity > 1) {
-                                              item.quantity--;
-                                              updateTotal();
-                                            } else {
-                                              widget.cart.removeFromCart(item);
-                                              updateTotal();
-                                            }
-                                          });
-                                        },
                                       ),
+                                      onPressed: () {
+                                        setState(() {
+                                          if (item.quantity > 1) {
+                                            widget.cartProvider.decreaseQuantity(item);
+                                          } else {
+                                            widget.cartProvider.removeCartItem(item);
+                                          }
+                                          updateTotal();
+                                        });
+                                      },
                                     ),
-                                    Text(item.quantity.toString()),
-                                    Container(
-                                      width: 29,
-                                      height: 35,
-                                      child: IconButton(
-                                        icon: RichText(
-                                          text: TextSpan(
-                                            text: '+',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black87,
-                                            ),
+                                  ),
+                                  Text(item.quantity.toString()),
+                                  Container(
+                                    width: 29,
+                                    height: 35,
+                                    child: IconButton(
+                                      icon: RichText(
+                                        text: TextSpan(
+                                          text: '+',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black87,
                                           ),
                                         ),
-                                        onPressed: () {
-                                          setState(() {
-                                            item.quantity++;
-                                            updateTotal();
-                                          });
-                                        },
                                       ),
+                                      onPressed: () {
+                                        setState(() {
+                                          widget.cartProvider.increaseQuantity(item);
+                                          updateTotal();
+                                        });
+                                      },
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return Divider(
-                        height: 3,
-                      );
-                    },
-                  ),
-                ),
-                SizedBox(height: 20),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white70,
-                    borderRadius: BorderRadius.circular(10.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 3,
-                        blurRadius: 7,
-                        offset: Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  padding: EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(
-                        'Subtotal: ${widget.cart.calculateTotal().toStringAsFixed(2)}/-',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16.0,
+                            ),
+                          ],
                         ),
                       ),
-                      SizedBox(height: 5),
-                      Text(
-                        'Delivery: 150/-',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16.0,
-                        ),
-                      ),
-                      SizedBox(height: 30),
-                      Divider(height: 8),
-                      SizedBox(height: 15),
-                      Text(
-                        'Total: ${(widget.cart.calculateTotal() + 150).toStringAsFixed(2)}/-',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 17.0,
-                          color: Colors.black87,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 30),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                ShippingScreen()));
+                    );
                   },
-                  style: ElevatedButton.styleFrom(
-                    primary: Color(0xFFAB47BC),
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+                  separatorBuilder: (BuildContext context, int index) {
+                    return Divider(
+                      height: 3,
+                    );
+                  },
+                ),
+              ),
+              SizedBox(height: 20),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white70,
+                  borderRadius: BorderRadius.circular(10.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 3,
+                      blurRadius: 7,
+                      offset: Offset(0, 3),
                     ),
-                    elevation: 10.0, // Elevation of the button
+                  ],
+                ),
+                padding: EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      'Subtotal: ${widget.cartProvider.cart.calculateTotal().toStringAsFixed(2)}/-',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16.0,
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      'Delivery: 150/-',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16.0,
+                      ),
+                    ),
+                    SizedBox(height: 30),
+                    Divider(height: 8),
+                    SizedBox(height: 15),
+                    Text(
+                      'Total: ${(widget.cartProvider.cart.calculateTotal() + 150).toStringAsFixed(2)}/-',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 17.0,
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => ShippingScreen(),
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xFFAB47BC),
+                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
-                  child: Text(
-                    'Checkout',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                  elevation: 10.0,
+                ),
+                child: Text(
+                  'Checkout',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
-                SizedBox(height: 10),
-              ],
-            ),
+              ),
+              SizedBox(height: 10),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

@@ -5,6 +5,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:home_services_flutter/initialScreens/verify_email.dart';
 import 'package:home_services_flutter/seller/seller_checkout/payment_screen.dart';
 import 'package:home_services_flutter/seller/seller_checkout/seller_cartscreen.dart';
+import 'package:provider/provider.dart';
+import 'package:home_services_flutter/seller/cart.dart' as cartt;
+import '../../Providers/seller_cart_provider.dart';
+import '../../seller/seller_checkout/seller_cartscreen.dart' as cartscreen;
 
 import '../../Detail_Screens/Packages_DetailScreen/box_detailscreen.dart';
 import '../../initialScreens/loginScreen.dart';
@@ -38,7 +42,7 @@ class _ShippingScreenState extends State<ShippingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Cart cart = Cart(); // Replace this with your actual Cart instance
+    // Cart cart = Cart(); // Replace this with your actual Cart instance
 
     return Container(
         decoration: BoxDecoration(
@@ -74,11 +78,16 @@ class _ShippingScreenState extends State<ShippingScreen> {
                                   color: Colors.white,
                                 ),
                                 onPressed: () {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              CartScreen(cart: cart)));
+
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => cartscreen.CartScreen(
+                                        cart: context.read<cartt.Cart>(),
+                                        cartProvider: context.read<CartProvider>(),
+                                      ),
+                                    ),
+                                  );
                                 },
                               ),
                               SizedBox(width: 15), // Adjust the width as needed

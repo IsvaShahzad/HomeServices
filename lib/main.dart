@@ -2,18 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/Detail_Screens/Baking_DetailScreen/Pizza_Detail.dart';
+import 'package:home_services_flutter/Providers/seller_cart_provider.dart';
 import 'package:home_services_flutter/initialScreens/splash_screen.dart';
-import 'package:home_services_flutter/seller/seller_checkout/seller_cartscreen.dart';
-import 'package:home_services_flutter/subcategories_addedproducts/Baking_addedproducts/pizza_screen.dart';
-import 'Consumer_Screens/add_requirements_consumer.dart';
 import 'Consumer_Screens/favourites.dart';
 import 'Detail_Screens/Packages_DetailScreen/box_detailscreen.dart';
-import 'provider/Services.dart';
-import 'allServices/services_detail.dart';
 import 'package:provider/provider.dart';
-import 'provider/service_providerr.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:home_services_flutter/Consumer_Screens/Consumer_mainpage.dart';
+import 'package:home_services_flutter/seller/cart.dart';
+
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +18,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final Cart cart = Cart();
+  // final Cart cart = Cart();
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +27,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<FavouriteProductPageProvider>(
           create: (_) => FavouriteProductPageProvider(),
         ),
-        ChangeNotifierProvider(
-          create: (context) => Cart(),
+        ChangeNotifierProvider<CartProvider>(
+          create: (_) => CartProvider(),
+        ),
+        ChangeNotifierProvider<Cart>(
+          create: (_) => Cart(),
         ),
         // Add other providers here if needed
       ],

@@ -2,8 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/Detail_Screens/Packages_DetailScreen/box_detailscreen.dart';
+import 'package:home_services_flutter/Providers/seller_cart_provider.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
 import 'package:home_services_flutter/seller/SellerMainPage.dart';
+import 'package:provider/provider.dart';
 
 import '../../Consumer_Screens/favourites.dart';
 import '../../Detail_Screens/ArtsnCrafts_DetailScreen/banner_detailscreen.dart';
@@ -36,6 +38,8 @@ class _PackagingScreenState extends State<PackagingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<CartProvider>(context);
+    // Access the CartProvider
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -169,9 +173,15 @@ class CardWidget extends StatelessWidget {
               Container(
                 height: 100,
                 width: double.infinity,
-                child: Image.asset(
-                  imageUrl,
-                  fit: BoxFit.cover,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                  ),
+                  child: Image.asset(
+                    imageUrl,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               Padding(

@@ -7,9 +7,7 @@ import 'package:home_services_flutter/Consumer_Screens/added_postings.dart';
 import 'package:home_services_flutter/Consumer_Screens/cart_screen.dart';
 import 'package:home_services_flutter/Consumer_Screens/explore_consumer_screen.dart';
 import 'package:home_services_flutter/main.dart';
-import 'package:home_services_flutter/models/favpage_model.dart';
-import 'package:home_services_flutter/provider/provider.dart';
-import 'package:home_services_flutter/screens/favpage_screen.dart';
+
 import 'package:home_services_flutter/seller/SellerProfilePage.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
 import 'package:home_services_flutter/seller/seller_portfolio.dart';

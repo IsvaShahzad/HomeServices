@@ -1,5 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/Detail_Screens/Packages_DetailScreen/box_detailscreen.dart';
 import 'package:home_services_flutter/seller/SellerProfilePage.dart';
@@ -8,11 +9,15 @@ import 'package:home_services_flutter/seller/seller_checkout/seller_cartscreen.d
 import 'package:home_services_flutter/seller/seller_portfolio.dart';
 import 'package:home_services_flutter/seller/sellerwelcome.dart';
 import 'package:home_services_flutter/seller/show_postings_seller.dart';
+import 'package:provider/provider.dart';
 import '../Categories/subcategory_screen.dart';
 import '../Consumer_Screens/add_requirements_consumer.dart';
 import '../Consumer_Screens/consumerSignup.dart';
+import '../Providers/seller_cart_provider.dart';
 import 'Packaging_Screen.dart';
 import 'addProduct.dart';
+import 'package:home_services_flutter/seller/cart.dart' as cartt;
+import '../../seller/seller_checkout/seller_cartscreen.dart' as cartscreen;
 
 class SellerHomePage extends StatefulWidget {
   @override
@@ -23,7 +28,7 @@ class _SellerHomePageState extends State<SellerHomePage> {
   int _selectedIndex = 0;
 
   CollectionReference _collectionRef =
-      FirebaseFirestore.instance.collection('Category');
+  FirebaseFirestore.instance.collection('Category');
 
   late Stream<QuerySnapshot> _streamCategory = _collectionRef.snapshots();
 
@@ -44,15 +49,12 @@ class _SellerHomePageState extends State<SellerHomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _streamCategory = _collectionRef.snapshots();
   }
 
   @override
   Widget build(BuildContext context) {
-    Cart cart = Cart(); // Replace this with your actual Cart instance
-
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
@@ -75,21 +77,28 @@ class _SellerHomePageState extends State<SellerHomePage> {
           ),
           actions: <Widget>[
             IconButton(
-                icon: Icon(
-                  Icons.shopping_cart,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => CartScreen(cart: cart)));
-                }),
+              icon: Icon(
+                Icons.shopping_cart,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => cartscreen.CartScreen(
+                      cart: context.read<cartt.Cart>(),
+                      cartProvider: context.read<CartProvider>(),
+                    ),
+                  ),
+                );
+              },
+            ),
           ],
         ),
         body: Padding(
           padding: EdgeInsets.only(top: 80),
           child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-            stream:
-                FirebaseFirestore.instance.collection('Category').snapshots(),
+            stream: FirebaseFirestore.instance.collection('Category').snapshots(),
             builder: (_, snapshot) {
               if (snapshot.hasError) return Text('Error = ${snapshot.error}');
 
@@ -107,7 +116,6 @@ class _SellerHomePageState extends State<SellerHomePage> {
                           ),
                           child: ListTile(
                             tileColor: Colors.white24,
-
                             trailing: Icon(
                               Icons.arrow_forward,
                               size: 20,
@@ -115,54 +123,48 @@ class _SellerHomePageState extends State<SellerHomePage> {
                             ),
                             leading: data['name'] == "Tailoring"
                                 ? Image(
-                                    image: AssetImage(
-                                        'assets/images/tailoring.png'),
-                                    width: 80.0,
-                                    height: 70.0,
-                                  )
+                              image: AssetImage('assets/images/tailoring.png'),
+                              width: 80.0,
+                              height: 70.0,
+                            )
                                 : data['name'] == "Knitting"
-                                    ? Image(
-                                        image: AssetImage(
-                                            'assets/images/knittingpic.png'),
-                                        width: 80.0,
-                                        height: 70.0,
-                                      )
-                                    : data['name'] == "Baking"
-                                        ? Image(
-                                            image: AssetImage(
-                                                'assets/images/baking.png'),
-                                            width: 80.0,
-                                            height: 70.0,
-                                          )
-                                        : data['name'] == "Cooking"
-                                            ? Image(
-                                                image: AssetImage(
-                                                    'assets/images/cooking.png'),
-                                                width: 80.0,
-                                                height: 70.0,
-                                              )
-                                            : data['name'] == "Arts & Crafts "
-                                                ? Image(
-                                                    image: AssetImage(
-                                                        'assets/images/ac.png'),
-                                                  )
-                                                : Image(
-                                                    image: AssetImage(
-                                                        'assets/images/ac.png'),
-                                                  ),
+                                ? Image(
+                              image: AssetImage('assets/images/knittingpic.png'),
+                              width: 80.0,
+                              height: 70.0,
+                            )
+                                : data['name'] == "Baking"
+                                ? Image(
+                              image: AssetImage('assets/images/baking.png'),
+                              width: 80.0,
+                              height: 70.0,
+                            )
+                                : data['name'] == "Cooking"
+                                ? Image(
+                              image: AssetImage('assets/images/cooking.png'),
+                              width: 80.0,
+                              height: 70.0,
+                            )
+                                : data['name'] == "Arts & Crafts "
+                                ? Image(
+                              image: AssetImage('assets/images/ac.png'),
+                            )
+                                : Image(
+                              image: AssetImage('assets/images/ac.png'),
+                            ),
                             title: Text(
                               data['name'],
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            // subtitle: Text(data['subcategories'].toString()),
                             onTap: () {
                               print("i am calling tap ");
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => SubcategoryScreen(
-                                        categories: data,
-                                      )));
+                                builder: (context) => SubcategoryScreen(
+                                  categories: data,
+                                ),
+                              ));
                             },
                           ),
                         ),
@@ -188,7 +190,9 @@ class _SellerHomePageState extends State<SellerHomePage> {
               label: 'Add Products',
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.person), label: 'Portfolio'),
+              icon: Icon(Icons.person),
+              label: 'Portfolio',
+            ),
           ],
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
@@ -222,13 +226,15 @@ class _SellerHomePageState extends State<SellerHomePage> {
                   title: Text(
                     "Dashboard",
                     style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold),
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   onTap: () {
                     Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SellerWelcome()));
+                      context,
+                      MaterialPageRoute(builder: (context) => SellerWelcome()),
+                    );
                   },
                 ),
                 Divider(),
@@ -242,13 +248,15 @@ class _SellerHomePageState extends State<SellerHomePage> {
                   title: Text(
                     "Categories",
                     style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold),
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   onTap: () {
                     Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SellerHomePage()));
+                      context,
+                      MaterialPageRoute(builder: (context) => SellerHomePage()),
+                    );
                   },
                 ),
                 Divider(),
@@ -262,11 +270,15 @@ class _SellerHomePageState extends State<SellerHomePage> {
                   title: Text(
                     "Profile",
                     style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold),
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   onTap: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => ProfilePage()));
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => ProfilePage()),
+                    );
                   },
                 ),
                 Divider(),
@@ -280,7 +292,9 @@ class _SellerHomePageState extends State<SellerHomePage> {
                   title: Text(
                     "Show requirements/Postings",
                     style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold),
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   onTap: () async {
                     final addedReqSnapshot = await FirebaseFirestore.instance
@@ -291,18 +305,17 @@ class _SellerHomePageState extends State<SellerHomePage> {
                         .toList();
 
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SellerShowPostings(
-                                  addedposting: {
-                                    'All Requirements': addedrequirements
-                                  },
-                                  id: 'id',
-                                )));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SellerShowPostings(
+                          addedposting: {'All Requirements': addedrequirements},
+                          id: 'id',
+                        ),
+                      ),
+                    );
                   },
                 ),
                 Divider(),
-
                 ListTile(
                   tileColor: Colors.white38,
                   trailing: Icon(
@@ -313,19 +326,20 @@ class _SellerHomePageState extends State<SellerHomePage> {
                   title: Text(
                     "Select Packaging",
                     style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold),
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   onTap: () {
                     Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => PackagingScreen()));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PackagingScreen(),
+                      ),
+                    );
                   },
                 ),
-
-
                 Divider(),
-
                 ListTile(
                   tileColor: Colors.white38,
                   trailing: Icon(
@@ -336,13 +350,15 @@ class _SellerHomePageState extends State<SellerHomePage> {
                   title: Text(
                     "Switch to Consumer",
                     style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold),
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   onTap: () {
                     Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => signupConsumer()));
+                      context,
+                      MaterialPageRoute(builder: (context) => signupConsumer()),
+                    );
                   },
                 ),
                 Divider(),
@@ -356,11 +372,15 @@ class _SellerHomePageState extends State<SellerHomePage> {
                   title: Text(
                     "Logout",
                     style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold),
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   onTap: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()));
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                    );
                   },
                 ),
                 Divider(),

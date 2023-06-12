@@ -7,9 +7,7 @@ import 'package:home_services_flutter/Consumer_Screens/Consumer_mainpage.dart';
 import 'package:home_services_flutter/initialScreens/ContinueAsConsumerOrSellerScreen.dart';
 import 'package:home_services_flutter/initialScreens/registration_screen.dart';
 import 'package:home_services_flutter/seller/SellerMainPage.dart';
-import 'package:provider/provider.dart';
-import '../Consumer_Screens/favourites.dart';
-import '../allServices/services_overview_screen.dart';
+
 
 import 'package:home_services_flutter/initialScreens/splash_screen.dart';
 
