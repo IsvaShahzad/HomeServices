@@ -99,6 +99,7 @@ class _CartScreenState extends State<CartScreen> {
                         child:ListTile(
                           tileColor: Colors.white70,
                           contentPadding: EdgeInsets.all(8.0),
+
                           // Inside the Card widget of the ListView.builder
                           leading: Container(
                             width: 70,
