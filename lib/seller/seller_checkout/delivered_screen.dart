@@ -84,7 +84,7 @@ class _DeliveredScreenState extends State<DeliveredScreen> {
                         },
                       ),
                     ),
-                    SizedBox(height: 130.0),
+                    SizedBox(height: 80.0),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 51),
                       child: Text(
@@ -96,7 +96,7 @@ class _DeliveredScreenState extends State<DeliveredScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 120),
+                    SizedBox(height: 100),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -104,7 +104,7 @@ class _DeliveredScreenState extends State<DeliveredScreen> {
                           style: ElevatedButton.styleFrom(
                             primary: Color(0xFFAB47BC),
                             onPrimary: Colors.white,
-                            elevation: 3,
+                            elevation: 15,
                             minimumSize: const Size(150, 50),
                             maximumSize: const Size(150, 50),
                             shape: StadiumBorder(),
@@ -122,7 +122,7 @@ class _DeliveredScreenState extends State<DeliveredScreen> {
                           style: ElevatedButton.styleFrom(
                             primary: Color(0xFFAB47BC),
                             onPrimary: Colors.white,
-                            elevation: 3,
+                            elevation: 12,
                             minimumSize: const Size(160, 50),
                             maximumSize: const Size(160, 50),
                             shape: StadiumBorder(),
@@ -138,8 +138,74 @@ class _DeliveredScreenState extends State<DeliveredScreen> {
                         ),
                       ],
                     ),
+
+                    SizedBox(height: 25),
+
+                    Align(
+                      alignment: Alignment.center,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.green,
+                          onPrimary: Colors.white,
+                          elevation: 12,
+                          minimumSize: const Size(150, 50),
+                          maximumSize: const Size(150, 50),
+                          shape: StadiumBorder(),
+                        ),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Column(
+                                  children: [
+                                    Text(
+                                      "Your order will be delivered in 40 minutes!⏳",
+                                      style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black87,
+                                      ),
+                                    ),
+
+                                  ],
+                                ),
+                                actions: [
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Color(0xFFAB47BC),
+                                        onPrimary: Colors.white,
+                                        elevation: 6,
+                                        minimumSize: const Size(140, 45),
+                                        maximumSize: const Size(140, 45),
+                                        shape: StadiumBorder(),
+                                      ),
+                                      child: Text(
+                                        'OK',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+
+                        child: Text('Order Status'),
+                      ),
+                    ),
+
                     Padding(
-                      padding: EdgeInsets.only(top: 70),
+                      padding: EdgeInsets.only(top: 75),
                       child: Align(
                         alignment: Alignment.center,
                         child: Card(
