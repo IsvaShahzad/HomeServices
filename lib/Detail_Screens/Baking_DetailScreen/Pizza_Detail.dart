@@ -1,12 +1,18 @@
+import 'package:badges/badges.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:home_services_flutter/Consumer_Screens/favourites.dart';
+import 'package:home_services_flutter/subcategories_addedproducts/Cooking_addedproducts/Homemade_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import '../../Consumer_Screens/favourites.dart';
+import '../../Providers/seller_cart_provider.dart';
 import '../../initialScreens/loginScreen.dart';
+import '../../seller/cart.dart';
+import '../../seller/cart_items.dart';
 import '../../seller/seller_portfolio.dart';
+import 'package:home_services_flutter/seller/cart.dart' as cartt;
+import '../../seller/seller_checkout/seller_cartscreen.dart' as cartscreen;
 
 class PizzaDetailScreen extends StatefulWidget {
   final String ImageURL;
@@ -55,7 +61,13 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
     );
   }
 
-
+  void showCartMessage(BuildContext context) {
+    final snackBar = SnackBar(
+      content: Text('Added to Cart'),
+      duration: Duration(seconds: 3),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
@@ -113,31 +125,62 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
               image: AssetImage("assets/images/pastel.png"),
               fit: BoxFit.cover)),
       child: Scaffold(
+        appBar: AppBar(
+          title: Text(widget.productName),
+          centerTitle: true,
+          actions: [
+            Center(
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => cartscreen.CartScreen(
+                                cart: Provider.of<cartt.Cart>(context,
+                                    listen: false),
+                                cartProvider: Provider.of<CartProvider>(
+                                    context,
+                                    listen: false),
+                              )));
+                    },
+                    child: Badge(
+                      child: Icon(Icons.shopping_bag_outlined),
+                      badgeContent: Consumer<CartProvider>(
+                        builder: (context, cartProvider, child) {
+                          return Text(
+                            cartProvider.counter.toString(),
+                            style: TextStyle(color: Colors.white),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.more_vert),
+                    onPressed: () {
+                      _showFavoriteOptions(context);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
         backgroundColor: Colors.transparent,
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
+              automaticallyImplyLeading: false,
               expandedHeight: 250.0,
-              flexibleSpace: FlexibleSpaceBar(
+              flexibleSpace:
+              FlexibleSpaceBar(
                 background: Image.network(
                   widget.ImageURL,
                   fit: BoxFit.cover,
                 ),
               ),
-              leading: IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-              actions: [
-                IconButton(
-                  icon: Icon(Icons.more_vert),
-                  onPressed: () {
-                    _showFavoriteOptions(context);
-                  },
-                ),
-              ],
             ),
             SliverToBoxAdapter(
               child: Column(
@@ -182,8 +225,37 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
                   Align(
                     alignment: Alignment.center,
                     child: ElevatedButton(
-                      onPressed: () {
-                        // TODO: Add the selected product to the cart
+                      onPressed: () async {
+
+
+                        setState(() {
+
+                          CartItem item = CartItem(
+                            name: widget.productName,
+                            price: widget.productPrice,
+                            imageUrl: widget.ImageURL,
+                            id: null,
+                          );
+                          Provider.of<CartProvider>(context, listen: false)
+                              .addCartItem(item);
+
+                          showCartMessage(context);
+                          print(
+                              'Added to cart: $item'); // Print the item to the console
+                        });
+
+
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => cartscreen.CartScreen(
+                              cart: Provider.of<cartt.Cart>(context,
+                                  listen: false),
+                              cartProvider: Provider.of<CartProvider>(context),
+                            ),
+                          ),
+                        );
                       },
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -226,8 +298,7 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
               icon: Icon(Icons.person),
               label: Text('Seller Portfolio'),
               backgroundColor: Colors.white,
-              foregroundColor:Color(0xFFAB47BC),
-
+              foregroundColor: Color(0xFFAB47BC),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20.0),
               ),
@@ -235,7 +306,9 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
             SizedBox(width: 75.0),
 
             FloatingActionButton(
-              child: _isFavorite ? Icon(Icons.favorite) : Icon(Icons.favorite_border),
+              child: _isFavorite
+                  ? Icon(Icons.favorite)
+                  : Icon(Icons.favorite_border),
               onPressed: () {
                 setState(() {
                   _isFavorite = !_isFavorite;
@@ -273,7 +346,6 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
             SizedBox(width: 10.0),
           ],
         ),
-
       ),
     );
   }

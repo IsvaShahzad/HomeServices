@@ -1,4 +1,5 @@
 import 'package:badges/badges.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/subcategories_addedproducts/Cooking_addedproducts/Homemade_screen.dart';
@@ -34,10 +35,7 @@ class _FrozenDetailScreenState extends State<FrozenDetailScreen> {
   int _quantity = 1;
   bool _isFavorite = false;
 
-
   Cart cart = Cart();
-
-
 
   void showCartMessage(BuildContext context) {
     final snackBar = SnackBar(
@@ -55,16 +53,16 @@ class _FrozenDetailScreenState extends State<FrozenDetailScreen> {
     );
   }
 
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController priceController = TextEditingController();
-  final TextEditingController urlController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController productNameController = TextEditingController();
+  final TextEditingController productPriceController = TextEditingController();
+  final TextEditingController imageurlController = TextEditingController();
+  final TextEditingController productdescriptionController =
+      TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final favoriteProductsModel =
         Provider.of<FavouriteProductPageProvider>(context, listen: false);
-
-
 
     void _showFavoriteOptions(BuildContext context) {
       showModalBottomSheet(
@@ -125,12 +123,13 @@ class _FrozenDetailScreenState extends State<FrozenDetailScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                          builder: (context) => cartscreen.CartScreen(
-                        cart: Provider.of<cartt.Cart>(context, listen: false),
-                        cartProvider:
-                        Provider.of<CartProvider>(context, listen: false),
-
-                          )));
+                              builder: (context) => cartscreen.CartScreen(
+                                    cart: Provider.of<cartt.Cart>(context,
+                                        listen: false),
+                                    cartProvider: Provider.of<CartProvider>(
+                                        context,
+                                        listen: false),
+                                  )));
                     },
                     child: Badge(
                       child: Icon(Icons.shopping_bag_outlined),
@@ -161,7 +160,8 @@ class _FrozenDetailScreenState extends State<FrozenDetailScreen> {
             SliverAppBar(
               automaticallyImplyLeading: false,
               expandedHeight: 250.0,
-              flexibleSpace: FlexibleSpaceBar(
+              flexibleSpace:
+              FlexibleSpaceBar(
                 background: Image.network(
                   widget.ImageURL,
                   fit: BoxFit.cover,
@@ -211,30 +211,34 @@ class _FrozenDetailScreenState extends State<FrozenDetailScreen> {
                   Align(
                     alignment: Alignment.center,
                     child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          CartItem item = CartItem(
-                            name: widget.productName,
-                            price: widget.productPrice,
-                            imageUrl: widget.ImageURL,
-                            id: null,
-                          );
-                          Provider.of<CartProvider>(context, listen: false)
-                              .addCartItem(item);
+                      onPressed: () async {
 
-                          showCartMessage(context);
-                          print(
-                              'Added to cart: $item'); // Print the item to the console
-                        });
+
+                          setState(() {
+
+                            CartItem item = CartItem(
+                              name: widget.productName,
+                              price: widget.productPrice,
+                              imageUrl: widget.ImageURL,
+                              id: null,
+                            );
+                            Provider.of<CartProvider>(context, listen: false)
+                                .addCartItem(item);
+
+                            showCartMessage(context);
+                            print(
+                                'Added to cart: $item'); // Print the item to the console
+                          });
+
+
+
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => cartscreen.CartScreen(
                               cart: Provider.of<cartt.Cart>(context,
                                   listen: false),
-                              cartProvider:
-                              Provider.of<CartProvider>(context),
-
+                              cartProvider: Provider.of<CartProvider>(context),
                             ),
                           ),
                         );

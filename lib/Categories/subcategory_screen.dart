@@ -33,6 +33,7 @@ class ProductModel {
   final String productdescription;
   final String product;
 
+
   ProductModel({
     required this.id,
     required this.productname,
@@ -50,6 +51,7 @@ class ProductModel {
       productdescription: json['product description'],
       product: json['product'],
       id: json['id'],
+
     );
   }
 
@@ -219,7 +221,7 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                           productName: '',
                                           productDescription: '',
                                         productPrice: 0.0, // Assign a valid double value here
-                                      ), companyName: '',
+                                      ),
                                     )));
                       } else if (subcategoryName == 'sweaters' &&
                           _selectedsubcategory == subcategoryName) {

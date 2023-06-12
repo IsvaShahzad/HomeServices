@@ -453,13 +453,6 @@ class _ShippingScreenState extends State<ShippingScreen> {
                                         height: 5.h,
                                       ),
 
-                                      // provinceOptions =
-                                      //     provinceOptions.toList();
-
-                                      // if (_selectedCategory == null &&
-                                      // categoryOptions.isNotEmpty) {
-                                      // _selectedCategory = categoryOptions[0];
-                                      // }
 
                                       DropdownButtonFormField(
                                         value: _selectedProvince,
