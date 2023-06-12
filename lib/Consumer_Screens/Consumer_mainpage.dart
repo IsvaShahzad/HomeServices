@@ -16,8 +16,13 @@ import 'package:home_services_flutter/seller/signupSeller.dart';
 import 'package:provider/provider.dart';
 import '../Categories/subcategory_screen.dart';
 import '../Consumer_Screens/consumerSignup.dart';
+import '../Providers/seller_cart_provider.dart';
 import '../seller/addProduct.dart';
 import 'favourites.dart';
+import 'package:home_services_flutter/seller/cart.dart' as cartt;
+import '../../seller/seller_checkout/seller_cartscreen.dart' as cartscreen;
+
+
 
 
 
@@ -110,14 +115,22 @@ class _ConsumerMainPageScreenState extends State<ConsumerMainPageScreen> {
           ),
           actions: <Widget>[
             IconButton(
-                icon: Icon(
-                  Icons.logout,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()));
-                }),
+              icon: Icon(
+                Icons.shopping_cart,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => cartscreen.CartScreen(
+                          cart: Provider.of<cartt.Cart>(context, listen: false),
+                          cartProvider:
+                          Provider.of<CartProvider>(context, listen: false),
+
+                        )));
+              },
+            ),
           ],
         ),
         body: Padding(

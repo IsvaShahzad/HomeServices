@@ -88,6 +88,7 @@ class _SellerHomePageState extends State<SellerHomePage> {
                     builder: (context) => cartscreen.CartScreen(
                       cart: context.read<cartt.Cart>(),
                       cartProvider: context.read<CartProvider>(),
+
                     ),
                   ),
                 );
@@ -357,7 +358,7 @@ class _SellerHomePageState extends State<SellerHomePage> {
                   onTap: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => signupConsumer()),
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
                     );
                   },
                 ),

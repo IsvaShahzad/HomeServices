@@ -13,7 +13,7 @@ class FrozenScreen extends StatefulWidget {
 
   final String productName;
   final String id;
-  final String productPrice;
+  final double productPrice;
   final String productDescription;
   final String ImageURL;
   final Product product;
@@ -45,6 +45,14 @@ class _FrozenScreenState extends State<FrozenScreen> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  void showCartMessage(BuildContext context) {
+    final snackBar = SnackBar(
+      content: Text('Added to Cart'),
+      duration: Duration(seconds: 3),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   @override

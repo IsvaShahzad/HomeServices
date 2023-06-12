@@ -12,7 +12,7 @@ import '../../seller/seller_portfolio.dart';
 
 class CupcakeDetailScreen extends StatefulWidget {
   final String productName;
-  final String productPrice;
+  final double productPrice;
   final String productDescription;
   final String ImageURL;
   final Product product;

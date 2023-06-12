@@ -9,7 +9,8 @@ class CartScreen extends StatefulWidget {
   final cartprovider.CartProvider cartProvider;
   final Cart cart;
 
-  const CartScreen({Key? key, required this.cartProvider, required this.cart})
+
+  const CartScreen({Key? key, required this.cartProvider, required this.cart, })
       : super(key: key);
 
   @override
@@ -53,12 +54,14 @@ class _CartScreenState extends State<CartScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => PackagingScreen(),
-                ),
-              );            },
+              Navigator.pop(context);
+              // Navigator.pushReplacement(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (BuildContext context) => PackagingScreen(),
+              //   ),
+              // );
+            },
           ),
         ),
         body: Padding(
@@ -71,86 +74,120 @@ class _CartScreenState extends State<CartScreen> {
                   itemBuilder: (context, index) {
                     CartItem item = widget.cartProvider.cart.items[index];
 
-                    return Card(
-                      elevation: 3.0,
-                      child: ListTile(
-                        tileColor: Colors.white70,
-                        contentPadding: EdgeInsets.all(8.0),
-                        leading: ClipOval(
-                          child: Image.asset(
-                            item.imageUrl,
+                    return Dismissible(
+                      key: Key(item.name),
+                      background: Container(
+                        color: Colors.red,
+                        alignment: Alignment.centerRight,
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                        ),
+                      ),
+                      direction: DismissDirection.endToStart,
+                      onDismissed: (direction) {
+                        setState(() {
+                          widget.cartProvider.removeCartItem(item);
+                          updateTotal();
+                        });
+                        // Remove the dismissed item from the widget tree
+                        widget.cartProvider.cart.items.remove(item);
+                      },
+                      child: Card(
+                        elevation: 3.0,
+                        child:ListTile(
+                          tileColor: Colors.white70,
+                          contentPadding: EdgeInsets.all(8.0),
+                          // Inside the Card widget of the ListView.builder
+                          leading: Container(
                             width: 70,
                             height: 70,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        title: Text(
-                          item.name,
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        subtitle: Row(
-                          children: [
-                            Text(
-                              'Price: ${item.price}',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(width: 75),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Container(
-                                    width: 29,
-                                    height: 35,
-                                    child: IconButton(
-                                      icon: RichText(
-                                        text: TextSpan(
-                                          text: '-',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black87,
-                                          ),
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          if (item.quantity > 1) {
-                                            widget.cartProvider.decreaseQuantity(item);
-                                          } else {
-                                            widget.cartProvider.removeCartItem(item);
-                                          }
-                                          updateTotal();
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                  Text(item.quantity.toString()),
-                                  Container(
-                                    width: 29,
-                                    height: 35,
-                                    child: IconButton(
-                                      icon: RichText(
-                                        text: TextSpan(
-                                          text: '+',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black87,
-                                          ),
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          widget.cartProvider.increaseQuantity(item);
-                                          updateTotal();
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                ],
+                            child: ClipOval(
+                              child: item.imageUrl.startsWith('assets/')
+                                  ? Image.asset(
+                                item.imageUrl, // Provide the asset image path here
+                                fit: BoxFit.cover,
+                              )
+                                  : Image.network(
+                                item.imageUrl, // Provide the image URL here
+                                fit: BoxFit.cover,
                               ),
                             ),
-                          ],
+                          ),
+
+
+                          title: Text(
+                            item.name,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Row(
+                            children: [
+                              Text(
+                                'Price: ${item.price}',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(width: 75),
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Container(
+                                      width: 29,
+                                      height: 35,
+                                      child: IconButton(
+                                        icon: RichText(
+                                          text: TextSpan(
+                                            text: '-',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black87,
+                                            ),
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            if (item.quantity > 1) {
+                                              widget.cartProvider
+                                                  .decreaseQuantity(item);
+                                            } else {
+                                              widget.cartProvider
+                                                  .removeCartItem(item);
+                                            }
+                                            updateTotal();
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                    Text(item.quantity.toString()),
+                                    Container(
+                                      width: 29,
+                                      height: 35,
+                                      child: IconButton(
+                                        icon: RichText(
+                                          text: TextSpan(
+                                            text: '+',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black87,
+                                            ),
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            widget.cartProvider
+                                                .increaseQuantity(item);
+                                            updateTotal();
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );
@@ -181,7 +218,8 @@ class _CartScreenState extends State<CartScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      'Subtotal: ${widget.cartProvider.cart.calculateTotal().toStringAsFixed(2)}/-',
+                      'Subtotal: ${widget.cartProvider.cart.calculateTotal()
+                          .toStringAsFixed(2)}/-',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16.0,
@@ -199,7 +237,8 @@ class _CartScreenState extends State<CartScreen> {
                     Divider(height: 8),
                     SizedBox(height: 15),
                     Text(
-                      'Total: ${(widget.cartProvider.cart.calculateTotal() + 150).toStringAsFixed(2)}/-',
+                      'Total: ${(widget.cartProvider.cart.calculateTotal() +
+                          150).toStringAsFixed(2)}/-',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 17.0,

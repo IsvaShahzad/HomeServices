@@ -28,7 +28,7 @@ import '../subcategories_addedproducts/Knitting_addedproducts/sweaters_screen.da
 class ProductModel {
   final int id;
   final String productname;
-  final String productprice;
+  final double productprice;
   final String ImageURl;
   final String productdescription;
   final String product;
@@ -45,13 +45,14 @@ class ProductModel {
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
       productname: json['product name'],
-      productprice: json['product price'],
+      productprice: double.parse(json['product price']),
       ImageURl: json['Image URl'],
       productdescription: json['product description'],
       product: json['product'],
       id: json['id'],
     );
   }
+
 }
 
 class SubcategoryScreen extends StatefulWidget {
@@ -168,14 +169,15 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                       },
                                       productName: '',
                                       id: '',
-                                      productPrice: '',
+                                  productPrice: 0.0, // Assign a valid double value here
                                       productDescription: '',
                                       ImageURL: '',
                                       product: Product(
                                           ImageURL: '',
                                           productName: '',
                                           productDescription: '',
-                                          productPrice: ''),
+                                        productPrice: 0.0, // Assign a valid double value here
+                                      ),
                                     )));
                       } else if (subcategoryName == 'Banner Making' &&
                           _selectedsubcategory == subcategoryName) {
@@ -209,14 +211,15 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                       },
                                       productName: '',
                                       id: '',
-                                      productPrice: '',
+                                  productPrice: 0.0, // Assign a valid double value here
                                       productDescription: '',
                                       ImageURL: '',
                                       product: Product(
                                           ImageURL: '',
                                           productName: '',
                                           productDescription: '',
-                                          productPrice: ''), companyName: '',
+                                        productPrice: 0.0, // Assign a valid double value here
+                                      ), companyName: '',
                                     )));
                       } else if (subcategoryName == 'sweaters' &&
                           _selectedsubcategory == subcategoryName) {
@@ -246,14 +249,15 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                       added: {'knittinglist': addedProducts},
                                       productName: '',
                                       id: '',
-                                      productPrice: '',
+                                  productPrice: 0.0, // Assign a valid double value here
                                       productDescription: '',
                                       ImageURL: '',
                                       product: Product(
                                           ImageURL: '',
                                           productName: '',
                                           productDescription: '',
-                                          productPrice: ''),
+                                        productPrice: 0.0, // Assign a valid double value here
+                                      ),
                                     )));
                       } else if (subcategoryName == 'Coats' &&
                           _selectedsubcategory == subcategoryName) {
@@ -283,14 +287,15 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                       added: {'coatslist': addedProducts},
                                       productName: '',
                                       id: '',
-                                      productPrice: '',
+                                  productPrice: 0.0, // Assign a valid double value here
                                       productDescription: '',
                                       ImageURL: '',
                                       product: Product(
                                           ImageURL: '',
                                           productName: '',
                                           productDescription: '',
-                                          productPrice: ''),
+                                        productPrice: 0.0, // Assign a valid double value here
+                                      ),
                                     )));
                       } else if (subcategoryName == 'Cakes' &&
                           _selectedsubcategory == subcategoryName) {
@@ -322,14 +327,15 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                       },
                                       productName: '',
                                       id: '',
-                                      productPrice: '',
+                                  productPrice: 0.0, // Assign a valid double value here
                                       productDescription: '',
                                       ImageURL: '',
                                       product: Product(
                                           ImageURL: '',
                                           productName: '',
                                           productDescription: '',
-                                          productPrice: ''),
+                                        productPrice: 0.0, // Assign a valid double value here
+                                      ),
                                     )));
                       }
                       if (subcategoryName == 'Home made' &&
@@ -361,14 +367,15 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                       added: {'Homemadelist': addedProducts},
                                       productName: '',
                                       id: '',
-                                      productPrice: '',
+                                  productPrice: 0.0, // Assign a valid double value here
                                       productDescription: '',
                                       ImageURL: '',
                                       product: Product(
                                           ImageURL: '',
                                           productName: '',
                                           productDescription: '',
-                                          productPrice: ''),
+                                        productPrice: 0.0, // Assign a valid double value here
+                                      ),
                                     )));
                       } else if (subcategoryName == 'Quilting' &&
                           _selectedsubcategory == subcategoryName) {
@@ -399,14 +406,15 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                       added: {'Quiltinglist': addedProducts},
                                       productName: '',
                                       id: '',
-                                      productPrice: '',
+                                  productPrice: 0.0, // Assign a valid double value here
                                       productDescription: '',
                                       ImageURL: '',
                                       product: Product(
                                           ImageURL: '',
                                           productName: '',
                                           productDescription: '',
-                                          productPrice: ''),
+                                        productPrice: 0.0, // Assign a valid double value here
+                                      ),
                                     )));
                       } else if (subcategoryName == 'Socks' &&
                           _selectedsubcategory == subcategoryName) {
@@ -436,14 +444,15 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                       added: {'Sockslist': addedProducts},
                                       productName: '',
                                       id: '',
-                                      productPrice: '',
+                                  productPrice: 0.0, // Assign a valid double value here
                                       productDescription: '',
                                       ImageURL: '',
                                       product: Product(
                                           ImageURL: '',
                                           productName: '',
                                           productDescription: '',
-                                          productPrice: ''),
+                                        productPrice: 0.0, // Assign a valid double value here
+                                      ),
                                     )));
                       }
 
@@ -475,14 +484,15 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                       added: {'pantslist': addedProducts},
                                       productName: '',
                                       id: '',
-                                      productPrice: '',
+                                  productPrice: 0.0, // Assign a valid double value here
                                       productDescription: '',
                                       ImageURL: '',
                                       product: Product(
                                           ImageURL: '',
                                           productName: '',
                                           productDescription: '',
-                                          productPrice: ''),
+                                        productPrice: 0.0, // Assign a valid double value here
+                                      ),
                                     )));
                       } else if (subcategoryName == 'Brownies' &&
                           _selectedsubcategory == subcategoryName) {
@@ -514,14 +524,15 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                       },
                                       productName: '',
                                       id: '',
-                                      productPrice: '',
+                                  productPrice: 0.0, // Assign a valid double value here
                                       productDescription: '',
                                       ImageURL: '',
                                       product: Product(
                                           ImageURL: '',
                                           productName: '',
                                           productDescription: '',
-                                          productPrice: ''),
+                                        productPrice: 0.0, // Assign a valid double value here
+                                      ),
                                     )));
                       }
 
@@ -553,14 +564,15 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                       added: {'Westernlist': addedProducts},
                                       productName: '',
                                       id: '',
-                                      productPrice: '',
+                                  productPrice: 0.0, // Assign a valid double value here
                                       productDescription: '',
                                       ImageURL: '',
                                       product: Product(
                                           ImageURL: '',
                                           productName: '',
                                           productDescription: '',
-                                          productPrice: ''),
+                                        productPrice: 0.0, // Assign a valid double value here
+                                      ),
                                     ))); //add products in a westernlist
                       } else if (subcategoryName == 'Canvas Painting' &&
                           _selectedsubcategory == subcategoryName) {
@@ -594,14 +606,15 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                       },
                                       productName: '',
                                       id: '',
-                                      productPrice: '',
+                                  productPrice: 0.0, // Assign a valid double value here
                                       productDescription: '',
                                       ImageURL: '',
                                       product: Product(
                                           ImageURL: '',
                                           productName: '',
                                           productDescription: '',
-                                          productPrice: ''),
+                                        productPrice: 0.0, // Assign a valid double value here
+                                      ),
                                     )));
                       } else if (subcategoryName == 'scarfs' &&
                           _selectedsubcategory == subcategoryName) {
@@ -631,14 +644,15 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                       added: {'scarfslist': addedProducts},
                                       productName: '',
                                       id: '',
-                                      productPrice: '',
+                                  productPrice: 0.0, // Assign a valid double value here
                                       productDescription: '',
                                       ImageURL: '',
                                       product: Product(
                                           ImageURL: '',
                                           productName: '',
                                           productDescription: '',
-                                          productPrice: ''),
+                                        productPrice: 0.0, // Assign a valid double value here
+                                      ),
                                     )));
                       } else if (subcategoryName == 'Shirt' &&
                           _selectedsubcategory == subcategoryName) {
@@ -668,14 +682,15 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                       added: {'shirtlist': addedProducts},
                                       productName: '',
                                       id: '',
-                                      productPrice: '',
+                                  productPrice: 0.0, // Assign a valid double value here
                                       productDescription: '',
                                       ImageURL: '',
                                       product: Product(
                                           ImageURL: '',
                                           productName: '',
                                           productDescription: '',
-                                          productPrice: ''),
+                                        productPrice: 0.0, // Assign a valid double value here
+                                      ),
                                     )));
                       } else if (subcategoryName == 'Pizza' &&
                           _selectedsubcategory == subcategoryName) {
@@ -707,14 +722,15 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                       },
                                       productName: '',
                                       id: '',
-                                      productPrice: '',
+                                  productPrice: 0.0, // Assign a valid double value here
                                       productDescription: '',
                                       ImageURL: '',
                                       product: Product(
                                           ImageURL: '',
                                           productName: '',
                                           productDescription: '',
-                                          productPrice: ''),
+                                        productPrice: 0.0, // Assign a valid double value here
+                                      ),
                                     )));
                       }
                       if (subcategoryName == 'Cupcake' &&
@@ -747,14 +763,15 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                       },
                                       productName: '',
                                       id: '',
-                                      productPrice: '',
+                                  productPrice: 0.0, // Assign a valid double value here
                                       productDescription: '',
                                       ImageURL: '',
                                       product: Product(
                                           ImageURL: '',
                                           productName: '',
                                           productDescription: '',
-                                          productPrice: ''),
+                                        productPrice: 0.0, // Assign a valid double value here
+                                      ),
                                     )));
                       }
                     }),

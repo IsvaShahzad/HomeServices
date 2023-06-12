@@ -14,7 +14,7 @@ class Product with ChangeNotifier {
   final String ImageURL;
   final String productName;
   final String productDescription;
-  final String productPrice;
+  final double productPrice;
 
   Product({
     required this.ImageURL,
@@ -57,7 +57,7 @@ class FavoriteProductsPage extends StatefulWidget {
   final String ImageURL;
   final String productName;
   final String productDescription;
-  final String productPrice;
+  final double productPrice;
 
   const FavoriteProductsPage({
     required this.ImageURL,

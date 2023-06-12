@@ -10,7 +10,7 @@ import '../../seller/seller_portfolio.dart';
 
 class CanvasPaintaingDetailScreen extends StatefulWidget {
   final String productName;
-  final String productPrice;
+  final double productPrice;
   final String productDescription;
   final String ImageURL;
 

@@ -159,16 +159,14 @@ class _Box_DetailScreenState extends State<Box_DetailScreen> {
                                 'Added to cart: $item'); // Print the item to the console
                           });
                           Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => cartscreen.CartScreen(
-                                cart: Provider.of<cartt.Cart>(context,
-                                    listen: false),
-                                cartProvider:
-                                    Provider.of<CartProvider>(context),
-                              ),
-                            ),
-                          );
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => cartscreen.CartScreen(
+                                    cart: Provider.of<cartt.Cart>(context, listen: false),
+                                    cartProvider:
+                                    Provider.of<CartProvider>(context, listen: false),
+
+                                  )));
                         },
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
