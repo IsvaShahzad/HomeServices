@@ -20,6 +20,7 @@ class CoatsDetailScreen extends StatefulWidget {
   final String productDescription;
   final String ImageURL;
 
+
   const CoatsDetailScreen({
     Key? key,
     required this.productName,

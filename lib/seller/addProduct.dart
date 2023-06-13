@@ -107,8 +107,7 @@ class _AddProductState extends State<AddProduct> {
 
   final TextEditingController ProductnameController = TextEditingController();
   final TextEditingController CompanyController = TextEditingController();
-  final TextEditingController ProductDescriptionController =
-      TextEditingController();
+  final TextEditingController ProductDescriptionController = TextEditingController();
   final TextEditingController ProductpriceController = TextEditingController();
 
   selectFile() async {
@@ -600,6 +599,7 @@ class _AddProductState extends State<AddProduct> {
                                                   .collection('addproducts')
                                                   .doc()
                                                   .set({
+                                                'company name': CompanyController.text,
                                                 'product name':
                                                     ProductnameController.text,
                                                 'product description':

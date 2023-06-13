@@ -26,6 +26,7 @@ class BrowniesScreen extends StatefulWidget {
     required this.productDescription,
     required this.ImageURL,
     required this.product,
+
   }) : super(key: key);
 
   @override
@@ -162,6 +163,8 @@ class _BrowniesScreenState extends State<BrowniesScreen> {
                   final productPrice = addedproductss.productprice;
                   final productDescription = addedproductss.productdescription;
                   final product = addedproductss.product;
+                  final companyName = addedproductss.companyName;
+
 
 
                   return InkWell(

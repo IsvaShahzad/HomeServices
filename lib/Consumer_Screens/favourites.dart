@@ -16,6 +16,7 @@ class Product with ChangeNotifier {
   final String productDescription;
   final double productPrice;
 
+
   Product({
     required this.ImageURL,
     required this.productName,

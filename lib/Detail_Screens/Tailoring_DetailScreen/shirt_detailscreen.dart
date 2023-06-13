@@ -21,6 +21,7 @@ class ShirtDetailScreen extends StatefulWidget {
   final String productDescription;
   final String ImageURL;
 
+
   const ShirtDetailScreen({
     Key? key,
     required this.productName,

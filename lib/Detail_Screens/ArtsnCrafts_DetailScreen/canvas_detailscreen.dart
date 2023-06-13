@@ -20,12 +20,14 @@ class CanvasPaintaingDetailScreen extends StatefulWidget {
   final String productDescription;
   final String ImageURL;
 
+
   const CanvasPaintaingDetailScreen({
     Key? key,
     required this.productName,
     required this.productPrice,
     required this.productDescription,
     required this.ImageURL,
+
   }) : super(key: key);
 
   @override

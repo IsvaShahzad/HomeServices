@@ -40,7 +40,15 @@ class _LoginScreenState extends State<LoginScreen> {
   late bool isLogin;
 
 
-
+  void _showLoggedInSnackbar() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Logged in successfully!'),
+        duration: Duration(seconds: 3),
+        // backgroundColor: Colors.green,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -241,6 +249,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             password: passwordController.text,
                                           );
                                           print(user);
+                                          _showLoggedInSnackbar();
                                           // Navigate to the next screen only if the user is registered
                                           if (user != null) {
                                             Navigator.pushReplacement(

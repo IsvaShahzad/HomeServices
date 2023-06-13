@@ -85,6 +85,13 @@ class _SellerWelcomeState extends State<SellerWelcome> {
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 SellerHomePage()));
+
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text('Continued as Seller'),
+                                        duration: Duration(seconds: 3),
+                                      ),
+                                    );
                                   },
                                   child: const Text(
                                     'Next ',

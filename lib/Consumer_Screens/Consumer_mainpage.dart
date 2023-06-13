@@ -47,9 +47,7 @@ class _ConsumerMainPageScreenState extends State<ConsumerMainPageScreen> {
   int _selectedIndex = 0;
   bool _onFavoritePage = false;
 
-  // late final  FavouriteProductPage model = add ;
 
-  // final FavoriteProductsPage _favoriteProductsModel = FavoriteProductsPage(model: FavouriteProductPage);
 
   CollectionReference _collectionRef =
       FirebaseFirestore.instance.collection('Category');
@@ -65,9 +63,14 @@ class _ConsumerMainPageScreenState extends State<ConsumerMainPageScreen> {
 
     if (index == 1) {
       Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Cart_Screen()),
-      );
+          context,
+          MaterialPageRoute(
+              builder: (context) => cartscreen.CartScreen(
+                cart: Provider.of<cartt.Cart>(context, listen: false),
+                cartProvider:
+                Provider.of<CartProvider>(context, listen: false),
+
+              )));
      }
       else if (index == 2) {
       Navigator.push(

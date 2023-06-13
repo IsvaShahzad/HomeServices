@@ -27,6 +27,7 @@ class FrozenScreen extends StatefulWidget {
     required this.productDescription,
     required this.ImageURL,
     required this.product,
+
   }) : super(key: key);
 
   @override
@@ -174,6 +175,7 @@ class _FrozenScreenState extends State<FrozenScreen> {
                         return InkWell(
 
                           onTap: () {
+
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(

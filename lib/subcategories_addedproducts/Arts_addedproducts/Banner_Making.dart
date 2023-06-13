@@ -16,6 +16,8 @@ class BannerScreen extends StatefulWidget {
   final String productDescription;
   final String ImageURL;
   final Product product;
+  // final String companyName;
+
 
   const BannerScreen({
     Key? key,
@@ -26,6 +28,7 @@ class BannerScreen extends StatefulWidget {
     required this.productDescription,
     required this.ImageURL,
     required this.product,
+
   }) : super(key: key);
 
   @override

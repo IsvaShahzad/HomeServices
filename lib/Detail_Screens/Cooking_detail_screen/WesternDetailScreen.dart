@@ -17,6 +17,8 @@ class WesternDetailScreen extends StatefulWidget {
   final double productPrice;
   final String productDescription;
   final String ImageURL;
+  // final String companyName;
+
 
   const WesternDetailScreen({
     Key? key,
@@ -24,6 +26,7 @@ class WesternDetailScreen extends StatefulWidget {
     required this.productPrice,
     required this.productDescription,
     required this.ImageURL,
+
   }) : super(key: key);
 
   @override

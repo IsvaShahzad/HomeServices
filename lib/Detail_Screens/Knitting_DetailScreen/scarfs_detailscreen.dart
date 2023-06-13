@@ -21,6 +21,7 @@ class Scarfs_DetailScreen extends StatefulWidget {
   final String productDescription;
   final String ImageURL;
 
+
   const Scarfs_DetailScreen({
     Key? key,
     required this.productName,

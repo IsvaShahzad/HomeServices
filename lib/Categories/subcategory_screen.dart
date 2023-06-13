@@ -72,7 +72,7 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
   late String _selectedsubcategory = 'Frozen';
 
   CollectionReference _collectionRef =
-      FirebaseFirestore.instance.collection('Category');
+  FirebaseFirestore.instance.collection('Category');
 
   late Stream<QuerySnapshot> _streamCategory = _collectionRef.snapshots();
 
@@ -97,9 +97,9 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-        image: AssetImage("assets/images/pastel.png"),
-        fit: BoxFit.cover,
-      )),
+            image: AssetImage("assets/images/pastel.png"),
+            fit: BoxFit.cover,
+          )),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
@@ -166,30 +166,30 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => FrozenScreen(
-                                      added: {
-                                        'Frozenlist': addedProducts,
-                                      },
-                                      productName: '',
-                                      id: '',
+                                  added: {
+                                    'Frozenlist': addedProducts,
+                                  },
+                                  productName: '',
+                                  id: '',
                                   productPrice: 0.0, // Assign a valid double value here
-                                      productDescription: '',
-                                      ImageURL: '',
-                                      product: Product(
-                                          ImageURL: '',
-                                          productName: '',
-                                          productDescription: '',
-                                        productPrice: 0.0, // Assign a valid double value here
-                                      ),
-                                    )));
+                                  productDescription: '',
+                                  ImageURL: '',
+                                  product: Product(
+                                    ImageURL: '',
+                                    productName: '',
+                                    productDescription: '',
+                                    productPrice: 0.0, // Assign a valid double value here
+                                  ),
+                                )));
                       } else if (subcategoryName == 'Banner Making' &&
                           _selectedsubcategory == subcategoryName) {
                         final addedProductsSnapshot = await FirebaseFirestore
                             .instance
                             .collection('addproducts')
                             .where('product category',
-                                isEqualTo: 'Arts and Crafts')
+                            isEqualTo: 'Arts and Crafts')
                             .where('product subcategory',
-                                isEqualTo: 'Banner Making')
+                            isEqualTo: 'Banner Making')
                             .get();
                         final addedProducts = addedProductsSnapshot.docs
                             .map((doc) => ProductModel.fromJson(doc.data()))
@@ -208,21 +208,21 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => BannerScreen(
-                                      added: {
-                                        'Bannermakinglist': addedProducts
-                                      },
-                                      productName: '',
-                                      id: '',
+                                  added: {
+                                    'Bannermakinglist': addedProducts
+                                  },
+                                  productName: '',
+                                  id: '',
                                   productPrice: 0.0, // Assign a valid double value here
-                                      productDescription: '',
-                                      ImageURL: '',
-                                      product: Product(
-                                          ImageURL: '',
-                                          productName: '',
-                                          productDescription: '',
-                                        productPrice: 0.0, // Assign a valid double value here
-                                      ),
-                                    )));
+                                  productDescription: '',
+                                  ImageURL: '',
+                                  product: Product(
+                                    ImageURL: '',
+                                    productName: '',
+                                    productDescription: '',
+                                    productPrice: 0.0, // Assign a valid double value here
+                                  ),
+                                )));
                       } else if (subcategoryName == 'sweaters' &&
                           _selectedsubcategory == subcategoryName) {
                         final addedProductsSnapshot = await FirebaseFirestore
@@ -248,19 +248,19 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => SweaterScreen(
-                                      added: {'knittinglist': addedProducts},
-                                      productName: '',
-                                      id: '',
+                                  added: {'knittinglist': addedProducts},
+                                  productName: '',
+                                  id: '',
                                   productPrice: 0.0, // Assign a valid double value here
-                                      productDescription: '',
-                                      ImageURL: '',
-                                      product: Product(
-                                          ImageURL: '',
-                                          productName: '',
-                                          productDescription: '',
-                                        productPrice: 0.0, // Assign a valid double value here
-                                      ),
-                                    )));
+                                  productDescription: '',
+                                  ImageURL: '',
+                                  product: Product(
+                                    ImageURL: '',
+                                    productName: '',
+                                    productDescription: '',
+                                    productPrice: 0.0, // Assign a valid double value here
+                                  ),
+                                )));
                       } else if (subcategoryName == 'Coats' &&
                           _selectedsubcategory == subcategoryName) {
                         final addedProductsSnapshot = await FirebaseFirestore
@@ -286,19 +286,19 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => CoatsScreen(
-                                      added: {'coatslist': addedProducts},
-                                      productName: '',
-                                      id: '',
+                                  added: {'coatslist': addedProducts},
+                                  productName: '',
+                                  id: '',
                                   productPrice: 0.0, // Assign a valid double value here
-                                      productDescription: '',
-                                      ImageURL: '',
-                                      product: Product(
-                                          ImageURL: '',
-                                          productName: '',
-                                          productDescription: '',
-                                        productPrice: 0.0, // Assign a valid double value here
-                                      ),
-                                    )));
+                                  productDescription: '',
+                                  ImageURL: '',
+                                  product: Product(
+                                    ImageURL: '',
+                                    productName: '',
+                                    productDescription: '',
+                                    productPrice: 0.0, // Assign a valid double value here
+                                  ),
+                                )));
                       } else if (subcategoryName == 'Cakes' &&
                           _selectedsubcategory == subcategoryName) {
                         final addedProductsSnapshot = await FirebaseFirestore
@@ -324,21 +324,21 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => CakeScreen(
-                                      added: {
-                                        'cakelist': addedProducts,
-                                      },
-                                      productName: '',
-                                      id: '',
+                                  added: {
+                                    'cakelist': addedProducts,
+                                  },
+                                  productName: '',
+                                  id: '',
                                   productPrice: 0.0, // Assign a valid double value here
-                                      productDescription: '',
-                                      ImageURL: '',
-                                      product: Product(
-                                          ImageURL: '',
-                                          productName: '',
-                                          productDescription: '',
-                                        productPrice: 0.0, // Assign a valid double value here
-                                      ),
-                                    )));
+                                  productDescription: '',
+                                  ImageURL: '',
+                                  product: Product(
+                                    ImageURL: '',
+                                    productName: '',
+                                    productDescription: '',
+                                    productPrice: 0.0, // Assign a valid double value here
+                                  ),
+                                )));
                       }
                       if (subcategoryName == 'Home made' &&
                           _selectedsubcategory == subcategoryName) {
@@ -347,7 +347,7 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                             .collection('addproducts')
                             .where('product category', isEqualTo: 'Cooking')
                             .where('product subcategory',
-                                isEqualTo: 'Home made')
+                            isEqualTo: 'Home made')
                             .get();
                         final addedProducts = addedProductsSnapshot.docs
                             .map((doc) => ProductModel.fromJson(doc.data()))
@@ -366,26 +366,26 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => HomemadeScreen(
-                                      added: {'Homemadelist': addedProducts},
-                                      productName: '',
-                                      id: '',
+                                  added: {'Homemadelist': addedProducts},
+                                  productName: '',
+                                  id: '',
                                   productPrice: 0.0, // Assign a valid double value here
-                                      productDescription: '',
-                                      ImageURL: '',
-                                      product: Product(
-                                          ImageURL: '',
-                                          productName: '',
-                                          productDescription: '',
-                                        productPrice: 0.0, // Assign a valid double value here
-                                      ),
-                                    )));
+                                  productDescription: '',
+                                  ImageURL: '',
+                                  product: Product(
+                                    ImageURL: '',
+                                    productName: '',
+                                    productDescription: '',
+                                    productPrice: 0.0, // Assign a valid double value here
+                                  ),
+                                )));
                       } else if (subcategoryName == 'Quilting' &&
                           _selectedsubcategory == subcategoryName) {
                         final addedProductsSnapshot = await FirebaseFirestore
                             .instance
                             .collection('addproducts')
                             .where('product category',
-                                isEqualTo: 'Arts and Crafts')
+                            isEqualTo: 'Arts and Crafts')
                             .where('product subcategory', isEqualTo: 'Quilting')
                             .get();
                         final addedProducts = addedProductsSnapshot.docs
@@ -405,19 +405,19 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => QuiltingScreen(
-                                      added: {'Quiltinglist': addedProducts},
-                                      productName: '',
-                                      id: '',
+                                  added: {'Quiltinglist': addedProducts},
+                                  productName: '',
+                                  id: '',
                                   productPrice: 0.0, // Assign a valid double value here
-                                      productDescription: '',
-                                      ImageURL: '',
-                                      product: Product(
-                                          ImageURL: '',
-                                          productName: '',
-                                          productDescription: '',
-                                        productPrice: 0.0, // Assign a valid double value here
-                                      ),
-                                    )));
+                                  productDescription: '',
+                                  ImageURL: '',
+                                  product: Product(
+                                    ImageURL: '',
+                                    productName: '',
+                                    productDescription: '',
+                                    productPrice: 0.0, // Assign a valid double value here
+                                  ),
+                                )));
                       } else if (subcategoryName == 'Socks' &&
                           _selectedsubcategory == subcategoryName) {
                         final addedProductsSnapshot = await FirebaseFirestore
@@ -443,19 +443,19 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => SocksScreen(
-                                      added: {'Sockslist': addedProducts},
-                                      productName: '',
-                                      id: '',
+                                  added: {'Sockslist': addedProducts},
+                                  productName: '',
+                                  id: '',
                                   productPrice: 0.0, // Assign a valid double value here
-                                      productDescription: '',
-                                      ImageURL: '',
-                                      product: Product(
-                                          ImageURL: '',
-                                          productName: '',
-                                          productDescription: '',
-                                        productPrice: 0.0, // Assign a valid double value here
-                                      ),
-                                    )));
+                                  productDescription: '',
+                                  ImageURL: '',
+                                  product: Product(
+                                    ImageURL: '',
+                                    productName: '',
+                                    productDescription: '',
+                                    productPrice: 0.0, // Assign a valid double value here
+                                  ),
+                                )));
                       }
 
                       if (subcategoryName == 'Pants' &&
@@ -483,19 +483,19 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => PantsScreen(
-                                      added: {'pantslist': addedProducts},
-                                      productName: '',
-                                      id: '',
+                                  added: {'pantslist': addedProducts},
+                                  productName: '',
+                                  id: '',
                                   productPrice: 0.0, // Assign a valid double value here
-                                      productDescription: '',
-                                      ImageURL: '',
-                                      product: Product(
-                                          ImageURL: '',
-                                          productName: '',
-                                          productDescription: '',
-                                        productPrice: 0.0, // Assign a valid double value here
-                                      ),
-                                    )));
+                                  productDescription: '',
+                                  ImageURL: '',
+                                  product: Product(
+                                    ImageURL: '',
+                                    productName: '',
+                                    productDescription: '',
+                                    productPrice: 0.0, // Assign a valid double value here
+                                  ),
+                                )));
                       } else if (subcategoryName == 'Brownies' &&
                           _selectedsubcategory == subcategoryName) {
                         final addedProductsSnapshot = await FirebaseFirestore
@@ -521,21 +521,21 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => BrowniesScreen(
-                                      added: {
-                                        'brownieslist': addedProducts,
-                                      },
-                                      productName: '',
-                                      id: '',
+                                  added: {
+                                    'brownieslist': addedProducts,
+                                  },
+                                  productName: '',
+                                  id: '',
                                   productPrice: 0.0, // Assign a valid double value here
-                                      productDescription: '',
-                                      ImageURL: '',
-                                      product: Product(
-                                          ImageURL: '',
-                                          productName: '',
-                                          productDescription: '',
-                                        productPrice: 0.0, // Assign a valid double value here
-                                      ),
-                                    )));
+                                  productDescription: '',
+                                  ImageURL: '',
+                                  product: Product(
+                                    ImageURL: '',
+                                    productName: '',
+                                    productDescription: '',
+                                    productPrice: 0.0, // Assign a valid double value here
+                                  ),
+                                )));
                       }
 
                       if (subcategoryName == 'Western' &&
@@ -563,28 +563,28 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => WesternScreen(
-                                      added: {'Westernlist': addedProducts},
-                                      productName: '',
-                                      id: '',
+                                  added: {'Westernlist': addedProducts},
+                                  productName: '',
+                                  id: '',
                                   productPrice: 0.0, // Assign a valid double value here
-                                      productDescription: '',
-                                      ImageURL: '',
-                                      product: Product(
-                                          ImageURL: '',
-                                          productName: '',
-                                          productDescription: '',
-                                        productPrice: 0.0, // Assign a valid double value here
-                                      ),
-                                    ))); //add products in a westernlist
+                                  productDescription: '',
+                                  ImageURL: '',
+                                  product: Product(
+                                    ImageURL: '',
+                                    productName: '',
+                                    productDescription: '',
+                                    productPrice: 0.0, // Assign a valid double value here
+                                  ),
+                                ))); //add products in a westernlist
                       } else if (subcategoryName == 'Canvas Painting' &&
                           _selectedsubcategory == subcategoryName) {
                         final addedProductsSnapshot = await FirebaseFirestore
                             .instance
                             .collection('addproducts')
                             .where('product category',
-                                isEqualTo: 'Arts and Crafts')
+                            isEqualTo: 'Arts and Crafts')
                             .where('product subcategory',
-                                isEqualTo: 'Canvas Painting')
+                            isEqualTo: 'Canvas Painting')
                             .get();
                         final addedProducts = addedProductsSnapshot.docs
                             .map((doc) => ProductModel.fromJson(doc.data()))
@@ -603,21 +603,21 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => CanvasScreen(
-                                      added: {
-                                        'CanvasPaintinglist': addedProducts
-                                      },
-                                      productName: '',
-                                      id: '',
+                                  added: {
+                                    'CanvasPaintinglist': addedProducts
+                                  },
+                                  productName: '',
+                                  id: '',
                                   productPrice: 0.0, // Assign a valid double value here
-                                      productDescription: '',
-                                      ImageURL: '',
-                                      product: Product(
-                                          ImageURL: '',
-                                          productName: '',
-                                          productDescription: '',
-                                        productPrice: 0.0, // Assign a valid double value here
-                                      ),
-                                    )));
+                                  productDescription: '',
+                                  ImageURL: '',
+                                  product: Product(
+                                    ImageURL: '',
+                                    productName: '',
+                                    productDescription: '',
+                                    productPrice: 0.0, // Assign a valid double value here
+                                  ),
+                                )));
                       } else if (subcategoryName == 'scarfs' &&
                           _selectedsubcategory == subcategoryName) {
                         final addedProductsSnapshot = await FirebaseFirestore
@@ -643,19 +643,19 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ScarfScreen(
-                                      added: {'scarfslist': addedProducts},
-                                      productName: '',
-                                      id: '',
+                                  added: {'scarfslist': addedProducts},
+                                  productName: '',
+                                  id: '',
                                   productPrice: 0.0, // Assign a valid double value here
-                                      productDescription: '',
-                                      ImageURL: '',
-                                      product: Product(
-                                          ImageURL: '',
-                                          productName: '',
-                                          productDescription: '',
-                                        productPrice: 0.0, // Assign a valid double value here
-                                      ),
-                                    )));
+                                  productDescription: '',
+                                  ImageURL: '',
+                                  product: Product(
+                                    ImageURL: '',
+                                    productName: '',
+                                    productDescription: '',
+                                    productPrice: 0.0, // Assign a valid double value here
+                                  ),
+                                )));
                       } else if (subcategoryName == 'Shirt' &&
                           _selectedsubcategory == subcategoryName) {
                         final addedProductsSnapshot = await FirebaseFirestore
@@ -681,19 +681,19 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ShirtScreen(
-                                      added: {'shirtlist': addedProducts},
-                                      productName: '',
-                                      id: '',
+                                  added: {'shirtlist': addedProducts},
+                                  productName: '',
+                                  id: '',
                                   productPrice: 0.0, // Assign a valid double value here
-                                      productDescription: '',
-                                      ImageURL: '',
-                                      product: Product(
-                                          ImageURL: '',
-                                          productName: '',
-                                          productDescription: '',
-                                        productPrice: 0.0, // Assign a valid double value here
-                                      ),
-                                    )));
+                                  productDescription: '',
+                                  ImageURL: '',
+                                  product: Product(
+                                    ImageURL: '',
+                                    productName: '',
+                                    productDescription: '',
+                                    productPrice: 0.0, // Assign a valid double value here
+                                  ),
+                                )));
                       } else if (subcategoryName == 'Pizza' &&
                           _selectedsubcategory == subcategoryName) {
                         final addedProductsSnapshot = await FirebaseFirestore
@@ -719,21 +719,21 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => PizzaScreen(
-                                      added: {
-                                        'pizzalist': addedProducts,
-                                      },
-                                      productName: '',
-                                      id: '',
+                                  added: {
+                                    'pizzalist': addedProducts,
+                                  },
+                                  productName: '',
+                                  id: '',
                                   productPrice: 0.0, // Assign a valid double value here
-                                      productDescription: '',
-                                      ImageURL: '',
-                                      product: Product(
-                                          ImageURL: '',
-                                          productName: '',
-                                          productDescription: '',
-                                        productPrice: 0.0, // Assign a valid double value here
-                                      ),
-                                    )));
+                                  productDescription: '',
+                                  ImageURL: '',
+                                  product: Product(
+                                    ImageURL: '',
+                                    productName: '',
+                                    productDescription: '',
+                                    productPrice: 0.0, // Assign a valid double value here
+                                  ),
+                                )));
                       }
                       if (subcategoryName == 'Cupcake' &&
                           _selectedsubcategory == subcategoryName) {
@@ -755,26 +755,26 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
 
                         print(
                             addedProducts); // Add this line to print the list of added products
-                        //
+
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => CupcakeScreen(
-                                      added: {
-                                        'cupcakelist': addedProducts,
-                                      },
-                                      productName: '',
-                                      id: '',
+                                  added: {
+                                    'cupcakelist': addedProducts,
+                                  },
+                                  productName: '',
+                                  id: '',
                                   productPrice: 0.0, // Assign a valid double value here
-                                      productDescription: '',
-                                      ImageURL: '',
-                                      product: Product(
-                                          ImageURL: '',
-                                          productName: '',
-                                          productDescription: '',
-                                        productPrice: 0.0, // Assign a valid double value here
-                                      ),
-                                    )));
+                                  productDescription: '',
+                                  ImageURL: '',
+                                  product: Product(
+                                    ImageURL: '',
+                                    productName: '',
+                                    productDescription: '',
+                                    productPrice: 0.0, // Assign a valid double value here
+                                  ),
+                                )));
                       }
                     }),
               );

@@ -17,6 +17,8 @@ import '../../seller/seller_portfolio.dart';
     final double productPrice;
     final String productDescription;
     final String ImageURL;
+    // final String companyName;
+
 
     const HomemadeDetailScreen({
       Key? key,
@@ -24,6 +26,7 @@ import '../../seller/seller_portfolio.dart';
       required this.productPrice,
       required this.productDescription,
       required this.ImageURL,
+
     }) : super(key: key);
 
     @override

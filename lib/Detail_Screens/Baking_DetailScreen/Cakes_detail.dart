@@ -23,6 +23,8 @@ class CakesDetailScreen extends StatefulWidget {
   final String ImageURL;
   final Product product;
 
+
+
   const CakesDetailScreen({
     Key? key,
     required this.productName,

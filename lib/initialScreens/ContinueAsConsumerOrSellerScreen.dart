@@ -21,7 +21,7 @@ class _ContinueAsScreenState extends State<ContinueAsScreen> {
 
   Future<void> speakText(String text, String languageCode) async {
     Translation translation =
-        await translator.translate(text, from: 'en', to: languageCode);
+    await translator.translate(text, from: 'en', to: languageCode);
     String translatedText = translation.text;
     await flutterTts.setLanguage(languageCode);
     await flutterTts.speak(translatedText);
