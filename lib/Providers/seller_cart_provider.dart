@@ -75,4 +75,12 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
+
+  void updateCounter() {
+    _counter = cart.items.length; // Update the counter based on the cart item count
+    _setPrefItems();
+    notifyListeners();
+  }
+
+
 }

@@ -158,6 +158,7 @@ class _Box_DetailScreenState extends State<Box_DetailScreen> {
                             print(
                                 'Added to cart: $item'); // Print the item to the console
                           });
+                          Provider.of<CartProvider>(context, listen: false).updateCounter();
                           Navigator.push(
                               context,
                               MaterialPageRoute(
