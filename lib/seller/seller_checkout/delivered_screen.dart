@@ -3,7 +3,6 @@ import 'package:confetti/confetti.dart';
 import 'package:home_services_flutter/seller/Packaging_Screen.dart';
 import 'package:home_services_flutter/seller/SellerMainPage.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:home_services_flutter/seller/seller_checkout/payment_screen.dart';
 
 class DeliveredScreen extends StatefulWidget {
   @override

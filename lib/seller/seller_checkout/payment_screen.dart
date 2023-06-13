@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:home_services_flutter/seller/seller_checkout/delivered_screen.dart';
 import 'package:home_services_flutter/seller/seller_checkout/shipping_screen.dart';
+
+import 'delivered_screen.dart';
 
 class PaymentScreen extends StatefulWidget {
   @override
@@ -11,26 +12,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   bool isCheckboxChecked = false;
 
   void placeOrder() {
-    // if (isCheckboxChecked) {
-    //   // Place the order
-    //   showDialog(
-    //     context: context,
-    //     builder: (BuildContext context) {
-    //       return AlertDialog(
-    //         title: Text('Order Placed'),
-    //         content: Text('Your order has been placed successfully.'),
-    //         actions: [
-    //           TextButton(
-    //             onPressed: () {
-    //               Navigator.pop(context);
-    //             },
-    //             child: Text('OK'),
-    //           ),
-    //         ],
-    //       );
-    //     },
-    //   );
-    // }
+
     if (isCheckboxChecked != true) {
       showDialog(
         context: context,
