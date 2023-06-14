@@ -228,9 +228,9 @@ class _BrowniesDetailScreenState extends State<BrowniesDetailScreen> {
                   ),
                   SizedBox(height: 25.0),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 11.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
                     child: Text(
-                      ' ${widget.productDescription}',
+                      '${widget.productDescription}',
                       style: TextStyle(
                         fontSize: 18.0,
                       ),
@@ -238,7 +238,7 @@ class _BrowniesDetailScreenState extends State<BrowniesDetailScreen> {
                   ),
                   SizedBox(height: 10.0),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
                     child: Text(
                       'Rs.${widget.productPrice}',
                       style: TextStyle(

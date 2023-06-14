@@ -215,9 +215,9 @@ class _WesternDetailScreenState extends State<WesternDetailScreen> {
                   ),
                   SizedBox(height: 25.0),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 11.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
                     child: Text(
-                      ' ${widget.productDescription}',
+                      '${widget.productDescription}',
                       style: TextStyle(
                         fontSize: 18.0,
                       ),

@@ -209,7 +209,7 @@ class _CupcakeScreenState extends State<CupcakeScreen> {
                           Padding(
                             padding: EdgeInsets.all(10),
                             child: Text(
-                              " $companyName\n Item:$productName \n $productPrice",
+                              "$companyName\n$productName \nRs.$productPrice",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12,

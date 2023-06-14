@@ -210,7 +210,7 @@ class _HomemadeScreenState extends State<HomemadeScreen> {
                                 Padding(
                                   padding: EdgeInsets.all(10),
                                   child: Text(
-                                    " $companyName\n Item:$productName \n $productPrice",
+                                    " $companyName\n $productName \n Rs.$productPrice",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 12,
