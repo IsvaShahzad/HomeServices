@@ -21,6 +21,8 @@ class BrowniesDetailScreen extends StatefulWidget {
   final String productDescription;
   final String ImageURL;
   final Product product;
+  final String companyName;
+
 
   const BrowniesDetailScreen({
     Key? key,
@@ -29,6 +31,7 @@ class BrowniesDetailScreen extends StatefulWidget {
     required this.productDescription,
     required this.ImageURL,
     required this.product,
+    required this.companyName,
   }) : super(key: key);
 
   @override
@@ -124,7 +127,7 @@ class _BrowniesDetailScreenState extends State<BrowniesDetailScreen> {
               fit: BoxFit.cover)),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(widget.productName),
+          title: Text(widget.companyName ??'' ),
           centerTitle: true,
           actions: [
             Center(

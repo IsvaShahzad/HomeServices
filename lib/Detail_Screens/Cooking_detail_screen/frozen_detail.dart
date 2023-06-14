@@ -18,6 +18,8 @@ class FrozenDetailScreen extends StatefulWidget {
   final double productPrice;
   final String productDescription;
   final String ImageURL;
+  final String companyName;
+
 
 
   const FrozenDetailScreen({
@@ -26,6 +28,7 @@ class FrozenDetailScreen extends StatefulWidget {
     required this.productPrice,
     required this.productDescription,
     required this.ImageURL,
+    required this.companyName,
 
   }) : super(key: key);
 
@@ -114,7 +117,7 @@ class _FrozenDetailScreenState extends State<FrozenDetailScreen> {
               fit: BoxFit.cover)),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(widget.productName),
+          title: Text(widget.companyName ??'' ),
           centerTitle: true,
           actions: [
             Center(

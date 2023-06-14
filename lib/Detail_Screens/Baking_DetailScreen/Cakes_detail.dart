@@ -22,6 +22,8 @@ class CakesDetailScreen extends StatefulWidget {
   final String productDescription;
   final String ImageURL;
   final Product product;
+  final String companyName;
+
 
 
 
@@ -33,6 +35,7 @@ class CakesDetailScreen extends StatefulWidget {
     required this.productDescription,
     required this.ImageURL,
     required this.product,
+    required this.companyName,
   }) : super(key: key);
 
   @override
@@ -126,7 +129,7 @@ class _CakesDetailScreenState extends State<CakesDetailScreen> {
               fit: BoxFit.cover)),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(widget.productName),
+          title: Text(widget.companyName ??'' ),
           centerTitle: true,
           actions: [
             Center(

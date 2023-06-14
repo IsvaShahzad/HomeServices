@@ -20,6 +20,8 @@ class Scarfs_DetailScreen extends StatefulWidget {
   final double productPrice;
   final String productDescription;
   final String ImageURL;
+  final String companyName;
+
 
 
   const Scarfs_DetailScreen({
@@ -28,6 +30,7 @@ class Scarfs_DetailScreen extends StatefulWidget {
     required this.productPrice,
     required this.productDescription,
     required this.ImageURL,
+    required this.companyName,
   }) : super(key: key);
 
   @override
@@ -115,7 +118,7 @@ class _Scarfs_DetailScreenState extends State<Scarfs_DetailScreen> {
               fit: BoxFit.cover)),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(widget.productName),
+          title: Text(widget.companyName ??'' ),
           centerTitle: true,
           actions: [
             Center(

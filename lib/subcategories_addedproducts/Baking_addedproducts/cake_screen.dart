@@ -17,6 +17,7 @@ class CakeScreen extends StatefulWidget {
   final String productDescription;
   final String ImageURL;
   final Product product;
+  final String companyName;
 
   const CakeScreen({
     Key? key,
@@ -27,6 +28,7 @@ class CakeScreen extends StatefulWidget {
     required this.productDescription,
     required this.ImageURL,
     required this.product,
+    required this.companyName,
   }) : super(key: key);
 
   @override
@@ -163,6 +165,7 @@ class _CakeScreenState extends State<CakeScreen> {
                   final productPrice = addedproductss.productprice;
                   final productDescription = addedproductss.productdescription;
                   final product = addedproductss.product;
+                  final companyName = addedproductss.companyName;
 
 
                   return InkWell(
@@ -178,6 +181,8 @@ class _CakeScreenState extends State<CakeScreen> {
                                 ImageURL: ImageURL,
                                 product: product,
                                 id: '',
+                                companyName: companyName,
+
                               )));
                     },
                     child: Card(
@@ -208,7 +213,7 @@ class _CakeScreenState extends State<CakeScreen> {
                           Padding(
                             padding: EdgeInsets.all(10),
                             child: Text(
-                              "Item: $productName\nRs. $productPrice\n$productDescription",
+                              " $companyName\n Item:$productName \n $productPrice",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12,

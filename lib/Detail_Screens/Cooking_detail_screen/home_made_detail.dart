@@ -17,7 +17,7 @@ import '../../seller/seller_portfolio.dart';
     final double productPrice;
     final String productDescription;
     final String ImageURL;
-    // final String companyName;
+    final String companyName;
 
 
     const HomemadeDetailScreen({
@@ -26,6 +26,7 @@ import '../../seller/seller_portfolio.dart';
       required this.productPrice,
       required this.productDescription,
       required this.ImageURL,
+      required this.companyName,
 
     }) : super(key: key);
 
@@ -113,7 +114,7 @@ import '../../seller/seller_portfolio.dart';
                 fit: BoxFit.cover)),
         child: Scaffold(
           appBar: AppBar(
-            title: Text(widget.productName),
+            title: Text(widget.companyName ??'' ),
             centerTitle: true,
             actions: [
               Center(

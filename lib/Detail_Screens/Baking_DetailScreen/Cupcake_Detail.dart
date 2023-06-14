@@ -21,6 +21,8 @@ class CupcakeDetailScreen extends StatefulWidget {
   final String productDescription;
   final String ImageURL;
   final Product product;
+  final String companyName;
+
 
 
   const CupcakeDetailScreen({
@@ -30,6 +32,7 @@ class CupcakeDetailScreen extends StatefulWidget {
     required this.productDescription,
     required this.ImageURL,
     required this.product,
+    required this.companyName,
 
   }) : super(key: key);
 
@@ -130,7 +133,7 @@ class _CupcakeDetailScreenState extends State<CupcakeDetailScreen> {
               fit: BoxFit.cover)),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(widget.productName),
+          title: Text(widget.companyName ??'' ),
           centerTitle: true,
           actions: [
             Center(

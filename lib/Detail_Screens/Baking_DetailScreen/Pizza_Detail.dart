@@ -20,6 +20,8 @@ class PizzaDetailScreen extends StatefulWidget {
   final String productDescription;
   final double productPrice;
   final Product product;
+  final String companyName;
+
 
 
   const PizzaDetailScreen({
@@ -29,6 +31,7 @@ class PizzaDetailScreen extends StatefulWidget {
     required this.productDescription,
     required this.productPrice,
     required this.product,
+    required this.companyName,
   }) : super(key: key);
 
   @override
@@ -127,7 +130,7 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
               fit: BoxFit.cover)),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(widget.productName),
+          title: Text(widget.companyName ??'' ),
           centerTitle: true,
           actions: [
             Center(

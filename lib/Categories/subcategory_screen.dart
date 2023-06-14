@@ -32,6 +32,8 @@ class ProductModel {
   final String ImageURl;
   final String productdescription;
   final String product;
+  final String companyName;
+
 
 
   ProductModel({
@@ -41,6 +43,7 @@ class ProductModel {
     required this.ImageURl,
     required this.productdescription,
     required this.product,
+    required this.companyName,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
@@ -51,6 +54,8 @@ class ProductModel {
       productdescription: json['product description'],
       product: json['product'],
       id: json['id'],
+      companyName: json['company name'],
+
 
     );
   }
@@ -179,7 +184,7 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                     productName: '',
                                     productDescription: '',
                                     productPrice: 0.0, // Assign a valid double value here
-                                  ),
+                                  ), companyName: '',
                                 )));
                       } else if (subcategoryName == 'Banner Making' &&
                           _selectedsubcategory == subcategoryName) {
@@ -221,7 +226,7 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                     productName: '',
                                     productDescription: '',
                                     productPrice: 0.0, // Assign a valid double value here
-                                  ),
+                                  ), companyName: '',
                                 )));
                       } else if (subcategoryName == 'sweaters' &&
                           _selectedsubcategory == subcategoryName) {
@@ -259,7 +264,7 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                     productName: '',
                                     productDescription: '',
                                     productPrice: 0.0, // Assign a valid double value here
-                                  ),
+                                  ), companyName: '',
                                 )));
                       } else if (subcategoryName == 'Coats' &&
                           _selectedsubcategory == subcategoryName) {
@@ -297,7 +302,7 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                     productName: '',
                                     productDescription: '',
                                     productPrice: 0.0, // Assign a valid double value here
-                                  ),
+                                  ), companyName: '',
                                 )));
                       } else if (subcategoryName == 'Cakes' &&
                           _selectedsubcategory == subcategoryName) {
@@ -337,7 +342,7 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                     productName: '',
                                     productDescription: '',
                                     productPrice: 0.0, // Assign a valid double value here
-                                  ),
+                                  ), companyName: '',
                                 )));
                       }
                       if (subcategoryName == 'Home made' &&
@@ -377,7 +382,7 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                     productName: '',
                                     productDescription: '',
                                     productPrice: 0.0, // Assign a valid double value here
-                                  ),
+                                  ), companyName: '',
                                 )));
                       } else if (subcategoryName == 'Quilting' &&
                           _selectedsubcategory == subcategoryName) {
@@ -416,7 +421,7 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                     productName: '',
                                     productDescription: '',
                                     productPrice: 0.0, // Assign a valid double value here
-                                  ),
+                                  ), companyName: '',
                                 )));
                       } else if (subcategoryName == 'Socks' &&
                           _selectedsubcategory == subcategoryName) {
@@ -454,7 +459,7 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                     productName: '',
                                     productDescription: '',
                                     productPrice: 0.0, // Assign a valid double value here
-                                  ),
+                                  ), companyName: '',
                                 )));
                       }
 
@@ -494,7 +499,7 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                     productName: '',
                                     productDescription: '',
                                     productPrice: 0.0, // Assign a valid double value here
-                                  ),
+                                  ), companyName: '',
                                 )));
                       } else if (subcategoryName == 'Brownies' &&
                           _selectedsubcategory == subcategoryName) {
@@ -534,7 +539,7 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                     productName: '',
                                     productDescription: '',
                                     productPrice: 0.0, // Assign a valid double value here
-                                  ),
+                                  ), companyName: '',
                                 )));
                       }
 
@@ -574,7 +579,7 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                     productName: '',
                                     productDescription: '',
                                     productPrice: 0.0, // Assign a valid double value here
-                                  ),
+                                  ), companyName: '',
                                 ))); //add products in a westernlist
                       } else if (subcategoryName == 'Canvas Painting' &&
                           _selectedsubcategory == subcategoryName) {
@@ -616,7 +621,7 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                     productName: '',
                                     productDescription: '',
                                     productPrice: 0.0, // Assign a valid double value here
-                                  ),
+                                  ), companyName: '',
                                 )));
                       } else if (subcategoryName == 'scarfs' &&
                           _selectedsubcategory == subcategoryName) {
@@ -654,7 +659,7 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                     productName: '',
                                     productDescription: '',
                                     productPrice: 0.0, // Assign a valid double value here
-                                  ),
+                                  ), companyName: '',
                                 )));
                       } else if (subcategoryName == 'Shirt' &&
                           _selectedsubcategory == subcategoryName) {
@@ -692,7 +697,7 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                     productName: '',
                                     productDescription: '',
                                     productPrice: 0.0, // Assign a valid double value here
-                                  ),
+                                  ), companyName: '',
                                 )));
                       } else if (subcategoryName == 'Pizza' &&
                           _selectedsubcategory == subcategoryName) {
@@ -732,7 +737,7 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                     productName: '',
                                     productDescription: '',
                                     productPrice: 0.0, // Assign a valid double value here
-                                  ),
+                                  ), companyName: '',
                                 )));
                       }
                       if (subcategoryName == 'Cupcake' &&
@@ -773,7 +778,7 @@ class _SubcategoryScreenState extends State<SubcategoryScreen> {
                                     productName: '',
                                     productDescription: '',
                                     productPrice: 0.0, // Assign a valid double value here
-                                  ),
+                                  ), companyName: '',
                                 )));
                       }
                     }),

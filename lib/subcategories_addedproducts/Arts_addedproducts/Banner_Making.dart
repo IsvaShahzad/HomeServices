@@ -16,7 +16,7 @@ class BannerScreen extends StatefulWidget {
   final String productDescription;
   final String ImageURL;
   final Product product;
-  // final String companyName;
+  final String companyName;
 
 
   const BannerScreen({
@@ -28,6 +28,7 @@ class BannerScreen extends StatefulWidget {
     required this.productDescription,
     required this.ImageURL,
     required this.product,
+    required this.companyName,
 
   }) : super(key: key);
 
@@ -161,6 +162,8 @@ class _BannerScreenState extends State<BannerScreen> {
                   final productName = addedproductss.productname;
                   final productPrice = addedproductss.productprice;
                   final productDescription = addedproductss.productdescription;
+                  final companyName = addedproductss.companyName;
+
 
                   return InkWell(
 
@@ -173,6 +176,8 @@ class _BannerScreenState extends State<BannerScreen> {
                                 productPrice: productPrice,
                                 productDescription: productDescription,
                                 ImageURL: ImageURL,
+                                companyName: companyName,
+
                               )));
                     },
                     child: Card(
@@ -203,7 +208,7 @@ class _BannerScreenState extends State<BannerScreen> {
                           Padding(
                             padding: EdgeInsets.all(10),
                             child: Text(
-                              "Item: $productName\nRs. $productPrice\n$productDescription",
+                              " $companyName\n Item:$productName \n $productPrice",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12,

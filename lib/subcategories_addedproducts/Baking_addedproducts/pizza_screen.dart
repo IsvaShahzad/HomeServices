@@ -16,6 +16,7 @@ class PizzaScreen extends StatefulWidget {
   final String productDescription;
   final String ImageURL;
   final Product product;
+  final String companyName;
 
   const PizzaScreen({
     Key? key,
@@ -26,6 +27,7 @@ class PizzaScreen extends StatefulWidget {
     required this.productDescription,
     required this.ImageURL,
     required this.product,
+    required this.companyName,
   }) : super(key: key);
 
   @override
@@ -158,6 +160,7 @@ class _PizzaScreenState extends State<PizzaScreen> {
                         final productDescription =
                             addedproductss.productdescription;
                         final product = addedproductss.product;
+                        final companyName = addedproductss.companyName;
 
                         return InkWell(
                             child: Card(
@@ -192,7 +195,7 @@ class _PizzaScreenState extends State<PizzaScreen> {
                                   Padding(
                                     padding: EdgeInsets.all(10),
                                     child: Text(
-                                      "Item: $productName\nRs. $productPrice\n$productDescription",
+                                      " $companyName\n Item:$productName \n $productPrice",
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 12,
@@ -213,7 +216,9 @@ class _PizzaScreenState extends State<PizzaScreen> {
                                                 productDescription,
                                             ImageURL: ImageURL,
                                             product: product,
-                                          )));
+                                        companyName: companyName,
+
+                                      )));
                             });
                       },
                     )

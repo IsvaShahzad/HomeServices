@@ -16,6 +16,7 @@ class BrowniesScreen extends StatefulWidget {
   final String productDescription;
   final String ImageURL;
   final Product product;
+  final String companyName;
 
   const BrowniesScreen({
     Key? key,
@@ -26,6 +27,7 @@ class BrowniesScreen extends StatefulWidget {
     required this.productDescription,
     required this.ImageURL,
     required this.product,
+    required this.companyName,
 
   }) : super(key: key);
 
@@ -167,6 +169,7 @@ class _BrowniesScreenState extends State<BrowniesScreen> {
 
 
 
+
                   return InkWell(
                     onTap: () {
                       Navigator.pushReplacement(
@@ -179,6 +182,8 @@ class _BrowniesScreenState extends State<BrowniesScreen> {
                                 productDescription,
                                 ImageURL: ImageURL,
                                 product: product,
+                                companyName: companyName,
+
                               )));
                     },
                     child: Card(
@@ -209,7 +214,7 @@ class _BrowniesScreenState extends State<BrowniesScreen> {
                           Padding(
                             padding: EdgeInsets.all(10),
                             child: Text(
-                              "Item: $productName\nRs. $productPrice\n$productDescription",
+                              " $companyName\n Item:$productName \n $productPrice",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12,

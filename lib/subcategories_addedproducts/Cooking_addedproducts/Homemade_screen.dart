@@ -16,6 +16,7 @@ class HomemadeScreen extends StatefulWidget {
   final String productDescription;
   final String ImageURL;
   final Product product;
+  final String companyName;
 
   const HomemadeScreen({
     Key? key,
@@ -26,6 +27,7 @@ class HomemadeScreen extends StatefulWidget {
     required this.productDescription,
     required this.ImageURL,
     required this.product,
+    required this.companyName,
   }) : super(key: key);
 
   @override
@@ -160,6 +162,7 @@ class _HomemadeScreenState extends State<HomemadeScreen> {
                         final productName = addedproductss.productname;
                         final productPrice = addedproductss.productprice;
                         final productDescription = addedproductss.productdescription;
+                        final companyName = addedproductss.companyName;
 
                         return InkWell(
                           onTap: () {
@@ -171,7 +174,9 @@ class _HomemadeScreenState extends State<HomemadeScreen> {
                                           productPrice: productPrice,
                                           productDescription: productDescription,
                                           ImageURL: ImageURL,
-                                        )));
+                                      companyName: companyName,
+
+                                    )));
                           },
                           child: Card(
                             elevation: 5,
@@ -205,7 +210,7 @@ class _HomemadeScreenState extends State<HomemadeScreen> {
                                 Padding(
                                   padding: EdgeInsets.all(10),
                                   child: Text(
-                                    "Item: $productName\nRs. $productPrice\n$productDescription",
+                                    " $companyName\n Item:$productName \n $productPrice",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 12,

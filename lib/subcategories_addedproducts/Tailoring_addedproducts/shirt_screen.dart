@@ -16,6 +16,7 @@ class ShirtScreen extends StatefulWidget {
   final String productDescription;
   final String ImageURL;
   final Product product;
+  final String companyName;
 
   const ShirtScreen({
     Key? key,
@@ -26,6 +27,7 @@ class ShirtScreen extends StatefulWidget {
     required this.productDescription,
     required this.ImageURL,
     required this.product,
+    required this.companyName,
   }) : super(key: key);
 
   @override
@@ -159,6 +161,8 @@ class _ShirtScreenState extends State<ShirtScreen> {
                   final productName = addedproductss.productname;
                   final productPrice = addedproductss.productprice;
                   final productDescription = addedproductss.productdescription;
+                  final companyName = addedproductss.companyName;
+
 
                   return InkWell(
                     onTap: () {
@@ -171,6 +175,7 @@ class _ShirtScreenState extends State<ShirtScreen> {
                                 productDescription:
                                 productDescription,
                                 ImageURL: ImageURL,
+                                companyName: companyName,
                               )));
                     },
                     child: Card(
@@ -201,7 +206,7 @@ class _ShirtScreenState extends State<ShirtScreen> {
                           Padding(
                             padding: EdgeInsets.all(10),
                             child: Text(
-                              "Item: $productName\nRs. $productPrice\n$productDescription",
+                              " $companyName\n Item:$productName \n $productPrice",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12,

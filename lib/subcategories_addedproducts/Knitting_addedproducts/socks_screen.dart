@@ -16,6 +16,7 @@ class SocksScreen extends StatefulWidget {
   final String productDescription;
   final String ImageURL;
   final Product product;
+  final String companyName;
 
   const SocksScreen({
     Key? key,
@@ -26,6 +27,7 @@ class SocksScreen extends StatefulWidget {
     required this.productDescription,
     required this.ImageURL,
     required this.product,
+    required this.companyName,
   }) : super(key: key);
 
   @override
@@ -159,6 +161,7 @@ class _SocksScreenState extends State<SocksScreen> {
                   final productName = addedproductss.productname;
                   final productPrice = addedproductss.productprice;
                   final productDescription = addedproductss.productdescription;
+                  final companyName = addedproductss.companyName;
 
                   return InkWell(
 
@@ -172,6 +175,8 @@ class _SocksScreenState extends State<SocksScreen> {
                                 productDescription:
                                 productDescription,
                                 ImageURL: ImageURL,
+                                companyName: companyName,
+
                               )));
                     },
                     child: Card(
@@ -202,7 +207,7 @@ class _SocksScreenState extends State<SocksScreen> {
                           Padding(
                             padding: EdgeInsets.all(10),
                             child: Text(
-                              "Item: $productName\nRs. $productPrice\n$productDescription",
+                              " $companyName\n Item:$productName \n $productPrice",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12,
