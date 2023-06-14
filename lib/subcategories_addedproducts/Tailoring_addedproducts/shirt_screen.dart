@@ -206,7 +206,7 @@ class _ShirtScreenState extends State<ShirtScreen> {
                           Padding(
                             padding: EdgeInsets.all(10),
                             child: Text(
-                              " $companyName\n Item:$productName \n $productPrice",
+                              " $companyName\n $productName \n Rs.$productPrice",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12,

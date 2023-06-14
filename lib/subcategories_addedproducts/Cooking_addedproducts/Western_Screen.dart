@@ -163,6 +163,8 @@ class _WesternScreenState extends State<WesternScreen> {
                   final productPrice = addedproductss.productprice;
                   final productDescription = addedproductss.productdescription;
                   final companyName = addedproductss.companyName;
+                  final product = addedproductss.product;
+
 
                   return InkWell(
                     onTap: () {
@@ -176,6 +178,7 @@ class _WesternScreenState extends State<WesternScreen> {
                                 productDescription,
                                 ImageURL: ImageURL,
                                 companyName: companyName,
+                                product: product,
 
                               )));
                     },

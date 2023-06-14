@@ -11,6 +11,7 @@ import '../../seller/seller_checkout/seller_cartscreen.dart' as cartscreen;
 import '../../Consumer_Screens/favourites.dart';
 import '../../initialScreens/loginScreen.dart';
 import '../../seller/seller_portfolio.dart';
+import '../../subcategories_addedproducts/Cooking_addedproducts/Western_Screen.dart';
 
 class WesternDetailScreen extends StatefulWidget {
   final String productName;
@@ -18,6 +19,7 @@ class WesternDetailScreen extends StatefulWidget {
   final String productDescription;
   final String ImageURL;
   final String companyName;
+  final Product product;
 
 
   const WesternDetailScreen({
@@ -27,6 +29,7 @@ class WesternDetailScreen extends StatefulWidget {
     required this.productDescription,
     required this.ImageURL,
     required this.companyName,
+    required this.product,
 
   }) : super(key: key);
 
@@ -175,6 +178,7 @@ class _WesternDetailScreenState extends State<WesternDetailScreen> {
                       _showFavoriteOptions(context);
                     },
                   ),
+
                 ],
               ),
             ),
