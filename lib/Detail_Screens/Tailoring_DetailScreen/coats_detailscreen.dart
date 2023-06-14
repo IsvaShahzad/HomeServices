@@ -55,7 +55,31 @@ class _CoatsDetailScreenState extends State<CoatsDetailScreen> {
 
   void showCartMessage(BuildContext context) {
     final snackBar = SnackBar(
-      content: Text('Added to Cart'),
+      content: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text('Added to Cart'),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => cartscreen.CartScreen(
+                    cart: Provider.of<cartt.Cart>(context, listen: false),
+                    cartProvider: Provider.of<CartProvider>(context, listen: false),
+                  ),
+                ),
+              );
+            },
+            child: Text(
+              'Go to Cart',
+              style: TextStyle(
+                color: Colors.blue,
+              ),
+            ),
+          ),
+        ],
+      ),
       duration: Duration(seconds: 3),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -238,16 +262,16 @@ class _CoatsDetailScreenState extends State<CoatsDetailScreen> {
 
 
 
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => cartscreen.CartScreen(
-                              cart: Provider.of<cartt.Cart>(context,
-                                  listen: false),
-                              cartProvider: Provider.of<CartProvider>(context),
-                            ),
-                          ),
-                        );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => cartscreen.CartScreen(
+                        //       cart: Provider.of<cartt.Cart>(context,
+                        //           listen: false),
+                        //       cartProvider: Provider.of<CartProvider>(context),
+                        //     ),
+                        //   ),
+                        // );
                       },
                       child: Row(
                         mainAxisSize: MainAxisSize.min,

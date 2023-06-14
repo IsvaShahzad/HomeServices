@@ -234,16 +234,16 @@ class _BannerDetailScreenState extends State<BannerDetailScreen> {
 
 
 
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => cartscreen.CartScreen(
-                              cart: Provider.of<cartt.Cart>(context,
-                                  listen: false),
-                              cartProvider: Provider.of<CartProvider>(context),
-                            ),
-                          ),
-                        );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => cartscreen.CartScreen(
+                        //       cart: Provider.of<cartt.Cart>(context,
+                        //           listen: false),
+                        //       cartProvider: Provider.of<CartProvider>(context),
+                        //     ),
+                        //   ),
+                        // );
                       },
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
