@@ -8,6 +8,7 @@ import 'package:home_services_flutter/initialScreens/ContinueAsConsumerOrSellerS
 import 'package:home_services_flutter/initialScreens/registration_screen.dart';
 import 'package:home_services_flutter/seller/SellerMainPage.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:home_services_flutter/initialScreens/splash_screen.dart';
 

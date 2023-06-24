@@ -54,6 +54,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     );
   }
 
+
+  late final String id;
   @override
   Widget build(BuildContext context) {
     return Container(
