@@ -306,18 +306,18 @@ class _FrozenDetailScreenState extends State<FrozenDetailScreen> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             // Add some spacing between the icons
-            FloatingActionButton.extended(
-              onPressed: () {
-                navigateToSellerPortfolio(context);
-              },
-              icon: Icon(Icons.person),
-              label: Text('Seller Portfolio'),
-              backgroundColor: Colors.white,
-              foregroundColor: Color(0xFFAB47BC),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-            ),
+            // FloatingActionButton.extended(
+            //   onPressed: () {
+            //     navigateToSellerPortfolio(context);
+            //   },
+            //   icon: Icon(Icons.person),
+            //   label: Text('Seller Portfolio'),
+            //   backgroundColor: Colors.white,
+            //   foregroundColor: Color(0xFFAB47BC),
+            //   shape: RoundedRectangleBorder(
+            //     borderRadius: BorderRadius.circular(20.0),
+            //   ),
+            // ),
             SizedBox(width: 75.0),
 
             FloatingActionButton(

@@ -14,6 +14,11 @@ class Cart extends ChangeNotifier {
     items.remove(item);
   }
 
+  void clearCart(){
+
+    items.clear();
+  }
+
   double calculateTotal() {
     double total = 0.0;
     for (var item in items) {

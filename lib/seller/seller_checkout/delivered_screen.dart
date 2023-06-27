@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:confetti/confetti.dart';
+import 'package:home_services_flutter/Consumer_Screens/Consumer_mainpage.dart';
 import 'package:home_services_flutter/seller/Packaging_Screen.dart';
 import 'package:home_services_flutter/seller/SellerMainPage.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -30,6 +32,7 @@ class _DeliveredScreenState extends State<DeliveredScreen> {
   }
 
   double _rating = 0;
+  final CollectionReference ratingsCollection = FirebaseFirestore.instance.collection('ratings');
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +134,7 @@ class _DeliveredScreenState extends State<DeliveredScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                        PackagingScreen()));
+                                        ConsumerMainPageScreen()));
                           },
                           child: Text('Continue Browsing'),
                         ),
@@ -262,8 +265,7 @@ class _DeliveredScreenState extends State<DeliveredScreen> {
                                       context: context,
                                       builder: (BuildContext context) {
                                         return AlertDialog(
-                                          title:
-                                              Text("Thank you for rating! ⭐"),
+                                          title: Text("Thank you for rating! ⭐"),
                                           actions: [
                                             Align(
                                               alignment: Alignment.center,
@@ -276,10 +278,27 @@ class _DeliveredScreenState extends State<DeliveredScreen> {
                                                   maximumSize: const Size(140, 45),
                                                   shape: StadiumBorder(),
                                                 ),
-                                                child: Text('OK',
-                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                                                child: Text(
+                                                  'OK',
+                                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                ),
                                                 onPressed: () {
-                                                  Navigator.pop(context);
+                                                  // Store the rating in Firebase
+                                                  double rating = _rating;
+
+                                                  // Create a new document in the ratings collection
+                                                  ratingsCollection.add({
+                                                    'rating': rating,
+                                                    // Add other relevant data here
+                                                  }).then((value) {
+                                                    // Document added successfully
+                                                    print('Rating stored in Firestore!');
+                                                    Navigator.pop(context);
+                                                  }).catchError((error) {
+                                                    // An error occurred while adding the document
+                                                    print('Failed to store rating: $error');
+                                                    // Handle the error appropriately
+                                                  });
                                                 },
                                               ),
                                             ),
@@ -288,6 +307,7 @@ class _DeliveredScreenState extends State<DeliveredScreen> {
                                       },
                                     );
                                   },
+
                                   child: const Text(
                                     'Submit',
                                   ),

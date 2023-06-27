@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:home_services_flutter/seller/seller_checkout/shipping_screen.dart';
-
+import '../cart.dart';
 import 'delivered_screen.dart';
 
 class PaymentScreen extends StatefulWidget {
@@ -10,17 +10,17 @@ class PaymentScreen extends StatefulWidget {
 
 class _PaymentScreenState extends State<PaymentScreen> {
   bool isCheckboxChecked = false;
+  final Cart _cart = Cart();
+
 
   void placeOrder() {
-
     if (isCheckboxChecked != true) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Error'),
-            content:
-                Text('Please confirm your order by checking the checkbox.'),
+            content: Text('Please confirm your order by checking the checkbox.'),
             actions: [
               TextButton(
                 onPressed: () {
@@ -32,8 +32,20 @@ class _PaymentScreenState extends State<PaymentScreen> {
           );
         },
       );
+    } else {
+      // Perform order confirmation logic here
+
+      // Clear the cart items here
+      _cart.clearCart();
+      // Navigate to the DeliveredScreen
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (BuildContext context) => DeliveredScreen()),
+      );
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {

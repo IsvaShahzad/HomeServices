@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:home_services_flutter/Consumer_Screens/Consumer_Profile.dart';
+import 'package:home_services_flutter/Consumer_Screens/ContactUs.dart';
 import 'package:home_services_flutter/Consumer_Screens/add_requirements_consumer.dart';
 import 'package:home_services_flutter/Consumer_Screens/added_postings.dart';
 import 'package:home_services_flutter/Consumer_Screens/cart_screen.dart';
@@ -368,6 +369,27 @@ class _ConsumerMainPageScreenState extends State<ConsumerMainPageScreen> {
                               },
                               id: 'id',
                             )));
+                  },
+                ),
+                Divider(),
+
+                ListTile(
+                  tileColor: Colors.white38,
+                  trailing: Icon(
+                    Icons.help,
+                    size: 18,
+                    color: Colors.purple,
+                  ),
+                  title: Text(
+                    "Contact us /Help",
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold),
+                  ),
+                  onTap: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ContactUsScreen()));
                   },
                 ),
                 Divider(),

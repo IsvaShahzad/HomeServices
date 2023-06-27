@@ -40,7 +40,6 @@ class _LoginScreenState extends State<LoginScreen> {
   late String password;
   late bool isLogin;
 
-
   void _showLoggedInSnackbar() {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -138,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       RegExp regex = RegExp(
                                           r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$');
                                       if (value == null || value.isEmpty) {
-                                        return 'Please Enter Some Text ';
+                                        return 'Please Enter your Email ';
                                       } else if (value.length > 20) {
                                         return 'Enter less than 20 numbers';
                                       } else if (!regex.hasMatch(value)) {
@@ -163,7 +162,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 0),
                                   child: TextFormField(
-
                                     controller: passwordController,
                                     obscureText: _isObscure,
                                     decoration: InputDecoration(
@@ -176,9 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                       hintText: ' Enter Password',
                                       hintStyle: TextStyle(
-                                          fontSize: 13,
-                                          color: Colors.grey
-                                      ),
+                                          fontSize: 13, color: Colors.grey),
                                       suffixIcon: IconButton(
                                         icon: Icon(
                                           _isObscure
@@ -199,7 +195,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         fontWeight: FontWeight.w600),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Please Enter Some Text ';
+                                        return 'Please Enter Your Password ';
                                       }
                                       return null;
                                     },
@@ -228,55 +224,58 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: Padding(
                                     padding: const EdgeInsets.only(top: 5),
                                     child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        primary: Color(0xFFAB47BC),
-                                        onPrimary: Colors.white,
-                                        elevation: 3,
-                                        minimumSize: const Size(200, 50),
-                                        maximumSize: const Size(200, 50),
-                                        shape: StadiumBorder(),
-                                      ),
-                                      child: Text(
-                                        'Login',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18,
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Color(0xFFAB47BC),
+                                          onPrimary: Colors.white,
+                                          elevation: 3,
+                                          minimumSize: const Size(200, 50),
+                                          maximumSize: const Size(200, 50),
+                                          shape: StadiumBorder(),
                                         ),
-                                      ),
-                                      onPressed: () async {
-                                        try {
-                                          final user = await _auth.signInWithEmailAndPassword(
-                                            email: emailController.text,
-                                            password: passwordController.text,
-                                          );
-                                          print(user);
-                                          _showLoggedInSnackbar();
-                                          // Navigate to the next screen only if the user is registered
-                                          if (user != null) {
-                                            Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (BuildContext context) => ContinueAsScreen(
-                                                )
-
-
-
-                                              ),
-                                            );
+                                        child: Text(
+                                          'Login',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                        onPressed: () async {
+                                          if (loginFormKey.currentState
+                                                  ?.validate() ==
+                                              true) {
+                                            try {
+                                              final user = await _auth
+                                                  .signInWithEmailAndPassword(
+                                                email: emailController.text,
+                                                password:
+                                                    passwordController.text,
+                                              );
+                                              print(user);
+                                              _showLoggedInSnackbar();
+                                              // Navigate to the next screen only if the user is registered
+                                              if (user != null) {
+                                                Navigator.pushReplacement(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (BuildContext
+                                                              context) =>
+                                                          ContinueAsScreen()),
+                                                );
+                                              }
+                                            } catch (e) {
+                                              print(e);
+                                              // Display an error message to the user
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                      'User not found. Please check your email and password.'),
+                                                  backgroundColor: Colors.red,
+                                                ),
+                                              );
+                                            }
                                           }
-                                        } catch (e) {
-                                          print(e);
-                                          // Display an error message to the user
-                                          ScaffoldMessenger.of(context).showSnackBar(
-                                            SnackBar(
-                                              content: Text('User not found. Please check your email and password.'),
-                                              backgroundColor: Colors.red,
-                                            ),
-                                          );
-                                        }
-                                      },
-
-                                    ),
+                                        }),
                                   ),
                                 ),
                                 SizedBox(

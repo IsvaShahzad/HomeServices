@@ -168,49 +168,46 @@ class _PostingDisplayedScreenState extends State<PostingDisplayedScreen> {
                                                   .grey), // add a border around the card
                                         ),
                                         child: Stack(children: [
-                                          Positioned(
-                                            top: 0,
-                                            right: 0,
-                                            child: IconButton(
-                                              icon: Icon(Icons.delete,
-                                                  color: Color(0xFF8b0000)),
-                                              onPressed: () {
-                                                showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (BuildContext context) {
-                                                    return AlertDialog(
-                                                      title:
-                                                          Text("Delete Product?"),
-                                                      content: Text(
-                                                          "Are you sure you want to delete this product?"),
-                                                      actions: <Widget>[
-                                                        TextButton(
-                                                          child: Text("CANCEL"),
-                                                          onPressed: () {
-                                                            Navigator.of(context)
-                                                                .pop();
-                                                          },
-                                                        ),
-                                                        TextButton(
-                                                          child: Text("DELETE"),
-                                                          onPressed: () async {
-                                                            removeRequirement(addedp);
 
-//                                                                                                      print('Document deleted successfully!');
-                                                            Navigator.of(context)
-                                                                .pop();
-
-
-                                                          },
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                );
-                                              },
-                                            ),
-                                          ),
+//                                             child: IconButton(
+//                                               icon: Icon(Icons.delete,
+//                                                   color: Color(0xFF8b0000)),
+//                                               onPressed: () {
+//                                                 showDialog(
+//                                                   context: context,
+//                                                   builder:
+//                                                       (BuildContext context) {
+//                                                     return AlertDialog(
+//                                                       title:
+//                                                           Text("Delete Product?"),
+//                                                       content: Text(
+//                                                           "Are you sure you want to delete this product?"),
+//                                                       actions: <Widget>[
+//                                                         TextButton(
+//                                                           child: Text("CANCEL"),
+//                                                           onPressed: () {
+//                                                             Navigator.of(context)
+//                                                                 .pop();
+//                                                           },
+//                                                         ),
+//                                                         TextButton(
+//                                                           child: Text("DELETE"),
+//                                                           onPressed: () async {
+//                                                             removeRequirement(addedp);
+//
+// //                                                                                                      print('Document deleted successfully!');
+//                                                             Navigator.of(context)
+//                                                                 .pop();
+//
+//
+//                                                           },
+//                                                         ),
+//                                                       ],
+//                                                     );
+//                                                   },
+//                                                 );
+//                                               },
+//                                             ),
                                           ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(10.0),

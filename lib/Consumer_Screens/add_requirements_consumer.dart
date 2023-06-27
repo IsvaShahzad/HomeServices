@@ -129,10 +129,7 @@ class _AddRequirementsState extends State<AddRequirements> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => PostingDisplayedScreen(
-                                addedposting: {
-                                  'All Requirements': addedrequirements,
-                                }, id: 'idlist',)));
+                        builder: (context) => ConsumerMainPageScreen()));
 
 
 
@@ -221,17 +218,11 @@ class _AddRequirementsState extends State<AddRequirements> {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  // Navigator.pushReplacement(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => ConsumerMainPageScreen(
-                  //           model: Provider.of<FavouriteProductPage>(context),
-                  //           ImageURL: widget.ImageURL,
-                  //           productName: widget.productName,
-                  //           productPrice: widget.productPrice,
-                  //           productDescription: widget.productDescription,
-                  //
-                  //         )));
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ConsumerMainPageScreen(
+                          )));
                 },
               ),
               title: Align(

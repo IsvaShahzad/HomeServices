@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:home_services_flutter/seller/seller_checkout/shipping_screen.dart';
 
+import '../../Consumer_Screens/Consumer_mainpage.dart';
 import 'delivered_screen.dart';
 import '../../Providers/seller_cart_provider.dart' as cartprovider;
 import '../cart.dart';
@@ -54,8 +55,13 @@ class _CartScreenState extends State<CartScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-              Navigator.pop(context);
-            },
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => ConsumerMainPageScreen(),
+                ),
+              );
+              },
           ),
         ),
         body: widget.cartProvider.cart.items.isEmpty

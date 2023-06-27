@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:home_services_flutter/Consumer_Screens/ContactUs.dart';
 import 'package:home_services_flutter/Detail_Screens/Packages_DetailScreen/box_detailscreen.dart';
 import 'package:home_services_flutter/seller/SellerProfilePage.dart';
 import 'package:home_services_flutter/initialScreens/loginScreen.dart';
@@ -359,6 +360,28 @@ class _SellerHomePageState extends State<SellerHomePage> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => LoginScreen()),
+                    );
+                  },
+                ),
+                Divider(),
+                ListTile(
+                  tileColor: Colors.white38,
+                  trailing: Icon(
+                    Icons.help,
+                    size: 18,
+                    color: Colors.purple,
+                  ),
+                  title: Text(
+                    "Contact us /Help",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => ContactUsScreen()),
                     );
                   },
                 ),
