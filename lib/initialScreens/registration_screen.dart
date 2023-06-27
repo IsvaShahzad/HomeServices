@@ -132,8 +132,6 @@ class _RegistrationState extends State<Registration> {
                                                 return 'Please Enter Some Text';
                                               } else if (value.length > 14) {
                                                 return 'Enter less than 14 numbers';
-                                              } else if (!regex.hasMatch(value)) {
-                                                return 'Enter according to format (xxx) xxx-xxxx';
                                               }
                                               return null;
 
@@ -180,8 +178,6 @@ class _RegistrationState extends State<Registration> {
                                                 return 'Please Enter Some Text ';
                                               } else if (value.length > 20) {
                                                 return 'Enter less than 20 numbers';
-                                              } else if (!regex.hasMatch(value)) {
-                                                return 'Enter according to format';
                                               }
                                               return null;
                                             },
@@ -326,7 +322,7 @@ class _RegistrationState extends State<Registration> {
                                                 return 'Enter less than 12 numbers';
                                               } else if (!regex.hasMatch(value))
 
-                                              return null;
+                                                return null;
                                             },
                                           ),
                                         ),

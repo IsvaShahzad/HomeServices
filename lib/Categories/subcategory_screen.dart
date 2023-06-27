@@ -26,13 +26,13 @@ import '../subcategories_addedproducts/Knitting_addedproducts/sweaters_screen.da
 // enum Categories { baking, cooking, knitting, tailoring, artAndCraft }
 
 class ProductModel {
-  final int id;
-  final String productname;
-  final double productprice;
-  final String ImageURl;
-  final String productdescription;
-  final String product;
-  final String companyName;
+  final int? id;
+  final String? productname;
+  final double? productprice;
+  final String? ImageURl;
+  final String? productdescription;
+  final String? product;
+  final String? companyName;
 
 
 
