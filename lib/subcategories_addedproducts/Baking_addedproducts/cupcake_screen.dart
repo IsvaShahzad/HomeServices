@@ -176,7 +176,6 @@ class _CupcakeScreenState extends State<CupcakeScreen> {
                                 productDescription:
                                 productDescription,
                                 ImageURL: ImageURL,
-                                product: product,
                                 companyName: companyName,
 
                               )));

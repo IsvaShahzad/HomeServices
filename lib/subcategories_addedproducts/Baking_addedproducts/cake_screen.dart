@@ -179,7 +179,7 @@ class _CakeScreenState extends State<CakeScreen> {
                                 productDescription:
                                 productDescription,
                                 ImageURL: ImageURL,
-                                product: product,
+                                // product: product,
                                 id: '',
                                 companyName: companyName,
 

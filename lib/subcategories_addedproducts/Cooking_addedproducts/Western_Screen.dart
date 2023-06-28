@@ -178,7 +178,7 @@ class _WesternScreenState extends State<WesternScreen> {
                                 productDescription,
                                 ImageURL: ImageURL,
                                 companyName: companyName,
-                                product: product,
+                                // product: product,
 
                               )));
                     },

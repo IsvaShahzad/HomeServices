@@ -20,7 +20,7 @@ class BrowniesDetailScreen extends StatefulWidget {
   final double productPrice;
   final String productDescription;
   final String ImageURL;
-  final Product product;
+  // final Product product;
   final String companyName;
 
 
@@ -30,7 +30,7 @@ class BrowniesDetailScreen extends StatefulWidget {
     required this.productPrice,
     required this.productDescription,
     required this.ImageURL,
-    required this.product,
+    // required this.product,
     required this.companyName,
   }) : super(key: key);
 

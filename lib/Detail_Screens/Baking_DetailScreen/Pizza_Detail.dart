@@ -19,7 +19,7 @@ class PizzaDetailScreen extends StatefulWidget {
   final String productName;
   final String productDescription;
   final double productPrice;
-  final Product product;
+  // final Product product;
   final String companyName;
 
 
@@ -30,7 +30,6 @@ class PizzaDetailScreen extends StatefulWidget {
     required this.productName,
     required this.productDescription,
     required this.productPrice,
-    required this.product,
     required this.companyName,
   }) : super(key: key);
 

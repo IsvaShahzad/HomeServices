@@ -181,7 +181,6 @@ class _BrowniesScreenState extends State<BrowniesScreen> {
                                 productDescription:
                                 productDescription,
                                 ImageURL: ImageURL,
-                                product: product,
                                 companyName: companyName,
 
                               )));

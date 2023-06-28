@@ -215,7 +215,6 @@ class _PizzaScreenState extends State<PizzaScreen> {
                                             productDescription:
                                                 productDescription,
                                             ImageURL: ImageURL,
-                                            product: product,
                                         companyName: companyName,
 
                                       )));
