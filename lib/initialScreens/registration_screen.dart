@@ -221,9 +221,7 @@ class _RegistrationState extends State<Registration> {
                                                   r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$');
                                               if (value == null || value.isEmpty) {
                                                 return 'Please Enter Some Text ';
-                                              } else if (value.length > 20) {
-                                                return 'Enter less than 20 numbers';
-                                              } else if (!regex.hasMatch(value)) {
+                                              }  else if (!regex.hasMatch(value)) {
                                                 return 'Enter according to format';
                                               }
                                               return null;

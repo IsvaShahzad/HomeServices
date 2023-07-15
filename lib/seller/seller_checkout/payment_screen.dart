@@ -33,11 +33,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         },
       );
     } else {
-      // Perform order confirmation logic here
 
-      // Clear the cart items here
-      _cart.clearCart();
-      // Navigate to the DeliveredScreen
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (BuildContext context) => DeliveredScreen()),
@@ -123,12 +119,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     placeOrder();
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                DeliveredScreen()));
-                    },
+
+                  },
                   style: ElevatedButton.styleFrom(
                     primary: Color(0xFFAB47BC),
                     padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
