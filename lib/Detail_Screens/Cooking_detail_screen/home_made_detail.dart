@@ -11,6 +11,8 @@ import '../../seller/seller_checkout/seller_cartscreen.dart' as cartscreen;
 import '../../Consumer_Screens/favourites.dart';
 import '../../initialScreens/loginScreen.dart';
 import '../../seller/seller_portfolio.dart';
+  import 'package:badges/badges.dart' as badges;
+
 
   class HomemadeDetailScreen extends StatefulWidget {
     final String productName;
@@ -157,7 +159,7 @@ import '../../seller/seller_portfolio.dart';
                                       listen: false),
                                 )));
                       },
-                      child: Badge(
+                      child: badges.Badge(
                         child: Icon(Icons.shopping_bag_outlined),
                         badgeContent: Consumer<CartProvider>(
                           builder: (context, cartProvider, child) {

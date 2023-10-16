@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 import 'package:home_services_flutter/seller/cart_items.dart';
 import 'package:home_services_flutter/seller/cart.dart' as cartt;
 import '../../seller/seller_checkout/seller_cartscreen.dart' as cartscreen;
+import 'package:badges/badges.dart' as badges;
+
 
 class Box_DetailScreen extends StatefulWidget {
   final String packageName;
@@ -63,7 +65,7 @@ class _Box_DetailScreenState extends State<Box_DetailScreen> {
                     ),
                   );
                 },
-                child: Badge(
+                child: badges.Badge(
                   child: Icon(Icons.shopping_bag_outlined),
                   badgeContent: Consumer<CartProvider>(
                     builder: (context, cartProvider, child) {

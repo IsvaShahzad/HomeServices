@@ -13,6 +13,8 @@ import '../../seller/cart_items.dart';
 import '../../seller/seller_portfolio.dart';
 import 'package:home_services_flutter/seller/cart.dart' as cartt;
 import '../../seller/seller_checkout/seller_cartscreen.dart' as cartscreen;
+import 'package:badges/badges.dart' as badges;
+
 
 
 class QuiltingDetailScreen extends StatefulWidget {
@@ -158,7 +160,7 @@ class _QuiltingDetailScreenState extends State<QuiltingDetailScreen> {
                                     listen: false),
                               )));
                     },
-                    child: Badge(
+                    child: badges.Badge(
                       child: Icon(Icons.shopping_bag_outlined),
                       badgeContent: Consumer<CartProvider>(
                         builder: (context, cartProvider, child) {
